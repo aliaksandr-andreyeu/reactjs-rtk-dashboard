@@ -1,0 +1,5 @@
+{
+  "./**/*.scss": ["npm run format", "npm run lint:style:fix", "git add"],
+  "./**/*.js": ["npm run format", "npm run lint:js:fix", "git add"],
+  "./**/*.json": ["npm run format", "git add"]
+}

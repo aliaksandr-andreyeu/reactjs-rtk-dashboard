@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+html {
+  font-size: 16px;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  font-size: 62.5%;
+  height: 100%;
+  letter-spacing: normal;
+  min-height: 480px;
+  min-width: 300px;
+  position: relative;
+  text-rendering: auto;
+  width: 100%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+}
