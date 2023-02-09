@@ -1,0 +1,28 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  max-height: 1000000px;
+}
+
+body {
+  line-height: 1;
+  margin: 0;
+}
+
+a,
+h1,
+h2,
+span,
+img,
+input,
+button {
+  border: 0 none transparent;
+  font: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+}

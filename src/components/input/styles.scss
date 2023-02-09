@@ -1,0 +1,54 @@
+@import '@constants/styles/theme';
+
+.cmp-input-box {
+  padding: $base-dimension * 1.25 0 0 0;
+  position: relative;
+}
+
+.cmp-input-label {
+  background-color: $white-color;
+  border-radius: $base-dimension * 0.25;
+  color: $primary-color;
+  display: block;
+  font-size: $base-dimension * 1.5;
+  left: $base-dimension;
+  line-height: 1.5;
+  padding: 0 $base-dimension * 0.5;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
+.cmp-input {
+  background-color: $white-color;
+  border: $base-dimension * 0.125 solid $primary-color;
+  border-radius: $base-dimension * 0.5;
+  box-shadow: 0 0 $base-dimension * 0.125 $primary-color;
+  color: $secondary-dark-text-color;
+  display: block;
+  font-size: $base-dimension * 1.75;
+  height: auto;
+  line-height: 1.5;
+  min-height: $base-dimension * 5;
+  min-width: $base-dimension * 30;
+  outline: 0 none;
+  padding: $base-dimension $base-dimension * 1.5;
+  position: relative;
+  transition: box-shadow 0.375s ease-in-out, border-color 0.375s ease-in-out;
+  width: auto;
+  z-index: 1;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    border-color: $primary-dark-color;
+    box-shadow: 0 0 $base-dimension * 0.5 $primary-dark-color;
+  }
+
+  &::placeholder,
+  &:placeholder-shown {
+    background-color: $white-color;
+    color: $secondary-light-text-color;
+    font-size: $base-dimension * 1.625;
+  }
+}

@@ -1,0 +1,47 @@
+@import '@constants/styles/theme';
+
+.cmp-button {
+  background-color: $accent-color;
+  border: $base-dimension * 0.125 solid $accent-color;
+  border-radius: $base-dimension * 0.375;
+  box-shadow: 0 0 $base-dimension * 0.125 $accent-color,
+    0 $base-dimension * 0.375 $base-dimension * 0.125 (-$base-dimension) * 0.25 rgb(0 0 0 / 20%),
+    0 $base-dimension * 0.25 $base-dimension * 0.25 0 rgb(0 0 0 / 14%),
+    0 $base-dimension * 0.125 $base-dimension * 0.625 0 rgb(0 0 0 / 12%);
+  color: $text-color;
+  cursor: pointer;
+  display: inline-block;
+  font-size: $base-dimension * 1.75;
+  height: auto;
+  line-height: 1.5;
+  margin: 0;
+  min-height: $base-dimension * 5;
+  min-width: $base-dimension * 30;
+  outline: 0 none;
+  padding: $base-dimension * 0.75 $base-dimension * 2.5;
+  position: relative;
+  transition: box-shadow 0.375s ease-in-out, background-color 0.375s ease-in-out, border-color 0.375s ease-in-out,
+    color 0.375s ease-in-out;
+  width: auto;
+
+  &:hover,
+  &:active {
+    background-color: $accent-hover-color;
+    border-color: $accent-hover-color;
+    box-shadow: 0 0 $base-dimension * 0.25 $accent-hover-color,
+      0 $base-dimension * 0.25 $base-dimension * 0.5 (-$base-dimension) * 0.125 rgb(0 0 0 / 20%),
+      0 $base-dimension * 0.625 $base-dimension * 0.75 0 rgb(0 0 0 / 14%),
+      0 $base-dimension * 0.125 $base-dimension * 1.25 0 rgb(0 0 0 / 12%);
+  }
+
+  &:focus {
+    background-color: $accent-light-color;
+    border-color: $accent-hover-color;
+    box-shadow: 0 0 $base-dimension * 0.25 $accent-hover-color,
+      0 $base-dimension * 0.25 $base-dimension * 0.5 (-$base-dimension) * 0.125 rgb(0 0 0 / 20%),
+      0 $base-dimension * 0.625 $base-dimension * 0.75 0 rgb(0 0 0 / 14%),
+      0 $base-dimension * 0.125 $base-dimension * 1.25 0 rgb(0 0 0 / 12%);
+    color: $primary-text-color;
+    outline: 0 none;
+  }
+}
