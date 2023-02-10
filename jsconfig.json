@@ -4,10 +4,14 @@
     "paths": {
       "@router": ["./src/router"],
       "@router/*": ["./src/router/*"],
+      "@store": ["./src/store"],
+      "@store/*": ["./src/store/*"],
+      "@constants": ["./src/constants"],
+      "@constants/*": ["./src/constants/*"],
       "@containers": ["./src/containers"],
       "@containers/*": ["./src/containers/*"],
-      "@constants": ["./src/constants"],
-      "@constants/*": ["./src/constants/*"]
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"]
     }
   },
   "exclude": ["node_modules"]
