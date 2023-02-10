@@ -1,0 +1,41 @@
+@import '@constants/styles/theme.module';
+
+.auth-box {
+  &.signin {
+    .reset-box {
+      align-items: flex-end;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: $base-dimension * 30;
+
+      a {
+        border-bottom: $base-dimension * 0.125 dotted $secondary-text-color;
+        color: $secondary-text-color;
+        cursor: pointer;
+        display: inline-block;
+        font-size: $base-dimension * 1.5;
+        font-weight: 500;
+        line-height: 1.5;
+        text-decoration: none;
+        transition: border-bottom 0.375s ease-in-out, color 0.375s ease-in-out;
+
+        &:hover {
+          border-color: $secondary-dark-text-color;
+          border-style: solid;
+          color: $secondary-dark-text-color;
+        }
+      }
+
+      & + .btn {
+        margin-top: $base-dimension * 4;
+      }
+    }
+
+    .input-box {
+      & + .reset-box {
+        margin-top: $base-dimension * 1.5;
+      }
+    }
+  }
+}
