@@ -1,0 +1,11 @@
+@import '@constants/styles/theme.module';
+
+.auth-box {
+  &.reset-password {
+    .input-box {
+      & + .btn {
+        margin-top: $base-dimension * 4;
+      }
+    }
+  }
+}

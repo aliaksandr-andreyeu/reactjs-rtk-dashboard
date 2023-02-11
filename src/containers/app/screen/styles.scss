@@ -1,28 +1,7 @@
-@charset "UTF-8";
+@import '@constants/styles/theme.module';
 
-html {
-  font-size: 16px;
-  height: 100%;
-  min-height: 100%;
-  position: relative;
-}
-
-body {
-  font-size: 62.5%;
-  height: 100%;
-  letter-spacing: normal;
-  min-height: 480px;
-  min-width: 300px;
-  position: relative;
-  text-rendering: auto;
-  width: 100%;
-}
-
-.app {
+.content {
   display: flex;
+  flex: 1 0 auto;
   flex-direction: column;
-  height: 100%;
-  min-height: 100%;
-  position: relative;
-  width: 100%;
 }

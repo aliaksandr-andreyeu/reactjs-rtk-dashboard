@@ -1,29 +1,21 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { navigation } from '@constants';
-import { actions } from '@store';
 
 import { Input, Button, SvgIcon } from '@components';
 
 import './styles.scss';
 
-const SignInScreen = () => {
-  const {
-    auth: { login }
-  } = actions;
-
-  const dispatch = useDispatch();
-
+const SignUpScreen = () => {
   return (
-    <div className='auth-box signin'>
+    <div className='auth-box signup'>
       <div className='auth-inbox'>
         <div className='logo'>
           <SvgIcon className='logo-icon' name='logo' />
           <h1>Company</h1>
         </div>
-        <h2>Sign in</h2>
+        <h2>Sign up</h2>
         <Input
           label={'Enter email'}
           type={'text'}
@@ -44,23 +36,23 @@ const SignInScreen = () => {
             console.log('event.target.value', event.target.value);
           }}
         />
-        <div className='reset-box'>
-          <Link to={navigation.resetPassword}>Forgot password</Link>
-        </div>
-        <Button
-          label={'Sign in'}
-          type={'button'}
-          className={'btn'}
-          onClick={() => {
-            dispatch(login());
+        <Input
+          label={'Confirm password'}
+          type={'password'}
+          containerClassName={'input-box'}
+          placeholder={'Confirm'}
+          name={'userpass'}
+          onChange={(event) => {
+            console.log('event.target.value', event.target.value);
           }}
         />
-        <Link className='auth-link' to={navigation.signup}>
-          Sign up
+        <Button label={'Sign up'} type={'button'} className={'btn'} />
+        <Link className='auth-link' to={navigation.signin}>
+          Sign in
         </Link>
       </div>
     </div>
   );
 };
 
-export default SignInScreen;
+export default SignUpScreen;

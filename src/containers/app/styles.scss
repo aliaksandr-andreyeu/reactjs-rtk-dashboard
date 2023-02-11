@@ -1,0 +1,35 @@
+@charset "UTF-8";
+@import '@constants/styles/reset';
+@import '@constants/styles/theme.module';
+
+html {
+  font-size: 16px;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  background-color: $white-color;
+  font-family: $text-font;
+  font-size: 62.5%;
+  height: 100%;
+  letter-spacing: normal;
+
+  // min-height: 480px;
+  min-height: 100%;
+  min-width: 300px;
+  overflow: hidden;
+  position: relative;
+  text-rendering: auto;
+  width: 100%;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+}

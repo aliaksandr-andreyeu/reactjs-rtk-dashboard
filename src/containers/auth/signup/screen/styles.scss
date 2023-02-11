@@ -1,0 +1,11 @@
+@import '@constants/styles/theme.module';
+
+.auth-box {
+  &.signup {
+    .input-box {
+      & + .btn {
+        margin-top: $base-dimension * 4;
+      }
+    }
+  }
+}

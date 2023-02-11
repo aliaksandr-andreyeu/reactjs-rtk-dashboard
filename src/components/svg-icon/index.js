@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import theme from '@constants/styles/theme.module.scss';
 
 const SvgIcon = ({ name, color, ...props }) => {
-  const getColor = (clr) => {
-    return clr || theme.blackColor;
+  const getColor = (tint) => {
+    return tint || 'currentColor';
   };
+
   const icons = {
     logo: (
       <svg
@@ -64,7 +65,6 @@ const SvgIcon = ({ name, color, ...props }) => {
         <path fill={getColor(color)} d='M3,6h18v2H3V6 M3,11h18v2H3V11 M3,16h18v2H3V16z' />
       </svg>
     ),
-
     profile: (
       <svg
         xmlns='http://www.w3.org/2000/svg'
@@ -80,7 +80,6 @@ const SvgIcon = ({ name, color, ...props }) => {
         />
       </svg>
     ),
-
     menuBack: (
       <svg
         xmlns='http://www.w3.org/2000/svg'
@@ -96,7 +95,6 @@ const SvgIcon = ({ name, color, ...props }) => {
         />
       </svg>
     ),
-
     logout: (
       <svg
         xmlns='http://www.w3.org/2000/svg'
@@ -112,7 +110,6 @@ const SvgIcon = ({ name, color, ...props }) => {
         />
       </svg>
     ),
-
     users: (
       <svg
         xmlns='http://www.w3.org/2000/svg'
