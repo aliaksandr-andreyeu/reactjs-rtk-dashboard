@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import './styles.scss';
 
 const Button = ({ disabled, type, label, className, onClick }) => {
-  const getClassName = (...args) => {
-    return Array.from(args).filter(Boolean).join(' ');
-  };
+  const getClassName = (...args) => Array.from(args).filter(Boolean).join(' ');
 
   return (
     Boolean(label) && (

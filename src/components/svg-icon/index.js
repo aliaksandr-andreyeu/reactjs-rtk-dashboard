@@ -3,12 +3,35 @@ import PropTypes from 'prop-types';
 
 import theme from '@constants/styles/theme.module.scss';
 
-const SvgIcon = ({ name, color, ...props }) => {
+import './styles.scss';
+
+const SvgIcon = ({ name, color, className, ...props }) => {
   const getColor = (tint) => {
     return tint || 'currentColor';
   };
 
+  const getClassName = (...args) => {
+    return Array.from(args).filter(Boolean).join(' ');
+  };
+
   const icons = {
+    checkbox: (
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        x='0px'
+        y='0px'
+        viewBox='0 0 24 24'
+        enableBackground='new 0 0 24 24'
+        preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
+      >
+        <g>
+          <path fill='none' stroke={color || theme.primaryDarkColor} d='M4.1,12.7 9,17.6 20.3,6.3' />
+        </g>
+      </svg>
+    ),
+
     logo: (
       <svg
         xmlns='http://www.w3.org/2000/svg'
@@ -17,6 +40,7 @@ const SvgIcon = ({ name, color, ...props }) => {
         viewBox='0 0 32.1 36.7'
         enableBackground='new 0 0 32.1 36.7'
         preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
         {...props}
       >
         <g>
@@ -61,6 +85,8 @@ const SvgIcon = ({ name, color, ...props }) => {
         viewBox='0 0 24 24'
         enableBackground='new 0 0 24 24'
         preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
       >
         <path fill={getColor(color)} d='M3,6h18v2H3V6 M3,11h18v2H3V11 M3,16h18v2H3V16z' />
       </svg>
@@ -73,6 +99,8 @@ const SvgIcon = ({ name, color, ...props }) => {
         viewBox='0 0 24 24'
         enableBackground='new 0 0 24 24'
         preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
       >
         <path
           fill={getColor(color)}
@@ -88,6 +116,8 @@ const SvgIcon = ({ name, color, ...props }) => {
         viewBox='0 0 24 24'
         enableBackground='new 0 0 24 24'
         preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
       >
         <path
           fill={getColor(color)}
@@ -103,6 +133,8 @@ const SvgIcon = ({ name, color, ...props }) => {
         viewBox='0 0 24 24'
         enableBackground='new 0 0 24 24'
         preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
       >
         <path
           fill={getColor(color)}
@@ -118,6 +150,8 @@ const SvgIcon = ({ name, color, ...props }) => {
         viewBox='0 0 24 24'
         enableBackground='new 0 0 24 24'
         preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
       >
         <path
           fill={getColor(color)}
@@ -131,11 +165,13 @@ const SvgIcon = ({ name, color, ...props }) => {
 };
 
 SvgIcon.propTypes = {
+  className: PropTypes.string,
   name: PropTypes.string,
   color: PropTypes.string
 };
 
 SvgIcon.defaultProps = {
+  className: '',
   name: ''
 };
 

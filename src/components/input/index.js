@@ -20,9 +20,7 @@ const Input = ({
 }) => {
   const [val, setVal] = useState(value !== undefined ? value : '');
 
-  const getClassName = (...args) => {
-    return Array.from(args).filter(Boolean).join(' ');
-  };
+  const getClassName = (...args) => Array.from(args).filter(Boolean).join(' ');
 
   const handleChange = (event) => {
     setVal(event.target.value);
