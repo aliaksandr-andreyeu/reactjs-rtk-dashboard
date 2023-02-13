@@ -27,7 +27,7 @@ const SvgIcon = ({ name, color, className, ...props }) => {
         {...props}
       >
         <g>
-          <path fill='none' stroke={color || theme.primaryDarkColor} d='M4.1,12.7 9,17.6 20.3,6.3' />
+          <path fill='none' stroke={getColor(color)} d='M4.1,12.7 9,17.6 20.3,6.3' />
         </g>
       </svg>
     ),

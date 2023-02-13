@@ -1,0 +1,81 @@
+@import '@constants/styles/theme.module';
+
+.cmp-checkbox-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: $base-dimension * 2;
+  justify-content: flex-start;
+
+  &.disabled {
+    .cmp-checkbox {
+      border-color: $secondary-light-text-color;
+      box-shadow: none;
+      cursor: default;
+
+      &:hover {
+        border-color: $secondary-light-text-color;
+        box-shadow: none;
+      }
+
+      &.checked {
+        background-color: $secondary-light-text-color;
+
+        &:hover {
+          background-color: $secondary-light-text-color;
+        }
+      }
+    }
+
+    .cmp-checkbox-label {
+      color: $secondary-light-text-color;
+      cursor: default;
+    }
+  }
+
+  .cmp-checkbox {
+    align-items: center;
+    background-color: transparent;
+    border: $base-dimension * 0.25 solid $accent-color;
+    border-radius: $base-dimension * 0.375;
+    box-shadow: 0 0 $base-dimension * 0.125 $accent-color;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: $base-dimension * 2.5;
+    justify-content: center;
+    transition: box-shadow 0.375s ease-in-out, background-color 0.375s ease-in-out, border-color 0.375s ease-in-out;
+    width: $base-dimension * 2.5;
+
+    .cmp-icon {
+      color: $white-color;
+      display: inline-block;
+      height: auto;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    &:hover {
+      border-color: $accent-hover-color;
+      box-shadow: 0 0 $base-dimension * 0.375 $accent-hover-color;
+    }
+
+    &.checked {
+      background-color: $accent-color;
+      border-width: 0;
+
+      &:hover {
+        background-color: $accent-hover-color;
+      }
+    }
+  }
+
+  .cmp-checkbox-label {
+    color: $secondary-dark-text-color;
+    cursor: pointer;
+    display: flex;
+    font-size: $base-dimension * 1.75;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+}
