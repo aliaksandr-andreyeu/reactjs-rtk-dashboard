@@ -95,6 +95,8 @@
   }
 
   .btn {
+    min-width: $base-dimension * 30;
+
     & + .auth-link {
       margin-top: $base-dimension * 3;
     }

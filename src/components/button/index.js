@@ -24,6 +24,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
+  label: '',
   className: '',
   type: 'button',
   disabled: false,
