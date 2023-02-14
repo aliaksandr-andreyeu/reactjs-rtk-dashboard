@@ -1,0 +1,104 @@
+@import '@constants/styles/theme.module';
+
+.cmp-sidebar {
+  background-color: $primary-dark-color;
+  display: flex;
+  flex: 0 0 $base-dimension * 30;
+  flex-direction: column;
+
+  .inbox {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: $base-dimension * 2 0 $base-dimension * 4;
+  }
+
+  .logo {
+    align-items: center;
+    display: flex;
+    flex: 0 0 $base-dimension * 7;
+    gap: $base-dimension * 2;
+    justify-content: center;
+    min-height: $base-dimension * 7;
+
+    .icon {
+      display: inline-block;
+      height: auto;
+      max-width: $base-dimension * 3.5;
+      width: 100%;
+    }
+
+    h1 {
+      color: $white-color;
+      display: inline-block;
+      font-family: $title-font;
+      font-size: $base-dimension * 2.5;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+  }
+
+  .menu {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+
+    li {
+      display: flex;
+      flex: 1 0 auto;
+      flex-direction: column;
+
+      a {
+        align-items: center;
+        border-left: $base-dimension * 0.5 solid transparent;
+        color: $primary-light-color;
+        display: flex;
+        flex: 1 0 100%;
+        font-family: $title-font;
+        font-size: $base-dimension * 2.25;
+        font-weight: 500;
+        gap: $base-dimension * 1.5;
+        justify-content: flex-start;
+        line-height: 1.5;
+        min-height: $base-dimension * 5;
+        padding: 0 $base-dimension * 2 0 $base-dimension * 1.5;
+        position: relative;
+        text-decoration: none;
+        transition: border-left 0.25s ease-in-out, color 0.25s ease-in-out;
+
+        &:hover {
+          border-left-color: $white-color;
+          color: $white-color;
+
+          svg {
+            color: $white-color;
+          }
+        }
+
+        &.active {
+          border-left-color: $accent-color;
+          color: $white-color;
+
+          svg {
+            color: $white-color;
+          }
+        }
+
+        svg {
+          color: $primary-light-color;
+          transition: color 0.25s ease-in-out;
+        }
+      }
+    }
+  }
+}
+
+@media (max-height: 480px) {
+  .sidebar {
+    overflow-y: auto;
+
+    .sidebar-inbox {
+      overflow-y: initial;
+    }
+  }
+}
