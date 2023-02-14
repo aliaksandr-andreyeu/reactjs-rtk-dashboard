@@ -1,0 +1,47 @@
+@import '@constants/styles/theme.module';
+
+.cmp-header {
+  align-items: center;
+  background-color: $white-color;
+  box-shadow: 0 0 $base-dimension * 0.25 0 $divider-color;
+  display: flex;
+  flex: 0 0 $base-dimension * 7;
+  flex-direction: row;
+  gap: $base-dimension * 2;
+  justify-content: space-between;
+  padding: 0 $base-dimension * 2;
+
+  .title {
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: $base-dimension * 2;
+    justify-content: flex-start;
+
+    h1 {
+      color: $primary-text-color;
+      display: inline-block;
+      font-family: $title-font;
+      font-size: $base-dimension * 2.5;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+  }
+
+  .profile {
+    align-items: center;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: $base-dimension;
+    justify-content: flex-end;
+  }
+
+  .icon-button {
+    svg {
+      color: $primary-text-color;
+      max-width: $base-dimension * 4;
+    }
+  }
+}
