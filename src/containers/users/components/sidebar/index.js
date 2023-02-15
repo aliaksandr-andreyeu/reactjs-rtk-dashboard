@@ -5,12 +5,14 @@ import { NavLink } from 'react-router-dom';
 
 import { SvgIcon } from '@components';
 
+import { getClassName } from '@helpers';
+
 import theme from '@constants/styles/theme.module.scss';
 
 import './styles.scss';
 
 const Sidebar = () => {
-  const getClassName = ({ isActive }) => (isActive ? 'active' : null);
+  const linkClassName = ({ isActive }) => getClassName(isActive && 'active');
 
   return (
     <div className='cmp-sidebar'>
@@ -21,13 +23,13 @@ const Sidebar = () => {
       <div className='inbox'>
         <ul className='menu'>
           <li>
-            <NavLink to='/' className={getClassName}>
+            <NavLink to='/' className={linkClassName}>
               <SvgIcon name='users' />
               <span>Users</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to='/users' className={getClassName}>
+            <NavLink to='/users' className={linkClassName}>
               <SvgIcon name='users' />
               <span>Users</span>
             </NavLink>

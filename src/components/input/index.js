@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { getClassName } from '@helpers';
+
 import './styles.scss';
 
 const Input = ({
@@ -19,8 +21,6 @@ const Input = ({
   name
 }) => {
   const [val, setVal] = useState(value !== undefined ? value : '');
-
-  const getClassName = (...args) => Array.from(args).filter(Boolean).join(' ');
 
   const handleChange = (event) => {
     setVal(event.target.value);

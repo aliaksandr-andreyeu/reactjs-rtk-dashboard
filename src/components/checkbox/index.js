@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import { SvgIcon } from '@components';
 
+import { getClassName } from '@helpers';
+
 import './styles.scss';
 
 const Checkbox = ({ disabled, checked, label, containerClassName, labelClassName, checkboxClassName, onClick }) => {
   const [selected, setSelected] = useState(checked);
-
-  const getClassName = (...args) => Array.from(args).filter(Boolean).join(' ');
 
   const handleClick = (event) => {
     if (disabled) return;

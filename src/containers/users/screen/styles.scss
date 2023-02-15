@@ -1,0 +1,91 @@
+@import '@constants/styles/theme.module';
+
+.users-box {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  height: 100%;
+  outline: 1px solid #f0f;
+  padding-left: 0;
+  transition: padding-left 0.25s ease-in-out;
+
+  &.menu-open {
+    padding-left: $base-dimension * 30;
+
+    .cmp-sidebar {
+      left: 0;
+      opacity: 1;
+      transition: opacity 0s 0s, visibility 0s 0s, left 0.25s ease-in-out;
+      visibility: visible;
+    }
+  }
+
+  svg {
+    display: inline-block;
+    fill: #f00;
+    height: auto;
+    max-width: 24px;
+    width: 100%;
+  }
+}
+
+.users-content {
+  background-color: $white-color;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  outline: 1px solid #f0f;
+  position: relative;
+  z-index: 1;
+
+  // overflow-y: initial;
+}
+
+.users-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  // flex: 1 0 auto;
+
+  svg {
+    display: inline-block;
+    fill: #f00;
+    height: auto;
+    max-width: 24px;
+    width: 100%;
+  }
+}
+
+.data-table {
+  padding-top: 40px;
+  position: relative;
+  z-index: 1;
+
+  tr {
+    th {
+      background: #fff; // any bg-color to overlap
+      background-color: #fafafa;
+      border-bottom: solid 1px #dadada;
+      border-top: solid 1px #dadada;
+      font-weight: 100;
+      padding: 10px; // this is for all Safari (Desktop & iOS), not for Chrome
+      position: absolute;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 1; // any positive value, layer order is global
+      z-index: 10;
+    }
+  }
+}
+
+@media (max-height: 480px) {
+  .users-content {
+    overflow-y: auto;
+  }
+
+  .users-container {
+    overflow-y: initial;
+  }
+}

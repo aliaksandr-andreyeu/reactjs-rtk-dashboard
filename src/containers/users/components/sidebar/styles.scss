@@ -2,15 +2,23 @@
 
 .cmp-sidebar {
   background-color: $primary-dark-color;
+  bottom: 0;
   display: flex;
-  flex: 0 0 $base-dimension * 30;
   flex-direction: column;
+  left: -($base-dimension * 30);
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  transition: opacity 0s 0.25s, visibility 0s 0.25s, left 0.25s ease-in-out;
+  visibility: hidden;
+  width: $base-dimension * 30;
+  z-index: 2;
 
   .inbox {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    padding: $base-dimension * 2 0 $base-dimension * 4;
+    padding: $base-dimension * 2 0 $base-dimension * 3;
   }
 
   .logo {
@@ -66,12 +74,19 @@
         text-decoration: none;
         transition: border-left 0.25s ease-in-out, color 0.25s ease-in-out;
 
+        svg {
+          color: $primary-light-color;
+          max-width: $base-dimension * 3;
+          transition: max-width 0.25s ease-in-out, color 0.25s ease-in-out;
+        }
+
         &:hover {
           border-left-color: $white-color;
           color: $white-color;
 
           svg {
             color: $white-color;
+            max-width: $base-dimension * 3.25;
           }
         }
 
@@ -81,12 +96,8 @@
 
           svg {
             color: $white-color;
+            max-width: $base-dimension * 3.25;
           }
-        }
-
-        svg {
-          color: $primary-light-color;
-          transition: color 0.25s ease-in-out;
         }
       }
     }

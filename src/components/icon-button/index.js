@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { getClassName } from '@helpers';
+
 import './styles.scss';
 
 const IconButton = ({ disabled, label, onClick, className, children }) => {
-  const getClassName = (...args) => Array.from(args).filter(Boolean).join(' ');
-
   return children ? (
     <button
       className={getClassName('cmp-icon-button', className)}

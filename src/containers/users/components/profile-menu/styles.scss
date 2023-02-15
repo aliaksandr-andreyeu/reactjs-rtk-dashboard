@@ -1,0 +1,49 @@
+@import '@constants/styles/theme.module';
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.cmp-profile-menu {
+  display: block;
+
+  // background-color: red;
+
+  padding-top: 15px;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 400px;
+  z-index: 2;
+
+  .inbox {
+    background-color: yellow;
+    box-shadow: 0 $base-dimension * 0.375 $base-dimension * 0.125 (-$base-dimension) * 0.25 rgb(0 0 0 / 20%),
+      0 $base-dimension * 0.25 $base-dimension * 0.25 0 rgb(0 0 0 / 14%),
+      0 $base-dimension * 0.125 $base-dimension * 0.625 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 $base-dimension * 0.25 $base-dimension * 0.5 (-$base-dimension) * 0.125 rgb(0 0 0 / 20%),
+      0 $base-dimension * 0.625 $base-dimension * 0.75 0 rgb(0 0 0 / 14%),
+      0 $base-dimension * 0.125 $base-dimension * 1.25 0 rgb(0 0 0 / 12%);
+    position: relative;
+
+    &::before {
+      border-bottom: 15px solid green;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      bottom: 100%;
+      content: '';
+      height: 0;
+      position: absolute;
+      right: 0;
+      width: 0;
+
+      // box-shadow: 0 0 1px 0  #ff00ff;
+    }
+  }
+}

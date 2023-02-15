@@ -12,6 +12,7 @@
   min-height: $base-dimension * 5;
   min-width: $base-dimension * 5;
   padding: $base-dimension * 0.5 $base-dimension;
+  position: relative;
 
   svg {
     color: $black-color;

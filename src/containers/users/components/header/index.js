@@ -6,11 +6,13 @@ import { useDispatch } from 'react-redux';
 import { actions } from '@store';
 
 import { IconButton, SvgIcon } from '@components';
+import { ProfileMenu } from '../../components';
+
+import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const Header = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+const Header = ({ toggleMenu, isMenu }) => {
   const [profileOpen, setProfileOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -22,30 +24,36 @@ const Header = () => {
     dispatch(logout());
   };
 
+  const toggleProfile = () => {
+    setProfileOpen(!profileOpen);
+  };
+
   return (
     <div className='cmp-header'>
       <div className='title'>
         <IconButton
           className='icon-button'
-          onClick={(e) => {
-            console.log('sidebarOpen', e);
-            setSidebarOpen(!sidebarOpen);
+          onClick={() => {
+            toggleMenu();
           }}
         >
-          <SvgIcon name={sidebarOpen ? 'menuBack' : 'menu'} />
+          <SvgIcon name={isMenu ? 'menuBack' : 'menu'} />
         </IconButton>
 
         <h1>Title</h1>
       </div>
 
-      <div className='profile'>
+      <div className={'profile'}>
         <IconButton
           className='icon-button'
           onClick={(e) => {
             console.log('profile', e);
+            toggleProfile();
           }}
         >
           <SvgIcon name='profile' />
+
+          <ProfileMenu className={getClassName(profileOpen && 'open')} />
         </IconButton>
 
         <IconButton
@@ -62,8 +70,14 @@ const Header = () => {
   );
 };
 
-Header.propTypes = {};
+Header.propTypes = {
+  toggleMenu: PropTypes.func,
+  isMenu: PropTypes.bool
+};
 
-Header.defaultProps = {};
+Header.defaultProps = {
+  toggleMenu: () => null,
+  isMenu: false
+};
 
 export default Header;
