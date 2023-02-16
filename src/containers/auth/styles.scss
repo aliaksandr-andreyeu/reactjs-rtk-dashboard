@@ -1,15 +1,5 @@
 @import '@constants/styles/theme.module';
 
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
 .auth-box {
   animation: fade-in 0.375s linear;
   display: flex;
@@ -29,9 +19,6 @@
   }
 
   .input-box {
-    animation: fade-in 0.375s linear;
-    opacity: 1;
-
     & + .input-box {
       margin-top: $base-dimension * 3;
     }
