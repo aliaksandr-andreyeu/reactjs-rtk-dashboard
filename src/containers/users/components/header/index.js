@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createRef, useState, useEffect, useCallback } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -14,7 +14,7 @@ import { getClassName } from '@helpers';
 import './styles.scss';
 
 const Header = ({ toggleMenu, isMenu, title }) => {
-  const [profileOpen, setProfileOpen] = useState(true);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const dispatch = useDispatch();
   const {
@@ -25,9 +25,34 @@ const Header = ({ toggleMenu, isMenu, title }) => {
     dispatch(logout());
   };
 
-  const toggleProfile = () => {
+  const toggleProfile = useCallback(() => {
     setProfileOpen(!profileOpen);
-  };
+  }, [profileOpen]);
+
+  const btnRef = createRef();
+  const menuRef = createRef();
+
+  const menuOutsideHandler = useCallback(
+    (event) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        btnRef.current &&
+        !btnRef.current.contains(event.target) &&
+        profileOpen
+      ) {
+        toggleProfile();
+      }
+    },
+    [menuRef, btnRef, profileOpen, toggleProfile]
+  );
+
+  useEffect(() => {
+    document.addEventListener('click', menuOutsideHandler);
+    return () => {
+      document.removeEventListener('click', menuOutsideHandler);
+    };
+  }, [menuRef, btnRef, menuOutsideHandler]);
 
   return (
     <div className='cmp-header'>
@@ -38,12 +63,13 @@ const Header = ({ toggleMenu, isMenu, title }) => {
         {title && <h1>{title}</h1>}
       </div>
       <div className='profile'>
-        <IconButton className='icon-button' onClick={toggleProfile}>
+        <IconButton ref={btnRef} className='icon-button' onClick={toggleProfile}>
           <SvgIcon name='profile' />
         </IconButton>
         <ProfileMenu
-          toggleProfile={toggleProfile}
+          ref={menuRef}
           isProfile={profileOpen}
+          toggleProfile={toggleProfile}
           className={getClassName(profileOpen && 'open')}
         />
         <IconButton className='icon-button' onClick={onLogout}>

@@ -1,6 +1,7 @@
 @import '@constants/styles/theme.module';
 
 .users-box {
+  animation: fade-in 0.375s linear;
   display: flex;
   flex: 1 0 auto;
   flex-direction: row;

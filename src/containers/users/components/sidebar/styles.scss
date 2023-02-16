@@ -58,6 +58,7 @@
 
       a {
         align-items: center;
+        background-color: transparent;
         border-left: $base-dimension * 0.5 solid transparent;
         color: $primary-light-color;
         display: flex;
@@ -68,11 +69,12 @@
         gap: $base-dimension * 1.5;
         justify-content: flex-start;
         line-height: 1.5;
-        min-height: $base-dimension * 5;
+        min-height: $base-dimension * 6;
         padding: 0 $base-dimension * 2 0 $base-dimension * 1.5;
         position: relative;
         text-decoration: none;
-        transition: border-left 0.25s ease-in-out, color 0.25s ease-in-out;
+        transition: border-left 0.25s ease-in-out, background-color 0.25s ease-in-out, color 0.25s ease-in-out;
+        user-select: none;
 
         svg {
           color: $primary-light-color;
@@ -91,6 +93,7 @@
         }
 
         &.active {
+          background-color: $primary-darker-color;
           border-left-color: $accent-color;
           color: $white-color;
 

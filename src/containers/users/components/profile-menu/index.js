@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { NavLink } from 'react-router-dom';
@@ -7,45 +7,13 @@ import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const useOutsideAlerter = (ref, toggleProfile, isProfile) => {
-  useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        console.log('You clicked outside of me!', isProfile, toggleProfile);
-        // isProfile && toggleProfile();
-      }
-    }
-    // Bind the event listener
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [ref, isProfile]);
-};
-
-const ProfileMenu = ({ toggleProfile, isProfile, className }) => {
-  const ref = useRef(null);
-
-  // console.log(isProfile, toggleProfile);
-
-  useOutsideAlerter(ref, toggleProfile, isProfile);
-
+const ProfileMenu = forwardRef(({ toggleProfile, className }, ref) => {
   const linkClassName = ({ isActive }) => getClassName(isActive && 'active');
 
   return (
-    <div
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
-      ref={ref}
-      className={getClassName('cmp-profile-menu', className)}
-    >
+    <div ref={ref} className={getClassName('cmp-profile-menu', className)}>
       <div className='inbox'>
-        <ul>
+        <ul onClick={toggleProfile}>
           <li>
             <NavLink to='/profile' className={linkClassName}>
               <SvgIcon name='account' />
@@ -80,18 +48,18 @@ const ProfileMenu = ({ toggleProfile, isProfile, className }) => {
       </div>
     </div>
   );
-};
+});
 
 ProfileMenu.propTypes = {
   className: PropTypes.string,
-  isProfile: PropTypes.bool,
   toggleProfile: PropTypes.func
 };
 
 ProfileMenu.defaultProps = {
   className: '',
-  isProfile: false,
   toggleProfile: () => null
 };
+
+ProfileMenu.displayName = 'ProfileMenu';
 
 export default ProfileMenu;

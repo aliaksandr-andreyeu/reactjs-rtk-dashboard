@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const IconButton = ({ disabled, label, onClick, className, children }) => {
+const IconButton = forwardRef(({ disabled, label, onClick, className, children }, ref) => {
   return children ? (
     <button
+      ref={ref}
       className={getClassName('cmp-icon-button', className)}
       type={'button'}
       disabled={disabled}
@@ -16,7 +17,7 @@ const IconButton = ({ disabled, label, onClick, className, children }) => {
       {children} {label && <span>{label}</span>}
     </button>
   ) : null;
-};
+});
 
 IconButton.propTypes = {
   className: PropTypes.string,
@@ -32,5 +33,7 @@ IconButton.defaultProps = {
   disabled: false,
   onClick: (event) => event
 };
+
+IconButton.displayName = 'IconButton';
 
 export default IconButton;
