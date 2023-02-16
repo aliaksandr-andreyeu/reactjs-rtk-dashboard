@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
@@ -12,8 +13,8 @@ import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const Header = ({ toggleMenu, isMenu }) => {
-  const [profileOpen, setProfileOpen] = useState(false);
+const Header = ({ toggleMenu, isMenu, title }) => {
+  const [profileOpen, setProfileOpen] = useState(true);
 
   const dispatch = useDispatch();
   const {
@@ -31,38 +32,21 @@ const Header = ({ toggleMenu, isMenu }) => {
   return (
     <div className='cmp-header'>
       <div className='title'>
-        <IconButton
-          className='icon-button'
-          onClick={() => {
-            toggleMenu();
-          }}
-        >
+        <IconButton className='icon-button' onClick={toggleMenu}>
           <SvgIcon name={isMenu ? 'menuBack' : 'menu'} />
         </IconButton>
-
-        <h1>Title</h1>
+        {title && <h1>{title}</h1>}
       </div>
-
-      <div className={'profile'}>
-        <IconButton
-          className='icon-button'
-          onClick={(e) => {
-            console.log('profile', e);
-            toggleProfile();
-          }}
-        >
+      <div className='profile'>
+        <IconButton className='icon-button' onClick={toggleProfile}>
           <SvgIcon name='profile' />
-
-          <ProfileMenu className={getClassName(profileOpen && 'open')} />
         </IconButton>
-
-        <IconButton
-          className='icon-button'
-          onClick={(e) => {
-            console.log('logout', e);
-            onLogout();
-          }}
-        >
+        <ProfileMenu
+          toggleProfile={toggleProfile}
+          isProfile={profileOpen}
+          className={getClassName(profileOpen && 'open')}
+        />
+        <IconButton className='icon-button' onClick={onLogout}>
           <SvgIcon name='logout' />
         </IconButton>
       </div>
@@ -72,12 +56,14 @@ const Header = ({ toggleMenu, isMenu }) => {
 
 Header.propTypes = {
   toggleMenu: PropTypes.func,
-  isMenu: PropTypes.bool
+  isMenu: PropTypes.bool,
+  title: PropTypes.string
 };
 
 Header.defaultProps = {
   toggleMenu: () => null,
-  isMenu: false
+  isMenu: false,
+  title: ''
 };
 
 export default Header;

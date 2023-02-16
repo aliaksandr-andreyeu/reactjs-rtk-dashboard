@@ -1,15 +1,5 @@
 @import '@constants/styles/theme.module';
 
-@keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
 .cmp-header {
   align-items: center;
   background-color: $white-color;
@@ -46,6 +36,7 @@
     flex-direction: row;
     gap: $base-dimension;
     justify-content: flex-end;
+    position: relative;
   }
 
   .icon-button {
