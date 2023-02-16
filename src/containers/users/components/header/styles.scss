@@ -43,6 +43,13 @@
     svg {
       color: $primary-text-color;
       max-width: $base-dimension * 4;
+      transition: color 0.25s ease-in-out;
+    }
+
+    &:hover {
+      svg {
+        color: $secondary-text-color;
+      }
     }
   }
 }

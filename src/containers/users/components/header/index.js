@@ -1,4 +1,4 @@
-import React, { createRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -29,8 +29,8 @@ const Header = ({ toggleMenu, isMenu, title }) => {
     setProfileOpen(!profileOpen);
   }, [profileOpen]);
 
-  const btnRef = createRef();
-  const menuRef = createRef();
+  const btnRef = useRef(null);
+  const menuRef = useRef(null);
 
   const menuOutsideHandler = useCallback(
     (event) => {

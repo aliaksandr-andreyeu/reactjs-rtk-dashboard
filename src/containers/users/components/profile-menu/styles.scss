@@ -78,13 +78,24 @@
           transition: color 0.25s ease-in-out;
           user-select: none;
 
+          &:hover {
+            svg {
+              max-width: $base-dimension * 2.75;
+            }
+          }
+
           &.active {
             background-color: $divider-light-color;
+
+            svg {
+              max-width: $base-dimension * 2.75;
+            }
           }
 
           svg {
             color: $primary-color;
             max-width: $base-dimension * 2.5;
+            transition: max-width 0.25s ease-in-out;
           }
         }
       }
