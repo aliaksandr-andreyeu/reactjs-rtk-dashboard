@@ -27,7 +27,7 @@
       0 $base-dimension * 0.625 $base-dimension * 0.75 0 rgb(0 0 0 / 14%),
       0 $base-dimension * 0.125 $base-dimension * 1.25 0 rgb(0 0 0 / 12%);
     min-width: $base-dimension * 28;
-    padding: $base-dimension 0;
+    padding: $base-dimension * 0.5 0;
     position: relative;
 
     &::before,
@@ -54,9 +54,10 @@
     }
 
     ul {
-      border-radius: $base-dimension * 0.5;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      padding: $base-dimension * 0.5 0;
 
       li {
         display: flex;
@@ -65,6 +66,7 @@
         a {
           align-items: center;
           background-color: transparent;
+          box-shadow: none;
           color: $secondary-dark-text-color;
           display: flex;
           font-size: $base-dimension * 1.75;
@@ -75,7 +77,7 @@
           min-height: $base-dimension * 4.75;
           padding: 0 $base-dimension * 1.75;
           text-decoration: none;
-          transition: color 0.25s ease-in-out;
+          transition: box-shadow 0.25s ease-in-out, color 0.25s ease-in-out;
           user-select: none;
 
           &:hover {
@@ -85,7 +87,8 @@
           }
 
           &.active {
-            background-color: $divider-light-color;
+            background-color: $divider-lighter-color;
+            box-shadow: 0 0 0 $base-dimension * 0.125 $divider-light-color;
 
             svg {
               max-width: $base-dimension * 2.75;
