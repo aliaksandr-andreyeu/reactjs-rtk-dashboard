@@ -19,15 +19,11 @@ const Checkbox = ({ disabled, checked, label, containerClassName, labelClassName
 
   return (
     <div className={getClassName('cmp-checkbox-container', disabled && 'disabled', containerClassName)}>
-      <span
-        className={getClassName('cmp-checkbox', selected && 'checked', checkboxClassName)}
-        disabled={disabled}
-        onClick={handleClick}
-      >
-        {selected && <SvgIcon name='checkbox' />}
+      <span className={getClassName('checkbox', selected && 'checked', checkboxClassName)} onClick={handleClick}>
+        {selected && <SvgIcon className='icon' name='checkbox' />}
       </span>
       {Boolean(label) && (
-        <span onClick={handleClick} className={getClassName('cmp-checkbox-label', labelClassName)}>
+        <span className={getClassName('label', labelClassName)} onClick={handleClick}>
           {label}
         </span>
       )}

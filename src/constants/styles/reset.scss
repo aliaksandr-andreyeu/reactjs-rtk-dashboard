@@ -19,6 +19,8 @@ table,
 tbody,
 tfoot,
 thead,
+tr,
+td,
 input,
 button {
   border: 0 none transparent;
@@ -48,6 +50,8 @@ table {
 
 tbody,
 tfoot,
-thead {
+thead,
+th,
+td {
   vertical-align: middle;
 }

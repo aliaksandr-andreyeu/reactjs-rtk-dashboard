@@ -6,9 +6,14 @@ import { getClassName } from '@helpers';
 import './styles.scss';
 
 const Button = ({ disabled, type, label, className, onClick }) => {
+  const handleClick = (event) => {
+    if (disabled) return;
+
+    Boolean(onClick) && onClick(event);
+  };
   return (
     Boolean(label) && (
-      <button className={getClassName('cmp-button', className)} type={type} disabled={disabled} onClick={onClick}>
+      <button className={getClassName('cmp-button', className)} type={type} disabled={disabled} onClick={handleClick}>
         {label}
       </button>
     )

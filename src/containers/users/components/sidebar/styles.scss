@@ -110,6 +110,15 @@
   }
 }
 
+.menu-open {
+  .cmp-sidebar {
+    left: 0;
+    opacity: 1;
+    transition: opacity 0s 0s, visibility 0s 0s, left 0.25s ease-in-out;
+    visibility: visible;
+  }
+}
+
 @media (max-height: 480px) {
   .sidebar {
     overflow-y: auto;

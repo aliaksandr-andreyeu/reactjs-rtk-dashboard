@@ -4,50 +4,50 @@
   align-items: center;
   display: flex;
   flex-direction: row;
-  gap: $base-dimension * 2;
-  justify-content: flex-start;
+  gap: $base-dimension * 1.5;
+  justify-content: center;
 
   &.disabled {
-    .cmp-checkbox {
-      border-color: $secondary-light-text-color;
-      box-shadow: none;
-      cursor: default;
+    .checkbox {
+      border-color: $secondary-light-text-color !important;
+      box-shadow: none !important;
+      cursor: default !important;
 
       &:hover {
-        border-color: $secondary-light-text-color;
-        box-shadow: none;
+        border-color: $secondary-light-text-color !important;
+        box-shadow: none !important;
       }
 
       &.checked {
-        background-color: $secondary-light-text-color;
+        background-color: $secondary-light-text-color !important;
 
         &:hover {
-          background-color: $secondary-light-text-color;
+          background-color: $secondary-light-text-color !important;
         }
       }
     }
 
-    .cmp-checkbox-label {
-      color: $secondary-light-text-color;
-      cursor: default;
+    .label {
+      color: $secondary-light-text-color !important;
+      cursor: default !important;
     }
   }
 
-  .cmp-checkbox {
+  .checkbox {
     align-items: center;
     background-color: transparent;
-    border: $base-dimension * 0.25 solid $accent-color;
+    border: $base-dimension * 0.25 solid $primary-color;
     border-radius: $base-dimension * 0.375;
-    box-shadow: 0 0 $base-dimension * 0.125 $accent-color;
+    box-shadow: 0 0 $base-dimension * 0.125 $primary-color;
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    height: $base-dimension * 2.5;
+    height: $base-dimension * 2;
     justify-content: center;
     transition: box-shadow 0.375s ease-in-out, background-color 0.375s ease-in-out, border-color 0.375s ease-in-out;
-    width: $base-dimension * 2.5;
+    width: $base-dimension * 2;
 
-    .cmp-icon {
+    .icon {
       color: $white-color;
       display: inline-block;
       height: auto;
@@ -56,25 +56,25 @@
     }
 
     &:hover {
-      border-color: $accent-hover-color;
-      box-shadow: 0 0 $base-dimension * 0.375 $accent-hover-color;
+      border-color: $primary-dark-color;
+      box-shadow: 0 0 $base-dimension * 0.375 $primary-dark-color;
     }
 
     &.checked {
-      background-color: $accent-color;
+      background-color: $primary-color;
       border-width: 0;
 
       &:hover {
-        background-color: $accent-hover-color;
+        background-color: $primary-dark-color;
       }
     }
   }
 
-  .cmp-checkbox-label {
+  .label {
     color: $secondary-dark-text-color;
     cursor: pointer;
     display: flex;
-    font-size: $base-dimension * 1.75;
+    font-size: $base-dimension * 1.625;
     font-weight: 400;
     line-height: 1.5;
   }

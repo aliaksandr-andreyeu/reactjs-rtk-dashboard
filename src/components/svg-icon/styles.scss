@@ -4,6 +4,6 @@
   color: $black-color;
   display: inline-block;
   height: auto;
-  max-width: 24px;
+  max-width: $base-dimension * 3;
   width: 100%;
 }

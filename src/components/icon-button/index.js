@@ -6,16 +6,17 @@ import { getClassName } from '@helpers';
 import './styles.scss';
 
 const IconButton = forwardRef(({ disabled, label, onClick, className, children }, ref) => {
+  const handleClick = (event) => {
+    if (disabled) return;
+
+    Boolean(onClick) && onClick(event);
+  };
+
   return children ? (
-    <button
-      ref={ref}
-      className={getClassName('cmp-icon-button', className)}
-      type={'button'}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      {children} {label && <span>{label}</span>}
-    </button>
+    <div ref={ref} className={getClassName('cmp-icon-button', disabled && 'disabled', className)} onClick={handleClick}>
+      <span className='icon'>{children}</span>
+      {Boolean(label) && <span className='label'>{label}</span>}
+    </div>
   ) : null;
 });
 

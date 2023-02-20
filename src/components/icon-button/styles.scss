@@ -8,20 +8,44 @@
   display: flex;
   flex-direction: row;
   gap: $base-dimension;
-  justify-content: space-between;
+  justify-content: center;
   min-height: $base-dimension * 5;
   min-width: $base-dimension * 5;
   padding: $base-dimension * 0.5 $base-dimension;
   position: relative;
 
-  svg {
-    color: $black-color;
+  &.disabled {
+    cursor: default;
+
+    .icon {
+      color: $secondary-light-text-color !important;
+
+      svg {
+        color: $secondary-light-text-color !important;
+      }
+    }
+
+    .label {
+      color: $secondary-light-text-color !important;
+    }
   }
 
-  span {
+  .icon {
     color: $black-color;
-    font-size: $base-dimension * 1.75;
-    font-weight: 500;
+    display: flex;
+    min-height: $base-dimension * 3;
+    min-width: $base-dimension * 3;
+
+    svg {
+      color: $black-color;
+    }
+  }
+
+  .label {
+    color: $black-color;
+    display: flex;
+    font-size: $base-dimension * 1.625;
+    font-weight: 400;
     line-height: 1.5;
   }
 }
