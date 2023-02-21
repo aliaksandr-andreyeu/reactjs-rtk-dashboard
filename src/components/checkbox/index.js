@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { SvgIcon } from '@components';
-
 import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const Checkbox = ({ disabled, checked, label, containerClassName, labelClassName, checkboxClassName, onClick }) => {
+const Checkbox = ({ checkboxClassName, checked, containerClassName, disabled, label, labelClassName, onClick }) => {
   const [selected, setSelected] = useState(checked);
 
   const handleClick = (event) => {
@@ -32,22 +31,22 @@ const Checkbox = ({ disabled, checked, label, containerClassName, labelClassName
 };
 
 Checkbox.propTypes = {
-  labelClassName: PropTypes.string,
   checkboxClassName: PropTypes.string,
-  containerClassName: PropTypes.string,
-  label: PropTypes.string,
   checked: PropTypes.bool,
+  containerClassName: PropTypes.string,
   disabled: PropTypes.bool,
+  label: PropTypes.string,
+  labelClassName: PropTypes.string,
   onClick: PropTypes.func
 };
 
 Checkbox.defaultProps = {
+  checkboxClassName: '',
+  checked: false,
+  containerClassName: '',
+  disabled: false,
   label: '',
   labelClassName: '',
-  checkboxClassName: '',
-  containerClassName: '',
-  checked: false,
-  disabled: false,
   onClick: (event) => event
 };
 

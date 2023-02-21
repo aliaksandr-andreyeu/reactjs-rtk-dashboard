@@ -1,6 +1,23 @@
 /* stylelint-disable property-no-unknown */
 
 $base-dimension: 8px;
+
+@function mix-box-shadow($shadow: null) {
+  $result: 0 $base-dimension * 0.375 $base-dimension * 0.125 (-$base-dimension) * 0.25 rgb(0 0 0 / 20%),
+    0 $base-dimension * 0.25 $base-dimension * 0.25 0 rgb(0 0 0 / 14%),
+    0 $base-dimension * 0.125 $base-dimension * 0.625 0 rgb(0 0 0 / 12%);
+
+  @return if($shadow, #{$shadow, $result}, $result);
+}
+
+@function mix-box-shadow-hover($shadow: null) {
+  $result: 0 $base-dimension * 0.25 $base-dimension * 0.5 (-$base-dimension) * 0.125 rgb(0 0 0 / 20%),
+    0 $base-dimension * 0.625 $base-dimension * 0.75 0 rgb(0 0 0 / 14%),
+    0 $base-dimension * 0.125 $base-dimension * 1.25 0 rgb(0 0 0 / 12%);
+
+  @return if($shadow, #{$shadow, $result}, $result);
+}
+
 $accent-dark-color: #d32f2f;
 $accent-light-color: #ffcdd2;
 $accent-color: #ff5252;

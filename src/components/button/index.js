@@ -5,15 +5,36 @@ import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const Button = ({ disabled, type, label, className, onClick }) => {
+const Button = ({ className, color, disabled, label, onClick, stroke, type }) => {
+  let timer = null;
+  const delay = 300;
+
+  const setTimer = (event) => {
+    timer = setTimeout(() => {
+      event.target.blur();
+    }, delay);
+  };
+
+  const clearTimer = () => {
+    timer && clearTimeout(timer);
+  };
+
   const handleClick = (event) => {
     if (disabled) return;
+
+    clearTimer();
+    setTimer(event);
 
     Boolean(onClick) && onClick(event);
   };
   return (
     Boolean(label) && (
-      <button className={getClassName('cmp-button', className)} type={type} disabled={disabled} onClick={handleClick}>
+      <button
+        className={getClassName('cmp-button', color && color, stroke && 'stroke', className)}
+        type={type}
+        disabled={disabled}
+        onClick={handleClick}
+      >
         {label}
       </button>
     )
@@ -22,18 +43,21 @@ const Button = ({ disabled, type, label, className, onClick }) => {
 
 Button.propTypes = {
   className: PropTypes.string,
-  label: PropTypes.string.isRequired,
-  type: PropTypes.string,
+  color: PropTypes.oneOf(['primary', 'accent']),
   disabled: PropTypes.bool,
-  onClick: PropTypes.func
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  stroke: PropTypes.bool,
+  type: PropTypes.string
 };
 
 Button.defaultProps = {
-  label: '',
   className: '',
-  type: 'button',
   disabled: false,
-  onClick: (event) => event
+  label: '',
+  onClick: (event) => event,
+  stroke: false,
+  type: 'button'
 };
 
 export default Button;

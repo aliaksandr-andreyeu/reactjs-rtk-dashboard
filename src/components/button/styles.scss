@@ -1,14 +1,11 @@
 @import '@constants/styles/theme.module';
 
 .cmp-button {
-  background-color: $accent-color;
-  border: $base-dimension * 0.125 solid $accent-color;
+  background-color: $white-color;
+  border: $base-dimension * 0.125 solid $white-color;
   border-radius: $base-dimension * 0.375;
-  box-shadow: 0 0 $base-dimension * 0.125 $accent-color,
-    0 $base-dimension * 0.375 $base-dimension * 0.125 (-$base-dimension) * 0.25 rgb(0 0 0 / 20%),
-    0 $base-dimension * 0.25 $base-dimension * 0.25 0 rgb(0 0 0 / 14%),
-    0 $base-dimension * 0.125 $base-dimension * 0.625 0 rgb(0 0 0 / 12%);
-  color: $text-color;
+  box-shadow: mix-box-shadow(0 0 $base-dimension * 0.125 $white-color);
+  color: $primary-text-color;
   cursor: pointer;
   display: inline-block;
   font-size: $base-dimension * 1.75;
@@ -17,7 +14,6 @@
   margin: 0;
   min-height: $base-dimension * 5;
   min-width: $base-dimension * 5;
-  outline: 0 none;
   padding: $base-dimension * 0.75 $base-dimension * 2.5;
   position: relative;
   transition: box-shadow 0.375s ease-in-out, background-color 0.375s ease-in-out, border-color 0.375s ease-in-out,
@@ -26,22 +22,108 @@
 
   &:hover,
   &:active {
-    background-color: $accent-hover-color;
-    border-color: $accent-hover-color;
-    box-shadow: 0 0 $base-dimension * 0.25 $accent-hover-color,
-      0 $base-dimension * 0.25 $base-dimension * 0.5 (-$base-dimension) * 0.125 rgb(0 0 0 / 20%),
-      0 $base-dimension * 0.625 $base-dimension * 0.75 0 rgb(0 0 0 / 14%),
-      0 $base-dimension * 0.125 $base-dimension * 1.25 0 rgb(0 0 0 / 12%);
+    box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $divider-color);
   }
 
   &:focus {
-    background-color: $accent-light-color;
-    border-color: $accent-hover-color;
-    box-shadow: 0 0 $base-dimension * 0.25 $accent-hover-color,
-      0 $base-dimension * 0.25 $base-dimension * 0.5 (-$base-dimension) * 0.125 rgb(0 0 0 / 20%),
-      0 $base-dimension * 0.625 $base-dimension * 0.75 0 rgb(0 0 0 / 14%),
-      0 $base-dimension * 0.125 $base-dimension * 1.25 0 rgb(0 0 0 / 12%);
-    color: $primary-text-color;
-    outline: 0 none;
+    background-color: $divider-lighter-color;
+    border-color: $divider-color;
+    box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $divider-color);
+  }
+
+  &.stroke {
+    border-color: $secondary-dark-text-color;
+    box-shadow: mix-box-shadow(0 0 $base-dimension * 0.125 $secondary-dark-text-color);
+
+    &:hover,
+    &:active {
+      box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $secondary-dark-text-color);
+    }
+
+    &:focus {
+      background-color: $divider-lighter-color;
+      border-color: $secondary-dark-text-color;
+      box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $secondary-dark-text-color);
+    }
+  }
+
+  &.primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    box-shadow: mix-box-shadow(0 0 $base-dimension * 0.125 $primary-color);
+    color: $text-color;
+
+    &:hover,
+    &:active {
+      background-color: $primary-dark-color;
+      border-color: $primary-dark-color;
+      box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $primary-dark-color);
+    }
+
+    &:focus {
+      background-color: $primary-light-color;
+      border-color: $primary-dark-color;
+      box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $primary-dark-color);
+      color: $primary-text-color;
+    }
+
+    &.stroke {
+      background-color: $white-color;
+      border-color: $primary-color;
+      box-shadow: mix-box-shadow(0 0 $base-dimension * 0.125 $primary-color);
+      color: $primary-color;
+
+      &:hover,
+      &:active {
+        border-color: $primary-dark-color;
+        box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $primary-dark-color);
+        color: $primary-dark-color;
+      }
+
+      &:focus {
+        border-color: $primary-dark-color;
+        box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $primary-dark-color);
+      }
+    }
+  }
+
+  &.accent {
+    background-color: $accent-color;
+    border-color: $accent-color;
+    box-shadow: mix-box-shadow(0 0 $base-dimension * 0.125 $accent-color);
+    color: $text-color;
+
+    &:hover,
+    &:active {
+      background-color: $accent-hover-color;
+      border-color: $accent-hover-color;
+      box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $accent-hover-color);
+    }
+
+    &:focus {
+      background-color: $accent-light-color;
+      border-color: $accent-hover-color;
+      box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $accent-hover-color);
+      color: $primary-text-color;
+    }
+
+    &.stroke {
+      background-color: $white-color;
+      border-color: $accent-color;
+      box-shadow: mix-box-shadow(0 0 $base-dimension * 0.125 $accent-color);
+      color: $accent-color;
+
+      &:hover,
+      &:active {
+        border-color: $accent-hover-color;
+        box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $accent-hover-color);
+        color: $accent-hover-color;
+      }
+
+      &:focus {
+        border-color: $accent-hover-color;
+        box-shadow: mix-box-shadow-hover(0 0 $base-dimension * 0.25 $accent-hover-color);
+      }
+    }
   }
 }

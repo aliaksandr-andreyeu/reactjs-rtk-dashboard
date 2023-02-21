@@ -6,19 +6,19 @@ import { getClassName } from '@helpers';
 import './styles.scss';
 
 const Input = ({
-  label,
-  type,
-  inputClassName,
-  labelClassName,
-  containerClassName,
   autoFocus,
-  tabIndex,
+  containerClassName,
   disabled,
-  readonly,
-  placeholder,
-  value,
+  inputClassName,
+  label,
+  labelClassName,
+  name,
   onChange,
-  name
+  placeholder,
+  readonly,
+  tabIndex,
+  type,
+  value
 }) => {
   const [val, setVal] = useState(value !== undefined ? value : '');
 
@@ -47,35 +47,35 @@ const Input = ({
 };
 
 Input.propTypes = {
-  label: PropTypes.string,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  inputClassName: PropTypes.string,
-  labelClassName: PropTypes.string,
-  containerClassName: PropTypes.string,
   autoFocus: PropTypes.bool,
-  tabIndex: PropTypes.number,
+  containerClassName: PropTypes.string,
   disabled: PropTypes.bool,
-  readonly: PropTypes.bool,
+  inputClassName: PropTypes.string,
+  label: PropTypes.string,
+  labelClassName: PropTypes.string,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func
+  readonly: PropTypes.bool,
+  tabIndex: PropTypes.number,
+  type: PropTypes.string,
+  value: PropTypes.string
 };
 
 Input.defaultProps = {
-  type: 'text',
   autoFocus: false,
-  tabIndex: 0,
-  disabled: false,
-  readonly: false,
-  value: '',
-  label: '',
-  name: '',
-  inputClassName: '',
-  labelClassName: '',
   containerClassName: '',
+  disabled: false,
+  inputClassName: '',
+  label: '',
+  labelClassName: '',
+  name: '',
+  onChange: (event) => event,
   placeholder: '',
-  onChange: (event) => event
+  readonly: false,
+  tabIndex: 0,
+  type: 'text',
+  value: ''
 };
 
 export default Input;

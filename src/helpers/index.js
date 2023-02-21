@@ -1,3 +1,3 @@
-import { getClassName } from './ui';
+import { getClassName, stopPropagation } from './ui';
 
-export { getClassName };
+export { getClassName, stopPropagation };

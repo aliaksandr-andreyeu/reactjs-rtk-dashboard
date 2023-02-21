@@ -5,7 +5,7 @@ import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const IconButton = forwardRef(({ disabled, label, onClick, className, children }, ref) => {
+const IconButton = forwardRef(({ children, className, disabled, label, onClick }, ref) => {
   const handleClick = (event) => {
     if (disabled) return;
 
@@ -21,17 +21,17 @@ const IconButton = forwardRef(({ disabled, label, onClick, className, children }
 });
 
 IconButton.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
   className: PropTypes.string,
-  label: PropTypes.string,
   disabled: PropTypes.bool,
-  onClick: PropTypes.func,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired
+  label: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 IconButton.defaultProps = {
   className: '',
-  label: '',
   disabled: false,
+  label: '',
   onClick: (event) => event
 };
 
