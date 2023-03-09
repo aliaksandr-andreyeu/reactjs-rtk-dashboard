@@ -3,6 +3,31 @@
 .cmp-input-box {
   padding: $base-dimension * 1.25 0 0 0;
   position: relative;
+
+  &.security {
+    .cmp-input {
+      padding-right: $base-dimension * 5;
+    }
+  }
+}
+
+.cmp-switch {
+  align-items: center;
+  bottom: 0;
+  cursor: pointer;
+  display: flex;
+  height: $base-dimension * 5;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  user-select: none;
+  width: $base-dimension * 5;
+  z-index: 1;
+
+  .icon {
+    color: $secondary-dark-text-color;
+    max-width: $base-dimension * 2.5;
+  }
 }
 
 .cmp-input-label {
