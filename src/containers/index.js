@@ -1,6 +1,6 @@
 import App from './app';
-import Users from './users';
-import { SignUp, SignIn, ResetPassword } from './auth';
+import { ResetPassword, SignIn, SignUp } from './auth';
 import NotFound from './not-found';
+import Users from './users';
 
-export { App, Users, SignUp, SignIn, ResetPassword, NotFound };
+export { App, NotFound, ResetPassword, SignIn, SignUp, Users };

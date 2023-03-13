@@ -9,6 +9,22 @@
       padding-right: $base-dimension * 5;
     }
   }
+
+  &.error {
+    .cmp-switch {
+      bottom: $base-dimension * 3;
+    }
+  }
+}
+
+.cmp-error {
+  color: $accent-color;
+  display: block;
+  font-size: $base-dimension * 1.5;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-top: $base-dimension * 0.75;
+  z-index: 1;
 }
 
 .cmp-switch {

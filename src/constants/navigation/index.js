@@ -1,8 +1,8 @@
 const navigation = {
   index: '/',
-  signup: '/signup',
-  signin: '/signin',
   resetPassword: '/reset-password',
+  signin: '/signin',
+  signup: '/signup',
   users: '/users'
 };
 

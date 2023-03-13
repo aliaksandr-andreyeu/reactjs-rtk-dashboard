@@ -18,7 +18,23 @@
   position: relative;
   transition: box-shadow 0.375s ease-in-out, background-color 0.375s ease-in-out, border-color 0.375s ease-in-out,
     color 0.375s ease-in-out;
+  user-select: none;
   width: auto;
+
+  &.disabled {
+    background-color: $divider-lighter-color !important;
+    border-color: $divider-lighter-color !important;
+    box-shadow: mix-box-shadow(0 0 $base-dimension * 0.125 $divider-lighter-color) !important;
+    cursor: not-allowed !important;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $divider-lighter-color !important;
+      border-color: $divider-lighter-color !important;
+      box-shadow: mix-box-shadow(0 0 $base-dimension * 0.125 $divider-lighter-color) !important;
+    }
+  }
 
   &:hover,
   &:active {

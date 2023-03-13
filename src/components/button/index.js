@@ -30,7 +30,7 @@ const Button = ({ className, color, disabled, label, onClick, stroke, type }) =>
   return (
     Boolean(label) && (
       <button
-        className={getClassName('cmp-button', color && color, stroke && 'stroke', className)}
+        className={getClassName('cmp-button', color && color, stroke && 'stroke', disabled && 'disabled', className)}
         type={type}
         disabled={disabled}
         onClick={handleClick}
