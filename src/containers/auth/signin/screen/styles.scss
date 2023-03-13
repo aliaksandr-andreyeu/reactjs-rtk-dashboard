@@ -36,6 +36,10 @@
       & + .reset-box {
         margin-top: $base-dimension * 1.5;
       }
+
+      &.error + .reset-box {
+        margin-top: $base-dimension * 0.75;
+      }
     }
   }
 }

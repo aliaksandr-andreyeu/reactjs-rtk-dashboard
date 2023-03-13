@@ -22,6 +22,10 @@
     & + .input-box {
       margin-top: $base-dimension * 3;
     }
+
+    &.error + .input-box {
+      margin-top: $base-dimension * 2;
+    }
   }
 
   h2 {
