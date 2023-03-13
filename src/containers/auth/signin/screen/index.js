@@ -1,20 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Button, Input, SvgIcon } from '@components';
 import { navigation } from '@constants';
-import { actions } from '@store';
 
-import { Input, Button, SvgIcon } from '@components';
+import { validateEmail } from '@helpers';
+import { errors } from '@constants';
+
+import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
-const SignInScreen = () => {
-  const {
-    auth: { login }
-  } = actions;
+const {
+  validation: { passwordRequired }
+} = errors;
 
-  const dispatch = useDispatch();
+const SignInScreen = ({ signin, dispatch }) => {
+  const [userName, setUserName] = useState('');
+  const [userPass, setUserPass] = useState('');
+
+  const [userNameError, setUserNameError] = useState('');
+  const [userPassError, setUserPassError] = useState('');
+
+  const checkEmail = (value) => {
+    validateEmail(value, setUserNameError);
+    setUserName(value);
+  };
+
+  const checkPass = (value) => {
+    const error = value ? '' : passwordRequired;
+    setUserPassError(error);
+    setUserPass(value);
+  };
+
+  const handleSignin = () => {
+    checkEmail(userName);
+    checkPass(userPass);
+
+    if (userName && userPass && !userNameError && !userPassError) {
+      const payload = {
+        username: userName,
+        password: userPass
+      };
+      dispatch(signin(payload));
+    }
+  };
 
   return (
     <div className='auth-box signin'>
@@ -30,9 +60,9 @@ const SignInScreen = () => {
           containerClassName={'input-box'}
           placeholder={'Email'}
           name={'username'}
-          onChange={(event) => {
-            console.log('event.target.value', event.target.value);
-          }}
+          onChange={checkEmail}
+          error={userNameError}
+          value={userName}
         />
         <Input
           label={'Enter password'}
@@ -40,27 +70,30 @@ const SignInScreen = () => {
           containerClassName={'input-box'}
           placeholder={'Password'}
           name={'userpass'}
-          onChange={(event) => {
-            console.log('event.target.value', event.target.value);
-          }}
+          onChange={checkPass}
+          error={userPassError}
+          value={userPass}
         />
         <div className='reset-box'>
           <Link to={navigation.resetPassword}>Forgot password</Link>
         </div>
-        <Button
-          label={'Sign in'}
-          type={'button'}
-          className={'btn'}
-          onClick={() => {
-            dispatch(login());
-          }}
-        />
+        <Button color={'accent'} label={'Sign in'} type={'button'} className={'btn'} onClick={handleSignin} />
         <Link className='auth-link' to={navigation.signup}>
           Sign up
         </Link>
       </div>
     </div>
   );
+};
+
+SignInScreen.propTypes = {
+  signin: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
+};
+
+SignInScreen.defaultProps = {
+  signin: () => {},
+  dispatch: () => {}
 };
 
 export default SignInScreen;
