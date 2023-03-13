@@ -1,3 +1,3 @@
-import { getClassName, stopPropagation } from './ui';
+import { getClassName, validateEmail, validateConfirm, stopPropagation } from './ui';
 
-export { getClassName, stopPropagation };
+export { getClassName, validateEmail, validateConfirm, stopPropagation };
