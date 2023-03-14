@@ -1,7 +1,7 @@
 import React, { useState, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { SvgIcon } from '@components';
-import { getClassName } from '@helpers';
+import { getClassName, preventDefault } from '@helpers';
 
 import './styles.scss';
 
@@ -36,7 +36,8 @@ const Input = forwardRef(
 
     const security = Boolean(type === 'password');
 
-    const switchHandle = () => {
+    const switchHandle = (event) => {
+      preventDefault(event);
       setVisible(!visible);
     };
 

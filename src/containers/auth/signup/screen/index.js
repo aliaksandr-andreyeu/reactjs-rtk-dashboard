@@ -1,13 +1,56 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { navigation } from '@constants';
 
-import { Input, Button, SvgIcon } from '@components';
+import { Button, Input, SvgIcon } from '@components';
+import { navigation, errors } from '@constants';
+import { validateEmail, validateConfirm } from '@helpers';
 
 import './styles.scss';
 
-const SignUpScreen = () => {
+const {
+  validation: { passwordRequired }
+} = errors;
+
+const SignUpScreen = ({ signUp }) => {
+  const [userName, setUserName] = useState('');
+  const [userPass, setUserPass] = useState('');
+  const [userConfirm, setUserConfirm] = useState('');
+
+  const [userNameError, setUserNameError] = useState('');
+  const [userPassError, setUserPassError] = useState('');
+  const [userConfirmError, setUserConfirmError] = useState('');
+
+  const checkEmail = (value) => {
+    validateEmail(value, setUserNameError);
+    setUserName(value);
+  };
+
+  const checkPass = (value) => {
+    const error = value ? '' : passwordRequired;
+    setUserPassError(error);
+    setUserPass(value);
+  };
+
+  const checkConfirm = (value) => {
+    validateConfirm(value, userPass, setUserConfirmError);
+    setUserConfirm(value);
+  };
+
+  const handleSignUp = () => {
+    checkEmail(userName);
+    checkPass(userPass);
+    checkConfirm(userConfirm);
+
+    if (userName && userPass && userConfirm && !userNameError && !userPassError && !userConfirmError) {
+      const payload = {
+        username: userName,
+        password: userPass
+      };
+      signUp(payload);
+    }
+  };
+
   return (
     <div className='auth-box signup'>
       <div className='auth-inbox'>
@@ -22,9 +65,9 @@ const SignUpScreen = () => {
           containerClassName={'input-box'}
           placeholder={'Email'}
           name={'username'}
-          onChange={(event) => {
-            console.log('event.target.value', event.target.value);
-          }}
+          onChange={checkEmail}
+          error={userNameError}
+          value={userName}
         />
         <Input
           label={'Enter password'}
@@ -32,9 +75,9 @@ const SignUpScreen = () => {
           containerClassName={'input-box'}
           placeholder={'Password'}
           name={'userpass'}
-          onChange={(event) => {
-            console.log('event.target.value', event.target.value);
-          }}
+          onChange={checkPass}
+          error={userPassError}
+          value={userPass}
         />
         <Input
           label={'Confirm password'}
@@ -42,17 +85,25 @@ const SignUpScreen = () => {
           containerClassName={'input-box'}
           placeholder={'Confirm'}
           name={'userpass'}
-          onChange={(event) => {
-            console.log('event.target.value', event.target.value);
-          }}
+          onChange={checkConfirm}
+          error={userConfirmError}
+          value={userConfirm}
         />
-        <Button label={'Sign up'} type={'button'} className={'btn'} />
+        <Button color={'accent'} label={'Sign up'} type={'button'} className={'btn'} onClick={handleSignUp} />
         <Link className='auth-link' to={navigation.signin}>
           Sign in
         </Link>
       </div>
     </div>
   );
+};
+
+SignUpScreen.propTypes = {
+  signUp: PropTypes.func.isRequired
+};
+
+SignUpScreen.defaultProps = {
+  signUp: (payload) => payload
 };
 
 export default SignUpScreen;

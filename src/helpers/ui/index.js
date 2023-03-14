@@ -6,7 +6,9 @@ const {
 
 export const getClassName = (...args) => Array.from(args).filter(Boolean).join(' ');
 
-export const stopPropagation = (event) => event.stopPropagation();
+export const stopPropagation = (event) => event.stopPropagation && event.stopPropagation();
+
+export const preventDefault = (event) => event.preventDefault && event.preventDefault();
 
 export const validateConfirm = (value, pass, cb) => {
   const error = !value ? confirmRequired : value !== pass ? confirmIncorrect : '';

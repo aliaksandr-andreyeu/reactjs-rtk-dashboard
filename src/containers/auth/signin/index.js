@@ -5,12 +5,14 @@ import { useDispatch } from 'react-redux';
 
 const SignIn = () => {
   const {
-    auth: { signin }
+    auth: { signIn }
   } = actions;
 
   const dispatch = useDispatch();
 
-  return <SignInScreen signin={signin} dispatch={dispatch} />;
+  const handleSignIn = (payload) => dispatch(signIn(payload));
+
+  return <SignInScreen signIn={handleSignIn} />;
 };
 
 export default SignIn;

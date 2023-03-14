@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { Button, Input, SvgIcon } from '@components';
-import { navigation } from '@constants';
-
+import { navigation, errors } from '@constants';
 import { validateEmail } from '@helpers';
-import { errors } from '@constants';
-
-import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
@@ -15,7 +12,7 @@ const {
   validation: { passwordRequired }
 } = errors;
 
-const SignInScreen = ({ signin, dispatch }) => {
+const SignInScreen = ({ signIn }) => {
   const [userName, setUserName] = useState('');
   const [userPass, setUserPass] = useState('');
 
@@ -33,7 +30,7 @@ const SignInScreen = ({ signin, dispatch }) => {
     setUserPass(value);
   };
 
-  const handleSignin = () => {
+  const handleSignIn = () => {
     checkEmail(userName);
     checkPass(userPass);
 
@@ -42,7 +39,7 @@ const SignInScreen = ({ signin, dispatch }) => {
         username: userName,
         password: userPass
       };
-      dispatch(signin(payload));
+      signIn(payload);
     }
   };
 
@@ -77,7 +74,7 @@ const SignInScreen = ({ signin, dispatch }) => {
         <div className='reset-box'>
           <Link to={navigation.resetPassword}>Forgot password</Link>
         </div>
-        <Button color={'accent'} label={'Sign in'} type={'button'} className={'btn'} onClick={handleSignin} />
+        <Button color={'accent'} label={'Sign in'} type={'button'} className={'btn'} onClick={handleSignIn} />
         <Link className='auth-link' to={navigation.signup}>
           Sign up
         </Link>
@@ -87,13 +84,11 @@ const SignInScreen = ({ signin, dispatch }) => {
 };
 
 SignInScreen.propTypes = {
-  signin: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired
+  signIn: PropTypes.func.isRequired
 };
 
 SignInScreen.defaultProps = {
-  signin: () => {},
-  dispatch: () => {}
+  signIn: (payload) => payload
 };
 
 export default SignInScreen;
