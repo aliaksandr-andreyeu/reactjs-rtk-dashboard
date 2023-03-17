@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
-import { Button, Input, SvgIcon } from '@components';
+import { Button, Input, SvgIcon, ErrorTip } from '@components';
 import { navigation, errors } from '@constants';
 import { validateEmail } from '@helpers';
+
+import { unwrapResult } from '@reduxjs/toolkit';
 
 import './styles.scss';
 
@@ -12,7 +13,7 @@ const {
   validation: { passwordRequired }
 } = errors;
 
-const SignInScreen = ({ signIn }) => {
+const SignInScreen = ({ signIn, loading, error }) => {
   const [userName, setUserName] = useState('');
   const [userPass, setUserPass] = useState('');
 
@@ -25,8 +26,8 @@ const SignInScreen = ({ signIn }) => {
   };
 
   const checkPass = (value) => {
-    const error = value ? '' : passwordRequired;
-    setUserPassError(error);
+    const err = value ? '' : passwordRequired;
+    setUserPassError(err);
     setUserPass(value);
   };
 
@@ -39,7 +40,14 @@ const SignInScreen = ({ signIn }) => {
         username: userName,
         password: userPass
       };
-      signIn(payload);
+      signIn(payload)
+        .then(unwrapResult)
+        .then((data) => {
+          console.log('****************************************** data', data);
+        })
+        .catch((err) => {
+          console.log('****************************************** err', err);
+        });
     }
   };
 
@@ -51,6 +59,7 @@ const SignInScreen = ({ signIn }) => {
           <h1>Company</h1>
         </div>
         <h2>Sign in</h2>
+        <ErrorTip error={error || 'Incorrect password'} />
         <Input
           label={'Enter email'}
           type={'text'}
@@ -74,7 +83,14 @@ const SignInScreen = ({ signIn }) => {
         <div className='reset-box'>
           <Link to={navigation.resetPassword}>Forgot password</Link>
         </div>
-        <Button color={'accent'} label={'Sign in'} type={'button'} className={'btn'} onClick={handleSignIn} />
+        <Button
+          loading={loading}
+          color={'accent'}
+          label={'Sign in'}
+          type={'button'}
+          className={'btn'}
+          onClick={handleSignIn}
+        />
         <Link className='auth-link' to={navigation.signup}>
           Sign up
         </Link>
@@ -84,11 +100,15 @@ const SignInScreen = ({ signIn }) => {
 };
 
 SignInScreen.propTypes = {
-  signIn: PropTypes.func.isRequired
+  signIn: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])
 };
 
 SignInScreen.defaultProps = {
-  signIn: (payload) => payload
+  signIn: (payload) => payload,
+  loading: false,
+  error: null
 };
 
 export default SignInScreen;

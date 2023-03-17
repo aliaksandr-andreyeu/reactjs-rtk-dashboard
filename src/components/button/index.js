@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const Button = ({ className, color, disabled, label, onClick, stroke, type }) => {
+const Button = ({ loading, className, color, disabled, label, onClick, stroke, type }) => {
+  const ref = useRef(null);
+
   let timer = null;
   const delay = 300;
 
-  const setTimer = (event) => {
+  useEffect(() => {
+    !loading && ref.current && ref.current.blur();
+  }, [loading]);
+
+  const setTimer = () => {
     timer = setTimeout(() => {
-      event.target.blur();
+      ref.current && ref.current.blur();
     }, delay);
   };
 
@@ -22,20 +28,33 @@ const Button = ({ className, color, disabled, label, onClick, stroke, type }) =>
   const handleClick = (event) => {
     if (disabled) return;
 
-    clearTimer();
-    setTimer(event);
+    if (!loading) {
+      clearTimer();
+      setTimer();
 
-    Boolean(onClick) && onClick(event);
+      Boolean(onClick) && onClick(event);
+    }
   };
+
   return (
     Boolean(label) && (
       <button
-        className={getClassName('cmp-button', color && color, stroke && 'stroke', disabled && 'disabled', className)}
+        ref={ref}
+        className={getClassName(
+          'cmp-button',
+          color && color,
+          stroke && 'stroke',
+          disabled && 'disabled',
+          loading && 'loading',
+          className
+        )}
         type={type}
         disabled={disabled}
         onClick={handleClick}
       >
+        <span className='gap left' />
         {label}
+        <span className='gap right'>{loading && <span className='loader' />}</span>
       </button>
     )
   );
@@ -45,6 +64,7 @@ Button.propTypes = {
   className: PropTypes.string,
   color: PropTypes.oneOf(['primary', 'accent']),
   disabled: PropTypes.bool,
+  loading: PropTypes.bool,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   stroke: PropTypes.bool,
@@ -54,6 +74,7 @@ Button.propTypes = {
 Button.defaultProps = {
   className: '',
   disabled: false,
+  loading: false,
   label: '',
   onClick: (event) => event,
   stroke: false,

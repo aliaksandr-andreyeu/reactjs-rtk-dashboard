@@ -1,3 +1,19 @@
-import { getClassName, validateEmail, validateConfirm, stopPropagation, preventDefault } from './ui';
+import {
+  getClassName,
+  validateEmail,
+  validateConfirm,
+  stopPropagation,
+  preventDefault,
+  errorsHandler,
+  capitalizeMessage
+} from './ui';
 
-export { getClassName, validateEmail, validateConfirm, stopPropagation, preventDefault };
+export {
+  getClassName,
+  validateEmail,
+  validateConfirm,
+  stopPropagation,
+  preventDefault,
+  errorsHandler,
+  capitalizeMessage
+};

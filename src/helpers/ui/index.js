@@ -1,8 +1,31 @@
+import { isAxiosError } from 'axios';
 import { errors } from '@constants';
 
 const {
   validation: { emailRequired, emailInvalid, confirmIncorrect, confirmRequired }
 } = errors;
+
+export const capitalizeMessage = (msg) => {
+  return msg && typeof msg === 'string' ? msg.charAt(0).toUpperCase() + msg.slice(1) : '';
+};
+
+export const errorsHandler = (err) => {
+  const msg =
+    isAxiosError(err) &&
+    err.response &&
+    err.response.data &&
+    err.response.data.message &&
+    err.response.data.message.length > 0
+      ? err.response.data.message
+      : err instanceof Error && err.message && err.message.length > 0
+      ? err.message
+      : typeof err === 'string' && err && err.length > 0
+      ? err
+      : errors.common.error;
+
+  // if (!(isAxiosError(err) && err.response && err.response.status === 401)) {}
+  return capitalizeMessage(msg);
+};
 
 export const getClassName = (...args) => Array.from(args).filter(Boolean).join(' ');
 
