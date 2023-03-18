@@ -65,7 +65,7 @@ const Input = forwardRef(
         />
         {security && (
           <a onClick={switchHandle} className='cmp-switch'>
-            <SvgIcon className='icon' name={visible ? 'eye' : 'eyeOff'} />
+            <SvgIcon className='icon' name={visible ? 'eye' : 'eye-off'} />
           </a>
         )}
         {Boolean(error) && <span className='cmp-error'>{error}</span>}

@@ -34,7 +34,7 @@ const SvgIcon = ({ className, color, name, ...props }) => {
         </g>
       </svg>
     ),
-    eyeOff: (
+    'eye-off': (
       <svg
         xmlns='http://www.w3.org/2000/svg'
         x='0px'
@@ -84,11 +84,11 @@ const SvgIcon = ({ className, color, name, ...props }) => {
         {...props}
       >
         <g>
-          <path d='M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z' />
+          <path fill={getColor(color)} d='M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z' />
         </g>
       </svg>
     ),
-    alertOctagon: (
+    'alert-octagon': (
       <svg
         xmlns='http://www.w3.org/2000/svg'
         x='0px'
@@ -107,7 +107,7 @@ const SvgIcon = ({ className, color, name, ...props }) => {
         </g>
       </svg>
     ),
-    checkboxCircle: (
+    'checkbox-circle': (
       <svg
         xmlns='http://www.w3.org/2000/svg'
         x='0px'
@@ -161,7 +161,7 @@ const SvgIcon = ({ className, color, name, ...props }) => {
         </g>
       </svg>
     ),
-    infoFilled: (
+    'info-filled': (
       <svg
         xmlns='http://www.w3.org/2000/svg'
         x='0px'
@@ -279,7 +279,7 @@ const SvgIcon = ({ className, color, name, ...props }) => {
         </g>
       </svg>
     ),
-    menuBack: (
+    'menu-back': (
       <svg
         xmlns='http://www.w3.org/2000/svg'
         x='0px'

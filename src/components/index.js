@@ -4,6 +4,6 @@ import IconButton from './icon-button';
 import Input from './input';
 import Modal from './modal';
 import SvgIcon from './svg-icon';
-import ErrorTip from './error-tip';
+import Alert from './alert';
 
-export { Button, Checkbox, IconButton, Input, Modal, SvgIcon, ErrorTip };
+export { Button, Checkbox, IconButton, Input, Modal, SvgIcon, Alert };

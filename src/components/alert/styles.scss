@@ -1,0 +1,132 @@
+@import '@constants/styles/theme.module';
+
+.cmp-alert-tip {
+  margin-top: 12px;
+  margin-bottom: 12px;
+
+  background-color: $info-color;
+
+  border: 1px solid $info-middle-color;
+
+  border-radius: 5px;
+  display: inline-block;
+  max-width: 240px;
+  min-width: 240px;
+  padding: 16px;
+  position: relative;
+
+  .icon {
+    color: $info-icon-color;
+  }
+
+  .cmp-alert {
+    color: $info-text-color;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .cmp-close {
+    background-color: $info-middle-color;
+    border: 1px solid $info-dark-color;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    user-select: none;
+    transition: box-shadow 0.375s ease-in-out;
+    box-shadow: 0 0 0 $info-dark-color;
+
+    &:hover {
+      box-shadow: 0 0 $base-dimension * 0.25 $info-dark-color;
+    }
+
+    .cmp-icon {
+      color: $info-icon-color;
+      max-width: 24px;
+    }
+  }
+
+  &.error {
+    background-color: $error-color;
+    border: 1px solid $error-middle-color;
+
+    .icon {
+      color: $error-icon-color;
+    }
+
+    .cmp-alert {
+      color: $error-text-color;
+    }
+
+    .cmp-close {
+      background-color: $error-middle-color;
+      border: 1px solid $error-dark-color;
+      box-shadow: 0 0 0 $error-dark-color;
+
+      &:hover {
+        box-shadow: 0 0 $base-dimension * 0.25 $error-dark-color;
+      }
+
+      .cmp-icon {
+        color: $error-icon-color;
+      }
+    }
+  }
+
+  &.success {
+    background-color: $success-color;
+    border: 1px solid $success-middle-color;
+
+    .icon {
+      color: $success-icon-color;
+    }
+
+    .cmp-alert {
+      color: $success-text-color;
+    }
+
+    .cmp-close {
+      background-color: $success-middle-color;
+      border: 1px solid $success-dark-color;
+      box-shadow: 0 0 0 $success-dark-color;
+
+      &:hover {
+        box-shadow: 0 0 $base-dimension * 0.25 $success-dark-color;
+      }
+
+      .cmp-icon {
+        color: $success-icon-color;
+      }
+    }
+  }
+
+  &.warning {
+    background-color: $warning-color;
+    border: 1px solid $warning-middle-color;
+
+    .icon {
+      color: $warning-icon-color;
+    }
+
+    .cmp-alert {
+      color: $warning-text-color;
+    }
+
+    .cmp-close {
+      background-color: $warning-middle-color;
+      border: 1px solid $warning-dark-color;
+      box-shadow: 0 0 0 $warning-dark-color;
+
+      &:hover {
+        box-shadow: 0 0 $base-dimension * 0.25 $warning-dark-color;
+      }
+
+      .cmp-icon {
+        color: $warning-icon-color;
+      }
+    }
+  }
+}

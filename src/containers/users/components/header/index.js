@@ -1,19 +1,17 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
-
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
-
 import { actions } from '@store';
 
-import { IconButton, SvgIcon } from '@components';
 import { ProfileMenu } from '../../components';
+import { IconButton, SvgIcon } from '@components';
 
 import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const Header = ({ toggleMenu, isMenu, title }) => {
+const Header = ({ isMenu, title, toggleMenu }) => {
   const [profileOpen, setProfileOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -58,7 +56,7 @@ const Header = ({ toggleMenu, isMenu, title }) => {
     <div className='cmp-header'>
       <div className='title'>
         <IconButton className='icon-button' onClick={toggleMenu}>
-          <SvgIcon name={isMenu ? 'menuBack' : 'menu'} />
+          <SvgIcon name={isMenu ? 'menu-back' : 'menu'} />
         </IconButton>
         {title && <h1>{title}</h1>}
       </div>
@@ -81,15 +79,15 @@ const Header = ({ toggleMenu, isMenu, title }) => {
 };
 
 Header.propTypes = {
-  toggleMenu: PropTypes.func,
   isMenu: PropTypes.bool,
-  title: PropTypes.string
+  title: PropTypes.string,
+  toggleMenu: PropTypes.func
 };
 
 Header.defaultProps = {
-  toggleMenu: () => null,
   isMenu: false,
-  title: ''
+  title: '',
+  toggleMenu: () => null
 };
 
 export default Header;

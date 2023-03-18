@@ -18,6 +18,33 @@ $base-dimension: 8px;
   @return if($shadow, #{$shadow, $result}, $result);
 }
 
+$info-color: #d9dcef;
+$info-text-color: #2e3a82;
+$info-icon-color: #6c7ac6;
+$info-middle-color: #bac0e3;
+$info-dark-color: #9da5d7;
+
+$error-color: #ffe3e3;
+$error-text-color: #cc4141;
+$error-icon-color: #ff7b7b;
+$error-middle-color: #ffbfbf;
+$error-dark-color: #ffa4a4;
+
+$warning-color: #fbefdf;
+$warning-text-color: #b5782d;
+$warning-icon-color: #eaa752;
+$warning-middle-color: #f6dab6;
+$warning-dark-color: #f2ca97;
+
+$success-color: #dff3e3;
+$success-text-color: #27823b;
+$success-icon-color: #4fbe68;
+$success-middle-color: #b5e3bf;
+$success-dark-color: #96d7a4;
+
+$green-color: #36b552;
+$orange-color: #e89a3a;
+
 $accent-dark-color: #d32f2f;
 $accent-light-color: #ffcdd2;
 $accent-color: #ff5252;
