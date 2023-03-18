@@ -28,7 +28,7 @@ const SvgIcon = ({ className, color, name, ...props }) => {
       >
         <g>
           <path
-            fill='currentColor'
+            fill={getColor(color)}
             d='M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9M12,4.5C17,4.5 21.27,7.61 23,12C21.27,16.39 17,19.5 12,19.5C7,19.5 2.73,16.39 1,12C2.73,7.61 7,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C15.76,17.5 19.17,15.36 20.82,12C19.17,8.64 15.76,6.5 12,6.5C8.24,6.5 4.83,8.64 3.18,12Z'
           />
         </g>
@@ -47,7 +47,7 @@ const SvgIcon = ({ className, color, name, ...props }) => {
       >
         <g>
           <path
-            fill='currentColor'
+            fill={getColor(color)}
             d='M2,5.27L3.28,4L20,20.72L18.73,22L15.65,18.92C14.5,19.3 13.28,19.5 12,19.5C7,19.5 2.73,16.39 1,12C1.69,10.24 2.79,8.69 4.19,7.46L2,5.27M12,9A3,3 0 0,1 15,12C15,12.35 14.94,12.69 14.83,13L11,9.17C11.31,9.06 11.65,9 12,9M12,4.5C17,4.5 21.27,7.61 23,12C22.18,14.08 20.79,15.88 19,17.19L17.58,15.76C18.94,14.82 20.06,13.54 20.82,12C19.17,8.64 15.76,6.5 12,6.5C10.91,6.5 9.84,6.68 8.84,7L7.3,5.47C8.74,4.85 10.33,4.5 12,4.5M3.18,12C4.83,15.36 8.24,17.5 12,17.5C12.69,17.5 13.37,17.43 14,17.29L11.72,15C10.29,14.85 9.15,13.71 9,12.28L5.6,8.87C4.61,9.72 3.78,10.78 3.18,12Z'
           />
         </g>
@@ -68,6 +68,60 @@ const SvgIcon = ({ className, color, name, ...props }) => {
           <path
             fill={getColor(color)}
             d='M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z'
+          />
+        </g>
+      </svg>
+    ),
+    alert: (
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        x='0px'
+        y='0px'
+        viewBox='0 0 24 24'
+        enableBackground='new 0 0 24 24'
+        preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
+      >
+        <g>
+          <path d='M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z' />
+        </g>
+      </svg>
+    ),
+    alertOctagon: (
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        x='0px'
+        y='0px'
+        viewBox='0 0 24 24'
+        enableBackground='new 0 0 24 24'
+        preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
+      >
+        <g>
+          <path
+            fill={getColor(color)}
+            d='M13 13H11V7H13M11 15H13V17H11M15.73 3H8.27L3 8.27V15.73L8.27 21H15.73L21 15.73V8.27L15.73 3Z'
+          />
+        </g>
+      </svg>
+    ),
+    checkboxCircle: (
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        x='0px'
+        y='0px'
+        viewBox='0 0 24 24'
+        enableBackground='new 0 0 24 24'
+        preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
+      >
+        <g>
+          <path
+            fill={getColor(color)}
+            d='M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z'
           />
         </g>
       </svg>
@@ -103,6 +157,25 @@ const SvgIcon = ({ className, color, name, ...props }) => {
           <path
             fill={getColor(color)}
             d='M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z'
+          />
+        </g>
+      </svg>
+    ),
+    infoFilled: (
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        x='0px'
+        y='0px'
+        viewBox='0 0 24 24'
+        enableBackground='new 0 0 24 24'
+        preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
+      >
+        <g>
+          <path
+            fill={getColor(color)}
+            d='M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z'
           />
         </g>
       </svg>
