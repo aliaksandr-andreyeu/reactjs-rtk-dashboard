@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Button, Input, SvgIcon, ErrorTip } from '@components';
+import { Button, Input, SvgIcon, Alert } from '@components';
 import { navigation, errors } from '@constants';
-import { validateEmail } from '@helpers';
+import { validateEmail, preventDefault } from '@helpers';
 
 import { unwrapResult } from '@reduxjs/toolkit';
 
@@ -16,9 +16,14 @@ const {
 const SignInScreen = ({ signIn, loading, error }) => {
   const [userName, setUserName] = useState('');
   const [userPass, setUserPass] = useState('');
+  const [message, setMessage] = useState(error);
 
   const [userNameError, setUserNameError] = useState('');
   const [userPassError, setUserPassError] = useState('');
+
+  useEffect(() => {
+    setMessage(error);
+  }, [error]);
 
   const checkEmail = (value) => {
     validateEmail(value, setUserNameError);
@@ -31,7 +36,10 @@ const SignInScreen = ({ signIn, loading, error }) => {
     setUserPass(value);
   };
 
-  const handleSignIn = () => {
+  const handleSignIn = (event) => {
+    Boolean(event) && preventDefault(event);
+
+    setMessage(null);
     checkEmail(userName);
     checkPass(userPass);
 
@@ -54,46 +62,48 @@ const SignInScreen = ({ signIn, loading, error }) => {
   return (
     <div className='auth-box signin'>
       <div className='auth-inbox'>
-        <div className='logo'>
-          <SvgIcon className='logo-icon' name='logo' />
-          <h1>Company</h1>
-        </div>
-        <h2>Sign in</h2>
-        <ErrorTip error={error || 'Incorrect password'} />
-        <Input
-          label={'Enter email'}
-          type={'text'}
-          containerClassName={'input-box'}
-          placeholder={'Email'}
-          name={'username'}
-          onChange={checkEmail}
-          error={userNameError}
-          value={userName}
-        />
-        <Input
-          label={'Enter password'}
-          type={'password'}
-          containerClassName={'input-box'}
-          placeholder={'Password'}
-          name={'userpass'}
-          onChange={checkPass}
-          error={userPassError}
-          value={userPass}
-        />
-        <div className='reset-box'>
-          <Link to={navigation.resetPassword}>Forgot password</Link>
-        </div>
-        <Button
-          loading={loading}
-          color={'accent'}
-          label={'Sign in'}
-          type={'button'}
-          className={'btn'}
-          onClick={handleSignIn}
-        />
-        <Link className='auth-link' to={navigation.signup}>
-          Sign up
-        </Link>
+        <form className='auth-form' onSubmit={handleSignIn}>
+          <div className='logo'>
+            <SvgIcon className='logo-icon' name='logo' />
+            <h1>Company</h1>
+          </div>
+          <h2>Sign in</h2>
+          <Alert className='alert-box' message={message} type='error' />
+          <Input
+            label={'Enter email'}
+            type={'text'}
+            containerClassName={'input-box'}
+            placeholder={'Email'}
+            name={'username'}
+            onChange={checkEmail}
+            error={userNameError}
+            value={userName}
+          />
+          <Input
+            label={'Enter password'}
+            type={'password'}
+            containerClassName={'input-box'}
+            placeholder={'Password'}
+            name={'userpass'}
+            onChange={checkPass}
+            error={userPassError}
+            value={userPass}
+          />
+          <div className='reset-box'>
+            <Link to={navigation.resetPassword}>Forgot password</Link>
+          </div>
+          <Button
+            loading={loading}
+            color={'accent'}
+            label={'Sign in'}
+            type={'submit'}
+            className={'btn'}
+            onClick={handleSignIn}
+          />
+          <Link className='auth-link' to={navigation.signup}>
+            Sign up
+          </Link>
+        </form>
       </div>
     </div>
   );

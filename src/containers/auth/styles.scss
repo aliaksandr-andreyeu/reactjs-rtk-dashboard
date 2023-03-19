@@ -16,6 +16,22 @@
     flex-direction: column;
     justify-content: center;
     padding: $base-dimension * 3 $base-dimension * 2 $base-dimension * 4;
+
+    .auth-form {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .alert-box {
+    .cmp-alert {
+      padding: $base-dimension * 0.25 0;
+    }
+
+    & + .input-box {
+      margin-top: $base-dimension * 4;
+    }
   }
 
   .input-box {
@@ -37,6 +53,10 @@
 
     & + .input-box {
       margin-top: $base-dimension * 2;
+    }
+
+    & + .alert-box {
+      margin-top: $base-dimension * 3;
     }
   }
 

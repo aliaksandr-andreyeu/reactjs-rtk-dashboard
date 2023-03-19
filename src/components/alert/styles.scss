@@ -1,57 +1,59 @@
 @import '@constants/styles/theme.module';
 
 .cmp-alert-tip {
-  margin-top: 12px;
-  margin-bottom: 12px;
-
+  animation: fade-in 0.375s linear;
   background-color: $info-color;
-
-  border: 1px solid $info-middle-color;
-
-  border-radius: 5px;
-  display: inline-block;
-  max-width: 240px;
-  min-width: 240px;
-  padding: 16px;
+  border: $base-dimension * 0.125 solid $info-middle-color;
+  border-radius: $base-dimension * 0.5;
+  min-height: $base-dimension * 5;
+  padding: $base-dimension $base-dimension * 5;
   position: relative;
+  width: $base-dimension * 30;
 
   .icon {
     color: $info-icon-color;
+    display: inline-block;
+    left: $base-dimension;
+    position: absolute;
+    top: $base-dimension;
   }
 
   .cmp-alert {
     color: $info-text-color;
-    font-size: 12px;
+    display: inline-block;
+    font-size: $base-dimension * 1.625;
     line-height: 1.5;
   }
 
   .cmp-close {
     background-color: $info-middle-color;
-    border: 1px solid $info-dark-color;
-    border-radius: 5px;
+    border: $base-dimension * 0.125 solid $info-dark-color;
+    border-radius: $base-dimension * 0.5;
+    box-shadow: 0 0 0 $info-dark-color;
     cursor: pointer;
     display: inline-block;
-
+    height: $base-dimension * 3;
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right: $base-dimension;
+    top: $base-dimension;
+    transition: box-shadow 0.375s ease-in-out, border-color 0.375s ease-in-out;
     user-select: none;
-    transition: box-shadow 0.375s ease-in-out;
-    box-shadow: 0 0 0 $info-dark-color;
+    width: $base-dimension * 3;
 
     &:hover {
-      box-shadow: 0 0 $base-dimension * 0.25 $info-dark-color;
+      border-color: $info-icon-color;
+      box-shadow: 0 0 $base-dimension * 0.25 $info-icon-color;
     }
 
     .cmp-icon {
       color: $info-icon-color;
-      max-width: 24px;
+      display: inline-block;
     }
   }
 
   &.error {
     background-color: $error-color;
-    border: 1px solid $error-middle-color;
+    border-color: $error-middle-color;
 
     .icon {
       color: $error-icon-color;
@@ -63,11 +65,12 @@
 
     .cmp-close {
       background-color: $error-middle-color;
-      border: 1px solid $error-dark-color;
+      border-color: $error-dark-color;
       box-shadow: 0 0 0 $error-dark-color;
 
       &:hover {
-        box-shadow: 0 0 $base-dimension * 0.25 $error-dark-color;
+        border-color: $error-icon-color;
+        box-shadow: 0 0 $base-dimension * 0.25 $error-icon-color;
       }
 
       .cmp-icon {
@@ -78,7 +81,7 @@
 
   &.success {
     background-color: $success-color;
-    border: 1px solid $success-middle-color;
+    border-color: $success-middle-color;
 
     .icon {
       color: $success-icon-color;
@@ -90,11 +93,12 @@
 
     .cmp-close {
       background-color: $success-middle-color;
-      border: 1px solid $success-dark-color;
+      border-color: $success-dark-color;
       box-shadow: 0 0 0 $success-dark-color;
 
       &:hover {
-        box-shadow: 0 0 $base-dimension * 0.25 $success-dark-color;
+        border-color: $success-icon-color;
+        box-shadow: 0 0 $base-dimension * 0.25 $success-icon-color;
       }
 
       .cmp-icon {
@@ -105,7 +109,7 @@
 
   &.warning {
     background-color: $warning-color;
-    border: 1px solid $warning-middle-color;
+    border-color: $warning-middle-color;
 
     .icon {
       color: $warning-icon-color;
@@ -117,11 +121,12 @@
 
     .cmp-close {
       background-color: $warning-middle-color;
-      border: 1px solid $warning-dark-color;
+      border-color: $warning-dark-color;
       box-shadow: 0 0 0 $warning-dark-color;
 
       &:hover {
-        box-shadow: 0 0 $base-dimension * 0.25 $warning-dark-color;
+        border-color: $warning-icon-color;
+        box-shadow: 0 0 $base-dimension * 0.25 $warning-icon-color;
       }
 
       .cmp-icon {
