@@ -13,17 +13,20 @@ const {
   validation: { passwordRequired }
 } = errors;
 
-const SignInScreen = ({ signIn, loading, error }) => {
+const SignInScreen = ({ signIn, resetState, loading, error }) => {
   const [userName, setUserName] = useState('');
   const [userPass, setUserPass] = useState('');
-  const [message, setMessage] = useState(error);
 
   const [userNameError, setUserNameError] = useState('');
   const [userPassError, setUserPassError] = useState('');
 
   useEffect(() => {
-    setMessage(error);
-  }, [error]);
+    /* eslint-disable react-hooks/exhaustive-deps */
+    resetState();
+    return () => {
+      resetState();
+    };
+  }, []);
 
   const checkEmail = (value) => {
     validateEmail(value, setUserNameError);
@@ -37,9 +40,10 @@ const SignInScreen = ({ signIn, loading, error }) => {
   };
 
   const handleSignIn = (event) => {
+    resetState();
+
     Boolean(event) && preventDefault(event);
 
-    setMessage(null);
     checkEmail(userName);
     checkPass(userPass);
 
@@ -51,10 +55,10 @@ const SignInScreen = ({ signIn, loading, error }) => {
       signIn(payload)
         .then(unwrapResult)
         .then((data) => {
-          console.log('****************************************** data', data);
+          console.log('****************************************** signIn data', data);
         })
         .catch((err) => {
-          console.log('****************************************** err', err);
+          console.log('****************************************** signIn err', err);
         });
     }
   };
@@ -68,7 +72,7 @@ const SignInScreen = ({ signIn, loading, error }) => {
             <h1>Company</h1>
           </div>
           <h2>Sign in</h2>
-          <Alert className='alert-box' message={message} type='error' />
+          <Alert className='alert-box' message={error} type='error' />
           <Input
             label={'Enter email'}
             type={'text'}
@@ -111,12 +115,14 @@ const SignInScreen = ({ signIn, loading, error }) => {
 
 SignInScreen.propTypes = {
   signIn: PropTypes.func.isRequired,
+  resetState: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])
 };
 
 SignInScreen.defaultProps = {
   signIn: (payload) => payload,
+  resetState: () => {},
   loading: false,
   error: null
 };
