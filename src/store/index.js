@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import api from './api';
 import { auth, account } from './slices';
 
 const store = configureStore({
@@ -14,4 +13,4 @@ const actions = {
   account: account.actions
 };
 
-export { actions, api, store };
+export { actions, store };
