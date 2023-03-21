@@ -3,7 +3,7 @@
 @import '@constants/styles/theme.module';
 
 html {
-  font-size: 16px;
+  font-size: $base-dimension * 2;
   height: 100%;
   min-height: 100%;
   position: relative;
@@ -19,7 +19,7 @@ body {
 
   // min-height: 480px;
   min-height: 100%;
-  min-width: 300px;
+  min-width: $base-dimension * 37.5;
   overflow: hidden;
   overflow-x: auto;
   position: relative;

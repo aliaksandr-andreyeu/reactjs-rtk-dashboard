@@ -28,22 +28,22 @@
 
   &.confirm {
     .cmp-modal-item {
-      width: 480px;
+      width: $base-dimension * 60;
     }
   }
 
   .cmp-modal-item {
     background-color: white;
-    border-radius: 3px;
+    border-radius: $base-dimension * 0.375;
     height: auto;
-    width: 540px;
+    width: $base-dimension * 68;
 
     .header {
       align-items: center;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
-      padding: 16px 56px 16px 20px;
+      padding: $base-dimension * 2 $base-dimension * 7 $base-dimension * 2 $base-dimension * 2.5;
       position: relative;
 
       h3 {
@@ -54,16 +54,16 @@
       }
 
       .icon-button {
-        min-height: 34px;
-        min-width: 34px;
-        padding: 4px;
+        min-height: $base-dimension * 4.25;
+        min-width: $base-dimension * 4.25;
+        padding: $base-dimension * 0.5;
         position: absolute;
-        right: 11px;
-        top: 11px;
+        right: $base-dimension * 1.375;
+        top: $base-dimension * 1.375;
 
         .icon {
-          min-height: 26px;
-          min-width: 26px;
+          min-height: $base-dimension * 3.25;
+          min-width: $base-dimension * 3.25;
 
           svg {
             color: $secondary-dark-text-color;
@@ -87,10 +87,10 @@
       font-size: $base-dimension * 1.625;
       font-weight: 400;
       line-height: 1.5;
-      padding: 16px 20px;
+      padding: $base-dimension * 2 $base-dimension * 2.5;
 
       p {
-        margin-bottom: 8px;
+        margin-bottom: $base-dimension;
 
         &:last-child {
           margin-bottom: 0;
@@ -102,16 +102,20 @@
       align-items: center;
       display: flex;
       flex-direction: row;
-      gap: 16px;
+      gap: $base-dimension * 2;
       justify-content: flex-end;
-      padding: 16px 24px;
+      padding: $base-dimension * 2 $base-dimension * 3;
 
       .btn {
-        font-size: 14px;
+        font-size: $base-dimension * 1.75;
         line-height: 1.5;
-        min-height: 32px;
-        min-width: 32px;
-        padding: 4px 16px;
+        min-height: $base-dimension * 4;
+        min-width: $base-dimension * 4;
+        padding: $base-dimension * 0.5 $base-dimension * 2;
+
+        .gap {
+          display: none;
+        }
       }
     }
   }
