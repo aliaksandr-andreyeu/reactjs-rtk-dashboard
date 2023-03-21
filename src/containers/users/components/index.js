@@ -1,5 +1,6 @@
-import Sidebar from './sidebar';
 import Header from './header';
 import ProfileMenu from './profile-menu';
+import Sidebar from './sidebar';
+import Empty from './empty';
 
-export { Sidebar, Header, ProfileMenu };
+export { Header, ProfileMenu, Sidebar, Empty };

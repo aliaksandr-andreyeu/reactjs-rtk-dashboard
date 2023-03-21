@@ -1,7 +1,7 @@
+import Promise from 'promise';
 import axios from 'axios';
 import { store, actions } from '@store';
 import { unwrapResult } from '@reduxjs/toolkit';
-import Promise from 'promise';
 
 const response = () => {
   const {

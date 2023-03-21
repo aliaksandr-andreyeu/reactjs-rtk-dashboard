@@ -1,15 +1,5 @@
 @import '@constants/styles/theme.module';
 
-@keyframes loader-rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 .cmp-button {
   align-items: center;
   background-color: $white-color;

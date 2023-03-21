@@ -1,0 +1,19 @@
+@import '@constants/styles/theme.module';
+
+.cmp-users-empty {
+  align-items: center;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  min-height: $base-dimension * 30;
+
+  p {
+    color: $secondary-dark-text-color;
+    display: inline-block;
+    font-family: $text-font;
+    font-size: $base-dimension * 2;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+}

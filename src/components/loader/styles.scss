@@ -1,0 +1,36 @@
+@import '@constants/styles/theme.module';
+
+.cmp-loader {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 5;
+
+  &::before {
+    background-color: $primary-color;
+    bottom: 0;
+    content: '';
+    display: block;
+    left: 0;
+    opacity: 0.15;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  span {
+    animation: loader-rotation 1s linear infinite;
+    border: $base-dimension * 0.5 solid $accent-color;
+    border-bottom-color: transparent !important;
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: inline-block;
+    height: $base-dimension * 4;
+    width: $base-dimension * 4;
+  }
+}
