@@ -8,7 +8,7 @@ const Item = ({ user, onRemove, currentUser }) => {
     onRemove(user);
   };
 
-  console.log('currentUser: ', currentUser);
+  // console.log('currentUser: ', currentUser);
 
   const disabled = Boolean(currentUser && currentUser.id && currentUser.id === user.id);
 

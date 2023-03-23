@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react';
 import UsersScreen from './screen';
 import { actions, store } from '@store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Users = () => {
   const {
-    users: { getUsers }
-  } = actions;
+    usersData: { error, loading, data }
+  } = useSelector((state) => state.users);
+  const { overview } = useSelector((state) => state.account);
 
   const {
-    users: {
-      usersData: { error, loading, data }
-    },
-    account: { overview }
-  } = store.getState();
+    users: { getUsers }
+  } = actions;
 
   const dispatch = useDispatch();
 
@@ -24,7 +22,25 @@ const Users = () => {
     getUsersData();
   }, []);
 
-  return <UsersScreen users={data} currentUser={overview} loading={loading} error={error} />;
+  return (
+    <>
+      <button
+        style={{ display: 'block', padding: '15px', margin: '12px 16px 24px' }}
+        onClick={() => {
+          getUsersData();
+          // getUsersData();
+          // getUsersData();
+          // getUsersData();
+          // getUsersData();
+          // getUsersData();
+          // getUsersData();
+        }}
+      >
+        GO
+      </button>
+      <UsersScreen users={data} currentUser={overview} loading={loading} error={error} />
+    </>
+  );
 };
 
 export default Users;

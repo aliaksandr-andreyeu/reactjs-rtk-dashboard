@@ -31,7 +31,7 @@ const UsersScreen = ({ users, loading, error, currentUser }) => {
     setRemoveModal(!removeModal);
   };
 
-  console.log('*********************** users:', users);
+  // console.log('*********************** users:', users);
 
   const isData = Boolean(users && users.length > 0);
 

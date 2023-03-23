@@ -1,15 +1,11 @@
+import './styles.scss';
 import React from 'react';
+import { SvgIcon } from '@components';
+import theme from '@constants/styles/theme.module.scss';
+import { getClassName } from '@helpers';
 import PropTypes from 'prop-types';
 
 import { NavLink } from 'react-router-dom';
-
-import { SvgIcon } from '@components';
-
-import { getClassName } from '@helpers';
-
-import theme from '@constants/styles/theme.module.scss';
-
-import './styles.scss';
 
 const Sidebar = () => {
   const linkClassName = ({ isActive }) => getClassName(isActive && 'active');

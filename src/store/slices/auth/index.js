@@ -138,7 +138,6 @@ const auth = createSlice({
   name: 'auth',
   reducers: {
     setToken(state, { payload }) {
-      console.log('+++++++++++++++++++++++++ setToken: ', payload);
       state.token = payload !== undefined ? Boolean(payload) : null;
     },
     logout(state) {

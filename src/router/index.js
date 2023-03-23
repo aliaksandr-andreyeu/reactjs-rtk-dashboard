@@ -20,10 +20,7 @@ const Router = () => {
     handleRefreshToken();
   }, []);
 
-  const auth = useSelector((state) => state.auth);
-
-  const token = auth.token;
-  const isLoading = auth.isLoading;
+  const { token, isLoading } = useSelector((state) => state.auth);
 
   return isLoading ? (
     <Loader visible={isLoading} />
