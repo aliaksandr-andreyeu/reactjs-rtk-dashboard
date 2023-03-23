@@ -11,6 +11,7 @@ const {
 const initialState = {
   token: null,
   isTokenExpired: false,
+  isLoading: true,
   signInData: {
     loading: false,
     error: null
@@ -18,27 +19,26 @@ const initialState = {
   signUpData: {
     loading: false,
     error: null
+  },
+  refreshTokenData: {
+    status: null,
+    error: null
   }
 };
 
-export const signIn = createAsyncThunk('auth/signin', async (payload, { dispatch, rejectWithValue }) => {
-  console.log('~~~~~ createAsyncThunk signIn payload:', payload);
-
+const signIn = createAsyncThunk('auth/signin', async (payload, { dispatch, rejectWithValue }) => {
   try {
     if (!payload) {
       throw new Error(errors.common.error);
     }
 
     const response = await api.auth.signIn(payload);
-    console.log('~~~~~ createAsyncThunk signIn response:', response);
 
     if (!(response && Object.keys(response).length > 0 && response.data !== undefined)) {
       throw new Error(errors.common.error);
     }
 
     if (!response.isOk) {
-      // resolveError && resolveError();
-
       const msg = errorsHandler(response.message);
 
       return rejectWithValue(msg);
@@ -52,41 +52,29 @@ export const signIn = createAsyncThunk('auth/signin', async (payload, { dispatch
 
     Boolean(data.overview) && dispatch(setOverview(data.overview));
 
-    // resolveHandler && resolveHandler();
-
     return data;
   } catch (error) {
-    console.log('~~~~~ createAsyncThunk signIn error:', error);
-    console.log('~~~~~ createAsyncThunk signIn error:', error.message);
-
-    // rejectHandler && rejectHandler();
+    console.log('signIn STORE error: ', error);
 
     const msg = errorsHandler(error);
 
     return rejectWithValue(msg);
-  } finally {
-    console.log('~~~~~ createAsyncThunk signIn finally:');
   }
 });
 
-export const signUp = createAsyncThunk('auth/signup', async (payload, { dispatch, rejectWithValue }) => {
-  console.log('~~~~~ createAsyncThunk signUp payload:', payload);
-
+const signUp = createAsyncThunk('auth/signup', async (payload, { dispatch, rejectWithValue }) => {
   try {
     if (!payload) {
       throw new Error(errors.common.error);
     }
 
     const response = await api.auth.signUp(payload);
-    console.log('~~~~~ createAsyncThunk signUp response:', response);
 
     if (!(response && Object.keys(response).length > 0 && response.data !== undefined)) {
       throw new Error(errors.common.error);
     }
 
     if (!response.isOk) {
-      // resolveError && resolveError();
-
       const msg = errorsHandler(response.message);
 
       return rejectWithValue(msg);
@@ -100,34 +88,48 @@ export const signUp = createAsyncThunk('auth/signup', async (payload, { dispatch
 
     Boolean(data.overview) && dispatch(setOverview(data.overview));
 
-    // resolveHandler && resolveHandler();
-
     return data;
   } catch (error) {
-    console.log('~~~~~ createAsyncThunk signUp error:', error.message);
+    console.log('signUp STORE error: ', error);
 
     const msg = errorsHandler(error);
 
     return rejectWithValue(msg);
-  } finally {
-    console.log('~~~~~ createAsyncThunk signUp finally:');
   }
 });
 
-export const refreshToken = createAsyncThunk('auth/refreshtoken', async ({ dispatch, rejectWithValue }) => {
+const refreshToken = createAsyncThunk('auth/refreshtoken', async (payload, { dispatch, rejectWithValue }) => {
   try {
     const response = await api.auth.refreshToken();
-    console.log('~~~~~ createAsyncThunk refreshToken response:', response);
 
-    return response;
+    if (!(response && Object.keys(response).length > 0 && response.data !== undefined)) {
+      throw new Error(errors.common.error);
+    }
+
+    if (!response.isOk) {
+      const msg = errorsHandler(response.message);
+
+      return rejectWithValue(msg);
+    }
+
+    const data = response.data || {};
+
+    if (!(data.overview && data.accessToken)) {
+      throw new Error(errors.common.error);
+    }
+
+    Boolean(data.overview) && dispatch(setOverview(data.overview));
+
+    return data;
   } catch (error) {
-    console.log('~~~~~ createAsyncThunk refreshToken error:', error.message);
+    console.log('refreshToken STORE error: ', error);
 
-    const msg = errorsHandler(error);
+    const errorData = {
+      status: (error && error.response && error.response.status) || null,
+      error: errorsHandler(error)
+    };
 
-    return rejectWithValue(msg);
-  } finally {
-    console.log('~~~~~ createAsyncThunk refreshToken finally:');
+    return rejectWithValue(errorData);
   }
 });
 
@@ -139,12 +141,10 @@ const auth = createSlice({
       console.log('+++++++++++++++++++++++++ setToken: ', payload);
       state.token = payload !== undefined ? Boolean(payload) : null;
     },
-    setTokenExpired(state, { payload }) {
-      console.log('+++++++++++++++++++++++++ setTokenExpired: ', payload);
-      state.isTokenExpired = payload ? true : false;
-    },
     logout(state) {
       state.token = null;
+      state.isTokenExpired = false;
+      state.isLoading = null;
     },
     resetSignInState(state) {
       state.signInData = {
@@ -161,70 +161,76 @@ const auth = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(signIn.pending, (state) => {
-      console.log('signIn.pending state:', state);
-
       state.signInData = {
         loading: true,
         error: null
       };
     });
-
     builder.addCase(signIn.fulfilled, (state, { payload }) => {
-      console.log('signIn.fulfilled state:', state);
-      console.log('signIn.fulfilled payload:', payload);
-
       state.token = (payload && payload.accessToken) || null;
+      state.isTokenExpired = false;
 
       state.signInData = {
         loading: false,
         error: null
       };
     });
-
     builder.addCase(signIn.rejected, (state, { payload }) => {
-      console.log('signIn.rejected state:', state);
-      console.log('signIn.rejected payload:', payload);
-
       state.signInData = {
         loading: false,
         error: payload || null
       };
     });
-
     builder.addCase(signUp.pending, (state) => {
-      console.log('signUp.pending state:', state);
-
       state.signUpData = {
         loading: true,
         error: null
       };
     });
-
     builder.addCase(signUp.fulfilled, (state, { payload }) => {
-      console.log('signUp.fulfilled state:', state);
-      console.log('signUp.fulfilled payload:', payload);
-
       state.token = (payload && payload.accessToken) || null;
+      state.isTokenExpired = false;
 
       state.signUpData = {
         loading: false,
         error: null
       };
     });
-
     builder.addCase(signUp.rejected, (state, { payload }) => {
-      console.log('signUp.rejected state:', state);
-      console.log('signUp.rejected payload:', payload);
-
       state.signUpData = {
         loading: false,
         error: payload || null
       };
+    });
+    builder.addCase(refreshToken.pending, (state) => {
+      state.isTokenExpired = true;
+
+      state.refreshTokenData = {
+        status: null,
+        error: null
+      };
+    });
+    builder.addCase(refreshToken.fulfilled, (state, { payload }) => {
+      state.token = (payload && payload.accessToken) || null;
+      state.isTokenExpired = false;
+      state.isLoading = false;
+
+      state.refreshTokenData = {
+        status: null,
+        error: null
+      };
+    });
+    builder.addCase(refreshToken.rejected, (state, { payload }) => {
+      state.refreshTokenData = payload;
+
+      if (payload.status === 401) {
+        state.token = null;
+      }
+
+      state.isLoading = false;
     });
   }
 });
-
-// console.log('auth', auth);
 
 export default {
   actions: { ...auth.actions, signIn, signUp, refreshToken },
