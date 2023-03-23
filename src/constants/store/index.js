@@ -1,7 +1,6 @@
 import axios from 'axios';
-import setInterceptors from './interceptors';
 
-setInterceptors();
+axios.defaults.withCredentials = true;
 
 const getResponseData = (response) => (Boolean(response) && response.data ? response.data : null);
 

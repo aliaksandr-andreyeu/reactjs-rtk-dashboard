@@ -7,6 +7,7 @@ import {
   errorsHandler,
   capitalizeMessage
 } from './ui';
+import setInterceptors from './store';
 
 export {
   getClassName,
@@ -15,5 +16,6 @@ export {
   stopPropagation,
   preventDefault,
   errorsHandler,
-  capitalizeMessage
+  capitalizeMessage,
+  setInterceptors
 };

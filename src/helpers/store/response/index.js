@@ -1,23 +1,9 @@
 import Promise from 'promise';
 import axios from 'axios';
-import { store, actions } from '@store';
+import { actions } from '@store';
 import { unwrapResult } from '@reduxjs/toolkit';
 
-const response = () => {
-  const {
-    auth: { token, isTokenExpired }
-  } = store.getState();
-
-  const {
-    auth: { refreshToken, setToken }
-  } = actions;
-
-  console.log('+++++++++++++++++++++++++ RESPONSE token: ', token);
-  console.log('+++++++++++++++++++++++++ RESPONSE isTokenExpired: ', isTokenExpired);
-
-  const handleRefreshToken = () => store.dispatch(refreshToken());
-  const handleSetToken = (payload) => store.dispatch(setToken(payload));
-
+const response = (store) => {
   const service = axios.create();
 
   let isRefreshing = false;
@@ -26,10 +12,20 @@ const response = () => {
   axios.interceptors.response.use(
     (res) => res,
     (error) => {
+      const {
+        auth: { isTokenExpired }
+      } = store.getState();
       if (error && error.response && error.response.status === 401 && !isTokenExpired) {
         if (error.config) {
           if (!isRefreshing) {
+            const {
+              auth: { refreshToken }
+            } = actions;
+
+            const handleRefreshToken = () => store.dispatch(refreshToken());
+
             isRefreshing = true;
+
             handleRefreshToken()
               .then(unwrapResult)
               .then(() => {
@@ -40,8 +36,14 @@ const response = () => {
                 });
               })
               .catch((err) => {
-                console.log('renewToken error:', err);
-                if (axios.isAxiosError(err) && err.response && err.response.status === 401) {
+                console.log('refreshToken error:', err);
+                if (err && err.status === 401) {
+                  const {
+                    auth: { setToken }
+                  } = actions;
+
+                  const handleSetToken = (payload) => store.dispatch(setToken(payload));
+
                   handleSetToken(null);
                 }
               })
@@ -49,9 +51,17 @@ const response = () => {
                 isRefreshing = false;
               });
           }
+
           return new Promise((resolve) => {
             failedRequests.push(() => {
-              error.config.headers && error.config.headers.Authorization && delete error.config.headers.Authorization;
+              if (error.config.headers && error.config.headers.Authorization) {
+                delete error.config.headers.Authorization;
+              }
+
+              const {
+                auth: { token }
+              } = store.getState();
+
               const config = {
                 ...error.config,
                 headers: {
@@ -61,6 +71,7 @@ const response = () => {
                   })
                 }
               };
+
               resolve(
                 service(config).catch((err) => {
                   console.log(err, error.config.url);
