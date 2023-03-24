@@ -42,7 +42,6 @@ const UsersScreen = ({ users, loading, error, currentUser }) => {
         <div className='users-content'>
           <Header title={'Template Name'} isMenu={menuOpen} toggleMenu={toggleMenu} />
           <div className={getClassName('users-container', (loading || !isData) && 'empty')}>
-            <Loader visible={loading} />
             <Empty visible={!isData && !loading} />
             {Boolean(isData && !loading) && (
               <table className='data-table'>
@@ -65,6 +64,7 @@ const UsersScreen = ({ users, loading, error, currentUser }) => {
                 </tbody>
               </table>
             )}
+            <Loader visible={loading} />
           </div>
         </div>
       </div>

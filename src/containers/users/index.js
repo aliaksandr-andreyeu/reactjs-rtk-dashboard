@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import UsersScreen from './screen';
-import { actions, store } from '@store';
+import { actions } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Users = () => {

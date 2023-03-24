@@ -23,6 +23,10 @@ const initialState = {
   refreshTokenData: {
     status: null,
     error: null
+  },
+  signOutData: {
+    status: null,
+    error: null
   }
 };
 
@@ -133,6 +137,33 @@ const refreshToken = createAsyncThunk('auth/refreshtoken', async (payload, { dis
   }
 });
 
+const signOut = createAsyncThunk('auth/signout', async (payload, { rejectWithValue }) => {
+  try {
+    const response = await api.auth.signOut();
+
+    if (!(response && Object.keys(response).length > 0)) {
+      throw new Error(errors.common.error);
+    }
+
+    if (!response.isOk) {
+      const msg = errorsHandler(response.message);
+
+      return rejectWithValue(msg);
+    }
+
+    return response;
+  } catch (error) {
+    console.log('signOut STORE error: ', error);
+
+    const errorData = {
+      status: (error && error.response && error.response.status) || null,
+      error: errorsHandler(error)
+    };
+
+    return rejectWithValue(errorData);
+  }
+});
+
 const auth = createSlice({
   initialState,
   name: 'auth',
@@ -228,10 +259,37 @@ const auth = createSlice({
 
       state.isLoading = false;
     });
+    builder.addCase(signOut.pending, (state) => {
+      state.isTokenExpired = false;
+
+      state.signOutData = {
+        status: null,
+        error: null
+      };
+    });
+    builder.addCase(signOut.fulfilled, (state) => {
+      state.token = null;
+      state.isTokenExpired = false;
+      state.isLoading = null;
+
+      state.signOutData = {
+        status: null,
+        error: null
+      };
+    });
+    builder.addCase(signOut.rejected, (state, { payload }) => {
+      state.signOutData = payload;
+
+      if (payload.status === 401) {
+        state.token = null;
+        state.isTokenExpired = false;
+        state.isLoading = null;
+      }
+    });
   }
 });
 
 export default {
-  actions: { ...auth.actions, signIn, signUp, refreshToken },
+  actions: { ...auth.actions, signIn, signUp, refreshToken, signOut },
   reducer: auth.reducer
 };

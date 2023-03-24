@@ -9,6 +9,9 @@ const auth = Object.create(Object.prototype, {
   },
   refreshToken: {
     value: () => requests.get(`${REACT_ENV.API_URL}/refresh-token`)
+  },
+  signOut: {
+    value: () => requests.get(`${REACT_ENV.API_URL}/signout`)
   }
 });
 

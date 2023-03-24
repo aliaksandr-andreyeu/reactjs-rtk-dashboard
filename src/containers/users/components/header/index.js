@@ -16,11 +16,11 @@ const Header = ({ isMenu, title, toggleMenu }) => {
 
   const dispatch = useDispatch();
   const {
-    auth: { logout }
+    auth: { signOut }
   } = actions;
 
-  const onLogout = () => {
-    dispatch(logout());
+  const onSignOut = () => {
+    dispatch(signOut());
   };
 
   const toggleProfile = useCallback(() => {
@@ -70,7 +70,7 @@ const Header = ({ isMenu, title, toggleMenu }) => {
           toggleProfile={toggleProfile}
           className={getClassName(profileOpen && 'open')}
         />
-        <IconButton className='icon-button' onClick={onLogout}>
+        <IconButton className='icon-button' onClick={onSignOut}>
           <SvgIcon name='logout' />
         </IconButton>
       </div>
