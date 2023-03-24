@@ -1,11 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import './styles.scss';
 
-import { Link } from 'react-router-dom';
+import React, { Fragment, useState } from 'react';
+import { Button, Input, SvgIcon } from '@components';
 import { navigation } from '@constants';
 
-import { Input, Button, SvgIcon } from '@components';
-
-import './styles.scss';
+import { Link } from 'react-router-dom';
 
 const ResetPasswordScreen = () => {
   const [resetPass, setResetPass] = useState(false);
@@ -53,15 +52,12 @@ const ResetPasswordScreen = () => {
           </Fragment>
         )}
         <Button
+          color={'accent'}
           label={resetPass ? 'Change password' : 'Reset password'}
           type={'button'}
           className={'btn'}
           onClick={(event) => {
-            !resetPass &&
-              (() => {
-                setResetPass(!resetPass);
-                event.target.blur();
-              })();
+            !resetPass && setResetPass(!resetPass);
           }}
         />
         <Link className='auth-link' to={navigation.signin}>

@@ -5,3 +5,30 @@
   flex: 1 0 auto;
   flex-direction: column;
 }
+
+.data-box {
+  animation: fade-in 0.375s linear;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  height: 100%;
+  padding-left: 0;
+  transition: padding-left 0.25s ease-in-out;
+
+  &.menu-open {
+    padding-left: $base-dimension * 30;
+  }
+}
+
+.data-content {
+  background-color: $white-color;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+
+@media (max-height: 480px) {
+  .data-content {
+    overflow-y: auto;
+  }
+}

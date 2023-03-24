@@ -1,8 +1,9 @@
 import React from 'react';
+
 import './styles.scss';
 
-const AboutScreen = () => {
-  return <div className='content'>About</div>;
+const ProfileScreen = () => {
+  return <div>Profile</div>;
 };
 
-export default AboutScreen;
+export default ProfileScreen;

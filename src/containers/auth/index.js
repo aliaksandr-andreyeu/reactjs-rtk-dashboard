@@ -1,7 +1,7 @@
-import SignUp from './signup';
-import SignIn from './signin';
 import ResetPassword from './reset-password';
+import SignIn from './signin';
+import SignUp from './signup';
 
 import './styles.scss';
 
-export { SignUp, SignIn, ResetPassword };
+export { ResetPassword, SignIn, SignUp };

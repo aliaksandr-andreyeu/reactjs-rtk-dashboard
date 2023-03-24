@@ -1,8 +1,8 @@
-import React from 'react';
 import './styles.scss';
+import React from 'react';
 
-const AboutScreen = () => {
-  return <div className='content'>About</div>;
+const SettingsScreen = () => {
+  return <div>Settings</div>;
 };
 
-export default AboutScreen;
+export default SettingsScreen;

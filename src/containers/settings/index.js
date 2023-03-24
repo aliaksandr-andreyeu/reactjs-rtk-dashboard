@@ -1,8 +1,8 @@
 import React from 'react';
-import AboutScreen from './screen';
+import SettingsScreen from './screen';
 
-const About = () => {
-  return <AboutScreen />;
+const Settings = () => {
+  return <SettingsScreen />;
 };
 
-export default About;
+export default Settings;

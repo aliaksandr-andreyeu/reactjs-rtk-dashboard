@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, IconButton, SvgIcon } from '@components';
@@ -19,10 +19,6 @@ const ModalItem = ({
   toggleVisible,
   visible
 }) => {
-  useEffect(() => {
-    console.log('visible', visible);
-  }, [visible]);
-
   const handleClose = () => {
     console.log('handleClose', toggleVisible);
     toggleVisible && toggleVisible();

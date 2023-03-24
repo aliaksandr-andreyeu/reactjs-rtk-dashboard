@@ -1,26 +1,5 @@
 @import '@constants/styles/theme.module';
 
-.users-box {
-  animation: fade-in 0.375s linear;
-  display: flex;
-  flex: 1 0 auto;
-  flex-direction: row;
-  height: 100%;
-  padding-left: 0;
-  transition: padding-left 0.25s ease-in-out;
-
-  &.menu-open {
-    padding-left: $base-dimension * 30;
-  }
-}
-
-.users-content {
-  background-color: $white-color;
-  display: flex;
-  flex: 1 0 auto;
-  flex-direction: column;
-}
-
 .users-container {
   display: flex;
   flex-direction: column;
@@ -134,10 +113,6 @@
 }
 
 @media (max-height: 480px) {
-  .users-content {
-    overflow-y: auto;
-  }
-
   .users-container {
     overflow-y: initial;
   }

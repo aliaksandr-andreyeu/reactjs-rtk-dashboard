@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Header, Sidebar, Empty, Item } from '../components';
+import { Empty, Item } from '../components';
 import { Modal, Loader } from '@components';
 
 import { getClassName } from '@helpers';
@@ -10,14 +10,9 @@ import './styles.scss';
 
 const UsersScreen = ({ users, loading, error, currentUser }) => {
   const [user, setUser] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   const [removeModal, setRemoveModal] = useState(false);
   const [removeConfirm, setRemoveConfirm] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
 
   const setConfirm = () => {
     console.log('setConfirm', removeConfirm);
@@ -37,36 +32,30 @@ const UsersScreen = ({ users, loading, error, currentUser }) => {
 
   return (
     <Fragment>
-      <div className={getClassName('users-box', menuOpen && 'menu-open')}>
-        <Sidebar />
-        <div className='users-content'>
-          <Header title={'Template Name'} isMenu={menuOpen} toggleMenu={toggleMenu} />
-          <div className={getClassName('users-container', (loading || !isData) && 'empty')}>
-            <Empty visible={!isData && !loading} />
-            {Boolean(isData && !loading) && (
-              <table className='data-table'>
-                <thead>
-                  <tr>
-                    <th className='tight'>ID</th>
-                    <th>Username</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Age</th>
-                    <th>Job</th>
-                    <th className='tight'>Active</th>
-                    <th className='tight'>Remove</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map((user, key) => (
-                    <Item currentUser={currentUser} onRemove={onRemove} user={user} key={key} />
-                  ))}
-                </tbody>
-              </table>
-            )}
-            <Loader visible={loading} />
-          </div>
-        </div>
+      <div className={getClassName('users-container', (loading || !isData) && 'empty')}>
+        <Empty visible={!isData && !loading} />
+        {Boolean(isData && !loading) && (
+          <table className='data-table'>
+            <thead>
+              <tr>
+                <th className='tight'>ID</th>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Age</th>
+                <th>Job</th>
+                <th className='tight'>Active</th>
+                <th className='tight'>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user, key) => (
+                <Item currentUser={currentUser} onRemove={onRemove} user={user} key={key} />
+              ))}
+            </tbody>
+          </table>
+        )}
+        <Loader visible={loading} />
       </div>
       <Modal
         visible={removeModal}
