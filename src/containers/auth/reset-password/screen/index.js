@@ -1,10 +1,9 @@
-import './styles.scss';
-
 import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Input, SvgIcon } from '@components';
 import { navigation } from '@constants';
 
-import { Link } from 'react-router-dom';
+import './styles.scss';
 
 const ResetPasswordScreen = () => {
   const [resetPass, setResetPass] = useState(false);
@@ -60,8 +59,8 @@ const ResetPasswordScreen = () => {
             !resetPass && setResetPass(!resetPass);
           }}
         />
-        <Link className='auth-link' to={navigation.signin}>
-          Sign in
+        <Link className='auth-link' to={navigation.signin.path}>
+          {navigation.signin.name}
         </Link>
       </div>
     </div>

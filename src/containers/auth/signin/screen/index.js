@@ -94,18 +94,18 @@ const SignInScreen = ({ signIn, resetState, loading, error }) => {
             value={userPass}
           />
           <div className='reset-box'>
-            <Link to={navigation.resetPassword}>Forgot password</Link>
+            <Link to={navigation.resetPassword.path}>{navigation.resetPassword.name}</Link>
           </div>
           <Button
             loading={loading}
             color={'accent'}
-            label={'Sign in'}
+            label={navigation.signin.name}
             type={'submit'}
             className={'btn'}
             onClick={handleSignIn}
           />
-          <Link className='auth-link' to={navigation.signup}>
-            Sign up
+          <Link className='auth-link' to={navigation.signup.path}>
+            {navigation.signup.name}
           </Link>
         </form>
       </div>

@@ -114,13 +114,13 @@ const SignUpScreen = ({ signUp, resetState, loading, error }) => {
           <Button
             loading={loading}
             color={'accent'}
-            label={'Sign up'}
+            label={navigation.signup.name}
             type={'submit'}
             className={'btn'}
             onClick={handleSignUp}
           />
-          <Link className='auth-link' to={navigation.signin}>
-            Sign in
+          <Link className='auth-link' to={navigation.signin.path}>
+            {navigation.signin.name}
           </Link>
         </form>
       </div>

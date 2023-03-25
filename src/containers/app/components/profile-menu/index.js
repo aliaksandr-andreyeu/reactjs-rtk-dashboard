@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import { navigation } from '@constants';
 
 import { NavLink } from 'react-router-dom';
 
@@ -16,33 +17,39 @@ const ProfileMenu = forwardRef(({ className, toggleProfile }, ref) => {
       <div className='inbox'>
         <ul onClick={toggleProfile}>
           <li>
-            <NavLink to='/profile' className={linkClassName}>
+            <NavLink to={navigation.profile.path} className={linkClassName}>
               <SvgIcon name='account' />
-              <span>Profile</span>
+              <span>{navigation.profile.name}</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to='/settings' className={linkClassName}>
+            <NavLink to={navigation.settings.path} className={linkClassName}>
               <SvgIcon name='settings' />
-              <span>Settings</span>
+              <span>{navigation.settings.name}</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to='/about' className={linkClassName}>
+            <NavLink to={navigation.about.path} className={linkClassName}>
               <SvgIcon name='info' />
-              <span>About</span>
+              <span>{navigation.about.name}</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to='/privacy-policy' className={linkClassName}>
+            <NavLink to={navigation.contactUs.path} className={linkClassName}>
+              <SvgIcon name='contact-us' />
+              <span>{navigation.contactUs.name}</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={navigation.privacyPolicy.path} className={linkClassName}>
               <SvgIcon name='privacy' />
-              <span>Privacy Policy</span>
+              <span>{navigation.privacyPolicy.name}</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to='/terms-and-conditions' className={linkClassName}>
+            <NavLink to={navigation.termsConditions.path} className={linkClassName}>
               <SvgIcon name='terms' />
-              <span>Terms and Conditions</span>
+              <span>{navigation.termsConditions.name}</span>
             </NavLink>
           </li>
         </ul>

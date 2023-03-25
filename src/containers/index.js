@@ -7,6 +7,7 @@ import Profile from './profile';
 import Settings from './settings';
 import About from './about';
 import PrivacyPolicy from './privacy-policy';
+import ContactUs from './contact-us';
 
 export {
   App,
@@ -19,5 +20,6 @@ export {
   Profile,
   Settings,
   About,
-  PrivacyPolicy
+  PrivacyPolicy,
+  ContactUs
 };

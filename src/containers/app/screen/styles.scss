@@ -23,7 +23,7 @@
 .data-content {
   background-color: $white-color;
   display: flex;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   flex-direction: column;
 }
 
@@ -31,4 +31,11 @@
   .data-content {
     overflow-y: auto;
   }
+}
+
+.data-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 0 0 $base-dimension;
 }
