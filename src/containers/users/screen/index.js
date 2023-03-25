@@ -8,33 +8,53 @@ import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const UsersScreen = ({ users, loading, error, currentUser }) => {
+const UsersScreen = ({ deleteUser, users, loading, error, currentUser }) => {
+  console.log('UsersScreen ERROR: ', error);
+
   const [user, setUser] = useState(null);
 
   const [removeModal, setRemoveModal] = useState(false);
   const [removeConfirm, setRemoveConfirm] = useState(false);
 
   const setConfirm = () => {
-    console.log('setConfirm', removeConfirm);
     setRemoveConfirm(!removeConfirm);
   };
 
-  const onRemove = (user) => {
-    console.log('onRemove user', user);
-
-    setUser(user);
+  const setModal = () => {
     setRemoveModal(!removeModal);
   };
 
-  // console.log('*********************** users:', users);
+  const modalOK = () => {
+    setRemoveConfirm(true);
+  };
+
+  const modalCancel = () => {
+    setRemoveModal(false);
+  };
+
+  const onRemove = (user) => {
+    setUser(user);
+    setRemoveModal(true);
+  };
+
+  const confirmOK = () => {
+    setRemoveConfirm(false);
+    setRemoveModal(false);
+    user && user.id && deleteUser(user.id);
+  };
+
+  const confirmCancel = () => {
+    setRemoveConfirm(false);
+    setRemoveModal(false);
+  };
 
   const isData = Boolean(users && users.length > 0);
 
   return (
     <Fragment>
-      <div className={getClassName('users-container', (loading || !isData) && 'empty')}>
+      <div className={getClassName('users-container', !isData && 'empty')}>
         <Empty visible={!isData && !loading} />
-        {Boolean(isData && !loading) && (
+        {Boolean(isData) && (
           <table className='data-table'>
             <thead>
               <tr>
@@ -57,17 +77,7 @@ const UsersScreen = ({ users, loading, error, currentUser }) => {
         )}
         <Loader visible={loading} />
       </div>
-      <Modal
-        visible={removeModal}
-        title='Remove user'
-        toggleVisible={() => setRemoveModal(!removeModal)}
-        onOK={() => {
-          setRemoveConfirm(true);
-        }}
-        onCancel={() => {
-          setRemoveModal(false);
-        }}
-      >
+      <Modal visible={removeModal} title='Remove user' toggleVisible={setModal} onOK={modalOK} onCancel={modalCancel}>
         {user && (
           <Fragment>
             <p>You remove {user.username}</p>
@@ -77,22 +87,18 @@ const UsersScreen = ({ users, loading, error, currentUser }) => {
       </Modal>
       <Modal
         confirm={true}
-        title='Confirm remove'
         visible={removeConfirm}
+        title='Confirm remove'
         toggleVisible={setConfirm}
-        onOK={() => {
-          setRemoveConfirm(false);
-          setRemoveModal(false);
-        }}
-        onCancel={() => {
-          setRemoveConfirm(false);
-        }}
+        onOK={confirmOK}
+        onCancel={confirmCancel}
       />
     </Fragment>
   );
 };
 
 UsersScreen.propTypes = {
+  deleteUser: PropTypes.func.isRequired,
   currentUser: PropTypes.object,
   users: PropTypes.oneOfType([PropTypes.array, PropTypes.oneOf([null])]),
   loading: PropTypes.bool,
@@ -101,6 +107,7 @@ UsersScreen.propTypes = {
 
 UsersScreen.defaultProps = {
   currentUser: {},
+  deleteUser: (id) => id,
   users: null,
   loading: false,
   error: null

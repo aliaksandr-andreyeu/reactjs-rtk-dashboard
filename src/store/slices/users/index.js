@@ -3,14 +3,6 @@ import api from '@store/api';
 import { errors } from '@constants';
 import { errorsHandler } from '@helpers';
 
-const initialState = {
-  usersData: {
-    loading: false,
-    error: null,
-    data: null
-  }
-};
-
 const getUsers = createAsyncThunk('users/getUsers', async (payload, { rejectWithValue }) => {
   try {
     const response = await api.users.getUsers();
@@ -22,9 +14,7 @@ const getUsers = createAsyncThunk('users/getUsers', async (payload, { rejectWith
     }
 
     if (!response.isOk) {
-      const msg = errorsHandler(response.message);
-
-      return rejectWithValue(msg);
+      return rejectWithValue(errorsHandler(response.message));
     }
 
     const data = response.data || [];
@@ -32,14 +22,13 @@ const getUsers = createAsyncThunk('users/getUsers', async (payload, { rejectWith
     return data;
   } catch (error) {
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUsers STORE error: ', error);
-    const msg = errorsHandler(error);
-    return rejectWithValue(msg);
+    return rejectWithValue(errorsHandler(error));
   }
 });
 
 const getUser = createAsyncThunk('users/getUser', async (payload, { rejectWithValue }) => {
   try {
-    const response = await api.users.getUser();
+    const response = await api.users.getUser(payload);
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUser STORE response: ', response);
     return response;
   } catch (error) {
@@ -50,7 +39,7 @@ const getUser = createAsyncThunk('users/getUser', async (payload, { rejectWithVa
 
 const createUser = createAsyncThunk('users/createUser', async (payload, { rejectWithValue }) => {
   try {
-    const response = await api.users.createUser();
+    const response = await api.users.createUser(payload);
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ createUser STORE response: ', response);
     return response;
   } catch (error) {
@@ -61,7 +50,7 @@ const createUser = createAsyncThunk('users/createUser', async (payload, { reject
 
 const modifyUser = createAsyncThunk('users/modifyUser', async (payload, { rejectWithValue }) => {
   try {
-    const response = await api.users.modifyUser();
+    const response = await api.users.modifyUser(payload);
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ modifyUser STORE response: ', response);
     return response;
   } catch (error) {
@@ -72,7 +61,7 @@ const modifyUser = createAsyncThunk('users/modifyUser', async (payload, { reject
 
 const updateUser = createAsyncThunk('users/updateUser', async (payload, { rejectWithValue }) => {
   try {
-    const response = await api.users.updateUser();
+    const response = await api.users.updateUser(payload);
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser STORE response: ', response);
     return response;
   } catch (error) {
@@ -81,16 +70,40 @@ const updateUser = createAsyncThunk('users/updateUser', async (payload, { reject
   }
 });
 
-const deleteUser = createAsyncThunk('users/deleteUser', async (payload, { rejectWithValue }) => {
+const deleteUser = createAsyncThunk('users/deleteUser', async (payload, { dispatch, rejectWithValue }) => {
   try {
-    const response = await api.users.deleteUser();
+    const response = await api.users.deleteUser(payload);
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser STORE response: ', response);
+
+    if (!(response && Object.keys(response).length > 0)) {
+      throw new Error(errors.common.error);
+    }
+
+    if (!response.isOk) {
+      return rejectWithValue(errorsHandler(response.message));
+    }
+
+    dispatch(getUsers());
+
     return response;
   } catch (error) {
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser STORE error: ', error);
-    return rejectWithValue(error);
+    return rejectWithValue(errorsHandler(error));
   }
 });
+
+const initialState = {
+  deleteUserData: {
+    loading: false,
+    error: null
+  },
+
+  usersData: {
+    loading: false,
+    error: null,
+    data: null
+  }
+};
 
 const users = createSlice({
   initialState,
@@ -98,30 +111,27 @@ const users = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getUsers.pending, (state) => {
-      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUsers.pending: ');
       state.usersData = {
+        ...state.usersData,
         loading: true,
-        error: null,
-        data: null
+        error: null
       };
     });
     builder.addCase(getUsers.fulfilled, (state, { payload }) => {
-      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUsers.fulfilled: ', payload);
       state.usersData = {
+        ...state.usersData,
         loading: false,
         error: null,
-        data: payload || null
+        ...(payload && { data: payload })
       };
     });
     builder.addCase(getUsers.rejected, (state, { payload }) => {
-      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUsers.rejected: ', payload);
       state.usersData = {
+        ...state.usersData,
         loading: false,
-        error: payload || null,
-        data: null
+        error: payload || null
       };
     });
-
 
     builder.addCase(getUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUser.pending: ');
@@ -133,7 +143,6 @@ const users = createSlice({
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUser.rejected: ', payload);
     });
 
-
     builder.addCase(createUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ createUser.pending: ');
     });
@@ -143,7 +152,6 @@ const users = createSlice({
     builder.addCase(createUser.rejected, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ createUser.rejected: ', payload);
     });
-
 
     builder.addCase(modifyUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ modifyUser.pending: ');
@@ -155,7 +163,6 @@ const users = createSlice({
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ modifyUser.rejected: ', payload);
     });
 
-
     builder.addCase(updateUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser.pending: ');
     });
@@ -166,22 +173,34 @@ const users = createSlice({
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser.rejected: ', payload);
     });
 
-
     builder.addCase(deleteUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser.pending: ');
+      state.deleteUserData = {
+        loading: true,
+        error: null
+      };
     });
-    builder.addCase(deleteUser.fulfilled, (state, { payload }) => {
-      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser.fulfilled: ', payload);
+    builder.addCase(deleteUser.fulfilled, (state) => {
+      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser.fulfilled: ');
+      state.deleteUserData = {
+        loading: false,
+        error: null
+      };
     });
     builder.addCase(deleteUser.rejected, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser.rejected: ', payload);
+      state.deleteUserData = {
+        loading: false,
+        error: payload
+      };
     });
-
-
   }
 });
 
+const actions = { ...users.actions, getUsers, getUser, createUser, modifyUser, updateUser, deleteUser };
+const reducer = users.reducer;
+
 export default {
-  actions: { ...users.actions, getUsers, getUser, createUser, modifyUser, updateUser, deleteUser },
-  reducer: users.reducer
+  actions,
+  reducer
 };

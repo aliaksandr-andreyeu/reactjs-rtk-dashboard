@@ -20,17 +20,14 @@ const ModalItem = ({
   visible
 }) => {
   const handleClose = () => {
-    console.log('handleClose', toggleVisible);
     toggleVisible && toggleVisible();
   };
 
   const handleOK = () => {
-    console.log('handleOK', onOK);
     onOK && onOK();
   };
 
   const handleCancel = () => {
-    console.log('handleCancel', onCancel);
     onCancel && onCancel();
   };
 
