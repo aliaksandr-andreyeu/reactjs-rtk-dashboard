@@ -71,7 +71,6 @@ const response = (store) => {
                   })
                 }
               };
-
               resolve(
                 service(config).catch((err) => {
                   console.log(err, error.config.url);
