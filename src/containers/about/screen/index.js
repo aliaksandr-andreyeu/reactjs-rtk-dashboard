@@ -20,7 +20,7 @@ const AboutScreen = () => {
       <p>In the below section you can get more ideas about our site like our website category and content category.</p>
       <p>
         If you have additional questions or require more information about our About Page, do not hesitate to contact us
-        through email at <b>company@email.com</b>
+        through email at <strong>company@email.com</strong>
       </p>
       <h2>What is Our Goal?</h2>
       <p>There are millions of websites created every day, also, there is much fake content spread on the internet.</p>
@@ -37,16 +37,18 @@ const AboutScreen = () => {
       </p>
       <h3>What is our Service?</h3>
       <p>
-        We are mainly focused on the Software Engineering category so, we provide Software Engineering related content
-        if you are interested in the Software Engineering category then you can visit daily to get more latest
+        We are mainly focused on the Software Engineering category so, we provide Software Engineering related content.
+      </p>
+      <p>
+        If you are interested in the Software Engineering category then you can visit daily to get more latest
         information.
       </p>
       <h3>Software Engineering</h3>
       <p>
         On our website Company you get can all Software Engineering related information also, we focus on many other
-        categories and we hope you like also, the content of other categories that are maintained on our website. So,
-        you can visit our website homepage to know all category details here you can visit our homepage.
+        categories and we hope you like also, the content of other categories that are maintained on our website.
       </p>
+      <p>So, you can visit our website homepage to know all category details here you can visit our homepage.</p>
       <h3>About Company</h3>
       <p>
         As you can see already we mention what is our goal and Service again we repeat that we mainly focus on Software

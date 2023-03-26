@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
-import { ResetPassword, SignIn, SignUp, Users } from '@containers';
-import { Header, Sidebar } from '../components';
 import { Outlet } from 'react-router-dom';
 
+import { Header, Sidebar } from '../components';
 import { getClassName } from '@helpers';
 
 import './styles.scss';

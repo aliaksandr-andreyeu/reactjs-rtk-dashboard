@@ -2,8 +2,8 @@
 
 .content {
   display: flex;
-  flex: 1 0 auto;
   flex-direction: column;
+  min-height: 0;
 }
 
 .data-box {
@@ -23,8 +23,8 @@
 .data-content {
   background-color: $white-color;
   display: flex;
-  flex: 1 1 auto;
   flex-direction: column;
+  width: 100%;
 }
 
 @media (max-height: 480px) {
@@ -37,5 +37,111 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding: 0 0 $base-dimension;
+  padding: $base-dimension * 3 $base-dimension * 3 $base-dimension * 4;
+
+  h1,
+  h2,
+  h3 {
+    color: $primary-text-color;
+    font-family: $title-font;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  h1 {
+    font-size: $base-dimension * 2.5;
+    margin-bottom: $base-dimension * 1.75;
+
+    & + h1,
+    & + h2,
+    & + h3 {
+      margin-top: 0;
+    }
+  }
+
+  h2 {
+    font-size: $base-dimension * 2.25;
+    margin-bottom: $base-dimension * 1.5;
+
+    & + h1,
+    & + h2,
+    & + h3 {
+      margin-top: 0;
+    }
+  }
+
+  h3 {
+    font-size: $base-dimension * 2;
+    margin-bottom: $base-dimension * 1.25;
+
+    & + h1,
+    & + h2,
+    & + h3 {
+      margin-top: 0;
+    }
+  }
+
+  * + h1 {
+    margin-top: $base-dimension * 2.5;
+  }
+
+  * + h2 {
+    margin-top: $base-dimension * 2.25;
+  }
+
+  * + h3 {
+    margin-top: $base-dimension * 2;
+  }
+
+  p,
+  li {
+    color: $primary-text-color;
+    font-family: $text-font;
+    font-size: $base-dimension * 1.75;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: $base-dimension * 0.75;
+  }
+
+  ul {
+    list-style-type: disc;
+    margin-left: $base-dimension;
+
+    & + p {
+      margin-top: $base-dimension * 1.5;
+    }
+
+    li {
+      display: list-item;
+      list-style-type: disc;
+      margin-left: $base-dimension;
+    }
+  }
+
+  strong,
+  b {
+    font-weight: 600;
+  }
+
+  a {
+    border-bottom: $base-dimension * 0.125 dotted $primary-color;
+    color: $primary-color;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-bottom 0.375s ease-in-out, color 0.375s ease-in-out;
+
+    &:hover {
+      border-color: $primary-dark-color;
+      border-style: solid;
+      color: $primary-dark-color;
+    }
+  }
+}
+
+@media (max-height: 480px) {
+  .data-container {
+    overflow-y: initial;
+  }
 }

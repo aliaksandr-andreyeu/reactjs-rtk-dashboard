@@ -42,10 +42,10 @@
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    height: $base-dimension * 2;
+    height: $base-dimension * 2.25;
     justify-content: center;
     transition: box-shadow 0.375s ease-in-out, background-color 0.375s ease-in-out, border-color 0.375s ease-in-out;
-    width: $base-dimension * 2;
+    width: $base-dimension * 2.25;
 
     .icon {
       color: $white-color;
