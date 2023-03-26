@@ -8,8 +8,19 @@ import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const UsersScreen = ({ deleteUser, users, loading, error, currentUser }) => {
-  console.log('UsersScreen ERROR: ', error);
+const UsersScreen = ({
+  deleteUser,
+  updateUser,
+  users,
+  loading,
+  currentUser,
+  getUsersError,
+  deleteUserError,
+  updateError
+}) => {
+  console.log('UsersScreen getUsersError: ', getUsersError);
+  console.log('UsersScreen deleteUserError: ', deleteUserError);
+  console.log('UsersScreen updateError: ', updateError);
 
   const [user, setUser] = useState(null);
 
@@ -35,6 +46,11 @@ const UsersScreen = ({ deleteUser, users, loading, error, currentUser }) => {
   const onRemove = (user) => {
     setUser(user);
     setRemoveModal(true);
+  };
+
+  const onUpdate = (user, data) => {
+    setUser(user);
+    user && user.id && data && updateUser({ id: user.id, data });
   };
 
   const confirmOK = () => {
@@ -70,7 +86,7 @@ const UsersScreen = ({ deleteUser, users, loading, error, currentUser }) => {
             </thead>
             <tbody>
               {users.map((user, key) => (
-                <Item currentUser={currentUser} onRemove={onRemove} user={user} key={key} />
+                <Item currentUser={currentUser} onUpdate={onUpdate} onRemove={onRemove} user={user} key={key} />
               ))}
             </tbody>
           </table>
@@ -99,18 +115,24 @@ const UsersScreen = ({ deleteUser, users, loading, error, currentUser }) => {
 
 UsersScreen.propTypes = {
   deleteUser: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired,
   currentUser: PropTypes.object,
   users: PropTypes.oneOfType([PropTypes.array, PropTypes.oneOf([null])]),
   loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])
+  getUsersError: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+  deleteUserError: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+  updateError: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])
 };
 
 UsersScreen.defaultProps = {
   currentUser: {},
   deleteUser: (id) => id,
+  updateUser: (payload) => payload,
   users: null,
   loading: false,
-  error: null
+  getUsersError: null,
+  deleteUserError: null,
+  updateError: null
 };
 
 export default UsersScreen;

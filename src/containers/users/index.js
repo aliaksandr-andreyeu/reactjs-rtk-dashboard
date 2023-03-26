@@ -4,22 +4,26 @@ import { actions } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Users = () => {
-  const { usersData, deleteUserData } = useSelector((state) => state.users);
+  const { usersData, deleteUserData, updateUserData } = useSelector((state) => state.users);
 
   const { overview } = useSelector((state) => state.account);
 
   const data = usersData.data;
-  const loading = usersData.loading || deleteUserData.loading;
-  const error = usersData.error || deleteUserData.error;
+  const loading = usersData.loading || deleteUserData.loading || updateUserData.loading;
+
+  const getUsersError = usersData.error;
+  const deleteUserError = deleteUserData.error;
+  const updateError = updateUserData.error;
 
   const {
-    users: { getUsers, deleteUser }
+    users: { getUsers, deleteUser, updateUser }
   } = actions;
 
   const dispatch = useDispatch();
 
   const getUsersData = () => dispatch(getUsers());
   const handleDeleteUser = (payload) => dispatch(deleteUser(payload));
+  const handleUpdateUser = (payload) => dispatch(updateUser(payload));
 
   useEffect(() => {
     /* eslint-disable react-hooks/exhaustive-deps */
@@ -37,7 +41,16 @@ const Users = () => {
         GO
       </button>
 
-      <UsersScreen users={data} deleteUser={handleDeleteUser} currentUser={overview} loading={loading} error={error} />
+      <UsersScreen
+        users={data}
+        updateUser={handleUpdateUser}
+        deleteUser={handleDeleteUser}
+        currentUser={overview}
+        loading={loading}
+        getUsersError={getUsersError}
+        deleteUserError={deleteUserError}
+        updateError={updateError}
+      />
     </>
   );
 };

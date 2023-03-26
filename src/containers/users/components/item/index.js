@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 
 import { Checkbox, IconButton, SvgIcon } from '@components';
 
-const Item = ({ user, onRemove, currentUser }) => {
+const Item = ({ user, onUpdate, onRemove, currentUser }) => {
   const handleRemove = () => {
     onRemove(user);
   };
 
-  // console.log('currentUser: ', currentUser);
+  const handleUpdate = (checked) => {
+    onUpdate(user, {
+      isActive: checked
+    });
+  };
 
   const disabled = Boolean(currentUser && currentUser.id && currentUser.id === user.id);
 
@@ -21,13 +25,7 @@ const Item = ({ user, onRemove, currentUser }) => {
       <td>{user.age}</td>
       <td>{user.job}</td>
       <td className='tight'>
-        <Checkbox
-          disabled={disabled}
-          onClick={(event) => {
-            console.log('onClick', event, event.target, event.target.value);
-          }}
-          checked={true}
-        />
+        <Checkbox disabled={disabled} onClick={handleUpdate} checked={user.isActive} />
       </td>
       <td className='tight'>
         <IconButton className='icon-button' onClick={handleRemove} disabled={disabled}>
@@ -41,13 +39,15 @@ const Item = ({ user, onRemove, currentUser }) => {
 Item.propTypes = {
   currentUser: PropTypes.object,
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.oneOf([null])]),
-  onRemove: PropTypes.func
+  onRemove: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired
 };
 
 Item.defaultProps = {
   currentUser: {},
   user: null,
-  onRemove: (user) => user
+  onRemove: (user) => user,
+  onUpdate: (user) => user
 };
 
 export default Item;

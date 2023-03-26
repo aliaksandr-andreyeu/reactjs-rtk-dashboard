@@ -21,7 +21,7 @@ const getUsers = createAsyncThunk('users/getUsers', async (payload, { rejectWith
 
     return data;
   } catch (error) {
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUsers STORE error: ', error);
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUsers STORE error: ', errorsHandler(error), error);
     return rejectWithValue(errorsHandler(error));
   }
 });
@@ -50,7 +50,11 @@ const createUser = createAsyncThunk('users/createUser', async (payload, { reject
 
 const modifyUser = createAsyncThunk('users/modifyUser', async (payload, { rejectWithValue }) => {
   try {
-    const response = await api.users.modifyUser(payload);
+    if (!payload) {
+      throw new Error(errors.common.error);
+    }
+
+    const response = await api.users.modifyUser(payload.id, payload.data);
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ modifyUser STORE response: ', response);
     return response;
   } catch (error) {
@@ -59,19 +63,44 @@ const modifyUser = createAsyncThunk('users/modifyUser', async (payload, { reject
   }
 });
 
-const updateUser = createAsyncThunk('users/updateUser', async (payload, { rejectWithValue }) => {
+const updateUser = createAsyncThunk('users/updateUser', async (payload, { dispatch, rejectWithValue }) => {
+  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser STORE payload: ', payload);
+  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser STORE id: ', payload.id);
+  console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser STORE data: ', payload.data);
+
   try {
-    const response = await api.users.updateUser(payload);
+    if (!payload) {
+      throw new Error(errors.common.error);
+    }
+
+    const response = await api.users.updateUser(payload.id, payload.data);
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser STORE response: ', response);
-    return response;
+
+    if (!(response && Object.keys(response).length > 0 && response.data !== undefined)) {
+      throw new Error(errors.common.error);
+    }
+
+    if (!response.isOk) {
+      return rejectWithValue(errorsHandler(response.message));
+    }
+
+    dispatch(getUsers());
+
+    const data = response.data || {};
+
+    return data;
   } catch (error) {
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser STORE error: ', error);
-    return rejectWithValue(error);
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser STORE error: ', errorsHandler(error), error);
+    return rejectWithValue(errorsHandler(error));
   }
 });
 
 const deleteUser = createAsyncThunk('users/deleteUser', async (payload, { dispatch, rejectWithValue }) => {
   try {
+    if (!payload) {
+      throw new Error(errors.common.error);
+    }
+
     const response = await api.users.deleteUser(payload);
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser STORE response: ', response);
 
@@ -87,12 +116,17 @@ const deleteUser = createAsyncThunk('users/deleteUser', async (payload, { dispat
 
     return response;
   } catch (error) {
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser STORE error: ', error);
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser STORE error: ', errorsHandler(error), error);
     return rejectWithValue(errorsHandler(error));
   }
 });
 
 const initialState = {
+  updateUserData: {
+    loading: false,
+    error: null
+  },
+
   deleteUserData: {
     loading: false,
     error: null
@@ -108,7 +142,27 @@ const initialState = {
 const users = createSlice({
   initialState,
   name: 'users',
-  reducers: {},
+  reducers: {
+    resetGetUsersState(state) {
+      state.usersData = {
+        ...state.usersData,
+        loading: false,
+        error: null
+      };
+    },
+    resetUpdateUserState(state) {
+      state.updateUserData = {
+        loading: false,
+        error: null
+      };
+    },
+    resetDeleteUserState(state) {
+      state.deleteUserData = {
+        loading: false,
+        error: null
+      };
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getUsers.pending, (state) => {
       state.usersData = {
@@ -165,12 +219,24 @@ const users = createSlice({
 
     builder.addCase(updateUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser.pending: ');
+      state.updateUserData = {
+        loading: true,
+        error: null
+      };
     });
-    builder.addCase(updateUser.fulfilled, (state, { payload }) => {
-      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser.fulfilled: ', payload);
+    builder.addCase(updateUser.fulfilled, (state) => {
+      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser.fulfilled: ');
+      state.updateUserData = {
+        loading: false,
+        error: null
+      };
     });
     builder.addCase(updateUser.rejected, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser.rejected: ', payload);
+      state.updateUserData = {
+        loading: false,
+        error: payload
+      };
     });
 
     builder.addCase(deleteUser.pending, (state) => {

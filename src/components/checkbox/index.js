@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { SvgIcon } from '@components';
@@ -7,19 +7,16 @@ import { getClassName } from '@helpers';
 import './styles.scss';
 
 const Checkbox = ({ checkboxClassName, checked, containerClassName, disabled, label, labelClassName, onClick }) => {
-  const [selected, setSelected] = useState(checked);
-
-  const handleClick = (event) => {
+  const handleClick = () => {
     if (disabled) return;
 
-    setSelected(!selected);
-    Boolean(onClick) && onClick(event);
+    Boolean(onClick) && onClick(!checked);
   };
 
   return (
     <div className={getClassName('cmp-checkbox-container', disabled && 'disabled', containerClassName)}>
-      <span className={getClassName('checkbox', selected && 'checked', checkboxClassName)} onClick={handleClick}>
-        {selected && <SvgIcon className='icon' name='checkbox' />}
+      <span className={getClassName('checkbox', checked && 'checked', checkboxClassName)} onClick={handleClick}>
+        {checked && <SvgIcon className='icon' name='checkbox' />}
       </span>
       {Boolean(label) && (
         <span className={getClassName('label', labelClassName)} onClick={handleClick}>
@@ -47,7 +44,7 @@ Checkbox.defaultProps = {
   disabled: false,
   label: '',
   labelClassName: '',
-  onClick: (event) => event
+  onClick: (checked) => checked
 };
 
 export default Checkbox;

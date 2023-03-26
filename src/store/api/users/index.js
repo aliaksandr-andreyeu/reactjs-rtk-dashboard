@@ -11,10 +11,10 @@ const users = Object.create(Object.prototype, {
     value: (payload) => requests.post(`${REACT_ENV.API_URL}/users`, payload)
   },
   modifyUser: {
-    value: (payload) => requests.put(`${REACT_ENV.API_URL}/users`, payload)
+    value: (id, payload) => requests.put(`${REACT_ENV.API_URL}/users?id=${id}`, payload)
   },
   updateUser: {
-    value: (payload) => requests.patch(`${REACT_ENV.API_URL}/users`, payload)
+    value: (id, payload) => requests.patch(`${REACT_ENV.API_URL}/users?id=${id}`, payload)
   },
   deleteUser: {
     value: (id) => requests.delete(`${REACT_ENV.API_URL}/users?id=${id}`)
