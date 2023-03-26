@@ -74,6 +74,7 @@ const UsersScreen = ({
           <table className='data-table'>
             <thead>
               <tr>
+                <th className='tight'>Details</th>
                 <th className='tight'>ID</th>
                 <th>Username</th>
                 <th>Name</th>

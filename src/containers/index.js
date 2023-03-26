@@ -1,6 +1,7 @@
 import App from './app';
 import { ResetPassword, SignIn, SignUp } from './auth';
 import Users from './users';
+import User from './user';
 import NotFound from './not-found';
 import TermsConditions from './terms-conditions';
 import Profile from './profile';
@@ -16,6 +17,7 @@ export {
   SignIn,
   SignUp,
   Users,
+  User,
   TermsConditions,
   Profile,
   Settings,

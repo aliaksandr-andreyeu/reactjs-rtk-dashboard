@@ -6,6 +6,7 @@ import {
   SignIn,
   SignUp,
   Users,
+  User,
   App,
   TermsConditions,
   Profile,
@@ -43,27 +44,28 @@ const Router = () => {
     <Loader visible={isLoading} />
   ) : token ? (
     <Routes>
-      <Route path={navigation.index.path} element={<App />}>
+      <Route exact path={navigation.index.path} element={<App />}>
         <Route index element={<Users />} />
-        <Route path={getPath(navigation.users.path)} element={<Users />} />
-        <Route path={getPath(navigation.profile.path)} element={<Profile />} />
-        <Route path={getPath(navigation.contactUs.path)} element={<ContactUs />} />
-        <Route path={getPath(navigation.settings.path)} element={<Settings />} />
-        <Route path={getPath(navigation.about.path)} element={<About />} />
-        <Route path={getPath(navigation.privacyPolicy.path)} element={<PrivacyPolicy />} />
-        <Route path={getPath(navigation.termsConditions.path)} element={<TermsConditions />} />
+        <Route exact path={getPath(navigation.users.path)} element={<Users />} />
+        <Route exact path={getPath(navigation.user.path)} element={<User />} />
+        <Route exact path={getPath(navigation.profile.path)} element={<Profile />} />
+        <Route exact path={getPath(navigation.contactUs.path)} element={<ContactUs />} />
+        <Route exact path={getPath(navigation.settings.path)} element={<Settings />} />
+        <Route exact path={getPath(navigation.about.path)} element={<About />} />
+        <Route exact path={getPath(navigation.privacyPolicy.path)} element={<PrivacyPolicy />} />
+        <Route exact path={getPath(navigation.termsConditions.path)} element={<TermsConditions />} />
         <Route path='*' element={<NotFound />} />
       </Route>
-      <Route path={navigation.signin.path} element={<Navigate to={navigation.index.path} replace />} />
-      <Route path={navigation.signup.path} element={<Navigate to={navigation.index.path} replace />} />
-      <Route path={navigation.resetPassword.path} element={<Navigate to={navigation.index.path} replace />} />
+      <Route exact path={navigation.signin.path} element={<Navigate to={navigation.index.path} replace />} />
+      <Route exact path={navigation.signup.path} element={<Navigate to={navigation.index.path} replace />} />
+      <Route exact path={navigation.resetPassword.path} element={<Navigate to={navigation.index.path} replace />} />
       <Route path='*' element={<Navigate to={navigation.index.path} replace />} />
     </Routes>
   ) : (
     <Routes>
-      <Route path={navigation.signin.path} element={<SignIn />} />
-      <Route path={navigation.signup.path} element={<SignUp />} />
-      <Route path={navigation.resetPassword.path} element={<ResetPassword />} />
+      <Route exact path={navigation.signin.path} element={<SignIn />} />
+      <Route exact path={navigation.signup.path} element={<SignUp />} />
+      <Route exact path={navigation.resetPassword.path} element={<ResetPassword />} />
       <Route path='*' element={<Navigate to={navigation.signin.path} replace />} />
     </Routes>
   );

@@ -37,6 +37,22 @@
     }
   }
 
+  .details-button {
+    min-height: $base-dimension * 4;
+
+    svg {
+      color: $primary-color;
+      max-width: $base-dimension * 3.25;
+      transition: color 0.375s ease-in-out;
+    }
+
+    &:hover {
+      svg {
+        color: $primary-dark-color;
+      }
+    }
+  }
+
   thead {
     tr {
       th {
