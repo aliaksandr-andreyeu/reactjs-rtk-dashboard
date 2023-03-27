@@ -40,7 +40,7 @@ const ModalItem = ({
             <SvgIcon name='close' />
           </IconButton>
         </div>
-        {children && <div className='body'>{children}</div>}
+        {Boolean(children) && <div className='body'>{children}</div>}
         <div className='footer'>
           {isCancel && (
             <Button className='btn' onClick={handleCancel} stroke={true} color='primary' label={cancelText} />

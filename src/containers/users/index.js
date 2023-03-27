@@ -31,6 +31,8 @@ const Users = () => {
   useEffect(() => {
     /* eslint-disable react-hooks/exhaustive-deps */
     getUsersData();
+
+    rejectHandler('Test User not UPDATED');
   }, []);
 
   useEffect(() => {

@@ -84,8 +84,9 @@ const UsersScreen = ({ deleteUser, updateUser, users, loading, currentUser }) =>
       <Modal visible={removeModal} title='Remove user' toggleVisible={setModal} onOK={modalOK} onCancel={modalCancel}>
         {user && (
           <Fragment>
-            <p>You remove {user.username}</p>
-            {(user.name || user.surname) && <p>{[user.name, user.surname].join(' ')}</p>}
+            <p>
+              You remove user <strong>{user.username}</strong>
+            </p>
           </Fragment>
         )}
       </Modal>
@@ -96,7 +97,15 @@ const UsersScreen = ({ deleteUser, updateUser, users, loading, currentUser }) =>
         toggleVisible={setConfirm}
         onOK={confirmOK}
         onCancel={confirmCancel}
-      />
+      >
+        {user && (
+          <Fragment>
+            <p>
+              Are you sure to remove user <strong>{user.username}</strong>?
+            </p>
+          </Fragment>
+        )}
+      </Modal>
     </Fragment>
   );
 };

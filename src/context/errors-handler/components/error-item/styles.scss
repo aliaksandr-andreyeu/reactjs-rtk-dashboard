@@ -1,8 +1,8 @@
 @import '@constants/styles/theme.module';
 
-.cmp-modal {
+.cmp-errors-handler {
   align-items: center;
-  animation: fade-out 0.25s linear;
+  animation: fade-in 0.25s linear;
   background-color: rgb(0 0 0 / 25%);
   bottom: 0;
   display: flex;
@@ -13,45 +13,9 @@
   position: fixed;
   right: 0;
   top: 0;
-  transform: translate(-9999px, -9999px);
-  transition: z-index 0s 0.25s, visibility 0s 0.25s, transform 0s 0.25s;
-  visibility: hidden;
-  z-index: -1;
+  z-index: 10000;
 
-  &.open {
-    animation: fade-in 0.25s linear;
-    transform: translate(0, 0);
-    transition: z-index 0s 0s, visibility 0s 0s, transform 0s 0s;
-    visibility: visible;
-    z-index: 10000;
-  }
-
-  &.confirm {
-    .cmp-modal-item {
-      width: $base-dimension * 60;
-
-      .body {
-        padding: $base-dimension * 3 $base-dimension * 2.5;
-
-        & + .footer {
-          border-top: 0 none;
-        }
-      }
-
-      .footer {
-        .btn {
-          font-size: $base-dimension * 1.75;
-          font-weight: 600;
-          line-height: 1.5;
-          min-height: $base-dimension * 4.5;
-          min-width: $base-dimension * 4;
-          padding: $base-dimension * 0.5 $base-dimension * 2.5;
-        }
-      }
-    }
-  }
-
-  .cmp-modal-item {
+  .cmp-error-item {
     background-color: $white-color;
     border-radius: $base-dimension * 0.375;
     height: auto;
@@ -59,6 +23,7 @@
 
     .header {
       align-items: center;
+      background-color: $accent-color;
       border-radius: $base-dimension * 0.375 $base-dimension * 0.375 0 0;
       display: flex;
       flex-direction: row;
@@ -67,18 +32,15 @@
       padding: $base-dimension $base-dimension * 7 $base-dimension $base-dimension * 2.5;
       position: relative;
 
-      & + .body {
-        border-top: $base-dimension * 0.125 solid $divider-light-color;
-      }
-
       h3 {
-        color: $primary-text-color;
+        color: $white-color;
         font-size: $base-dimension * 2.25;
         font-weight: 600;
         line-height: 1.5;
       }
 
       .icon-button {
+        background-color: transparent;
         min-height: $base-dimension * 4.25;
         min-width: $base-dimension * 4.25;
         padding: $base-dimension * 0.5;
@@ -91,7 +53,7 @@
           min-width: $base-dimension * 3.25;
 
           svg {
-            color: $secondary-dark-text-color;
+            color: $divider-lighter-color;
             max-width: $base-dimension * 3.25;
             transition: color 0.25s ease-in-out;
           }
@@ -100,7 +62,7 @@
         &:hover {
           .icon {
             svg {
-              color: $secondary-text-color;
+              color: $white-color;
             }
           }
         }
@@ -108,18 +70,13 @@
     }
 
     .body {
-      color: $secondary-text-color;
+      color: $primary-text-color;
       font-size: $base-dimension * 1.75;
       font-weight: 500;
       line-height: 1.5;
       padding: $base-dimension * 4 $base-dimension * 2.5;
 
-      & + .footer {
-        border-top: $base-dimension * 0.125 solid $divider-light-color;
-      }
-
       strong {
-        color: $primary-text-color;
         font-weight: 600;
       }
 
