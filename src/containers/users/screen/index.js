@@ -8,20 +8,7 @@ import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const UsersScreen = ({
-  deleteUser,
-  updateUser,
-  users,
-  loading,
-  currentUser,
-  getUsersError,
-  deleteUserError,
-  updateError
-}) => {
-  console.log('UsersScreen getUsersError: ', getUsersError);
-  console.log('UsersScreen deleteUserError: ', deleteUserError);
-  console.log('UsersScreen updateError: ', updateError);
-
+const UsersScreen = ({ deleteUser, updateUser, users, loading, currentUser }) => {
   const [user, setUser] = useState(null);
 
   const [removeModal, setRemoveModal] = useState(false);
@@ -119,10 +106,7 @@ UsersScreen.propTypes = {
   updateUser: PropTypes.func.isRequired,
   currentUser: PropTypes.object,
   users: PropTypes.oneOfType([PropTypes.array, PropTypes.oneOf([null])]),
-  loading: PropTypes.bool,
-  getUsersError: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
-  deleteUserError: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
-  updateError: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])
+  loading: PropTypes.bool
 };
 
 UsersScreen.defaultProps = {
@@ -130,10 +114,7 @@ UsersScreen.defaultProps = {
   deleteUser: (id) => id,
   updateUser: (payload) => payload,
   users: null,
-  loading: false,
-  getUsersError: null,
-  deleteUserError: null,
-  updateError: null
+  loading: false
 };
 
 export default UsersScreen;

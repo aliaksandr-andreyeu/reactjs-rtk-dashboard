@@ -23,8 +23,7 @@ export const errorsHandler = (err) => {
       ? err
       : error;
 
-  // if (!(isAxiosError(err) && err.response && err.response.status === 401)) {}
-  return capitalizeMessage(msg);
+  return isAxiosError(err) && err.response && err.response.status === 401 ? null : capitalizeMessage(msg);
 };
 
 export const getClassName = (...args) => Array.from(args).filter(Boolean).join(' ');

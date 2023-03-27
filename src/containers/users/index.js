@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import UsersScreen from './screen';
 import { actions } from '@store';
 import { useDispatch, useSelector } from 'react-redux';
+import { useErrorsHandler } from '@context';
 
 const Users = () => {
   const { usersData, deleteUserData, updateUserData } = useSelector((state) => state.users);
@@ -25,10 +26,24 @@ const Users = () => {
   const handleDeleteUser = (payload) => dispatch(deleteUser(payload));
   const handleUpdateUser = (payload) => dispatch(updateUser(payload));
 
+  const { rejectHandler } = useErrorsHandler();
+
   useEffect(() => {
     /* eslint-disable react-hooks/exhaustive-deps */
     getUsersData();
   }, []);
+
+  useEffect(() => {
+    getUsersError && rejectHandler(getUsersError);
+  }, [getUsersError]);
+
+  useEffect(() => {
+    updateError && rejectHandler(updateError);
+  }, [updateError]);
+
+  useEffect(() => {
+    deleteUserError && rejectHandler(deleteUserError);
+  }, [deleteUserError]);
 
   return (
     <>
@@ -47,9 +62,6 @@ const Users = () => {
         deleteUser={handleDeleteUser}
         currentUser={overview}
         loading={loading}
-        getUsersError={getUsersError}
-        deleteUserError={deleteUserError}
-        updateError={updateError}
       />
     </>
   );

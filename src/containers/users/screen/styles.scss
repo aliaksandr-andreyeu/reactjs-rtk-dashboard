@@ -38,7 +38,10 @@
   }
 
   .details-button {
+    background-color: $divider-lighter-color;
+    border: 1px solid $divider-color;
     min-height: $base-dimension * 4;
+    transition: background-color 0.375s ease-in-out, border-color 0.375s ease-in-out;
 
     svg {
       color: $primary-color;
@@ -47,6 +50,9 @@
     }
 
     &:hover {
+      background-color: $divider-light-color;
+      border-color: $divider-dark-color;
+
       svg {
         color: $primary-dark-color;
       }
