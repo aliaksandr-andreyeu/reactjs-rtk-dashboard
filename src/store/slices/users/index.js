@@ -126,12 +126,10 @@ const initialState = {
     loading: false,
     error: null
   },
-
   deleteUserData: {
     loading: false,
     error: null
   },
-
   usersData: {
     loading: false,
     error: null,
@@ -143,25 +141,25 @@ const users = createSlice({
   initialState,
   name: 'users',
   reducers: {
-    resetGetUsersState(state) {
-      state.usersData = {
-        ...state.usersData,
-        loading: false,
-        error: null
-      };
-    },
-    resetUpdateUserState(state) {
-      state.updateUserData = {
-        loading: false,
-        error: null
-      };
-    },
-    resetDeleteUserState(state) {
-      state.deleteUserData = {
-        loading: false,
-        error: null
-      };
-    }
+    // resetGetUsersState(state) {
+    // state.usersData = {
+    // ...state.usersData,
+    // loading: false,
+    // error: null
+    // };
+    // },
+    // resetUpdateUserState(state) {
+    // state.updateUserData = {
+    // loading: false,
+    // error: null
+    // };
+    // },
+    // resetDeleteUserState(state) {
+    // state.deleteUserData = {
+    // loading: false,
+    // error: null
+    // };
+    // }
   },
   extraReducers: (builder) => {
     builder.addCase(getUsers.pending, (state) => {
@@ -235,7 +233,7 @@ const users = createSlice({
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser.rejected: ', payload);
       state.updateUserData = {
         loading: false,
-        error: payload
+        error: payload || null
       };
     });
 
@@ -257,7 +255,7 @@ const users = createSlice({
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser.rejected: ', payload);
       state.deleteUserData = {
         loading: false,
-        error: payload
+        error: payload || null
       };
     });
   }
