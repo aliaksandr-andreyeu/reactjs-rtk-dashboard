@@ -13,7 +13,9 @@
       "@containers": ["./src/containers"],
       "@containers/*": ["./src/containers/*"],
       "@components": ["./src/components"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@context": ["./src/context"],
+      "@context/*": ["./src/context/*"]
     }
   },
   "exclude": ["node_modules"]

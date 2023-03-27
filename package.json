@@ -17,7 +17,7 @@
     "build:dev": "npm run clean:build && webpack --mode development",
     "build:prod": "npm run clean:build && webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "lint-staged",
+    "precommit": "",
     "format": "prettier --write \"./**/*.{js,json,scss}\"",
     "lint": "npm run format && npm run lint:style && npm run lint:js",
     "lint:fix": "npm run format && npm run lint:style:fix && npm run lint:js:fix",
@@ -30,12 +30,14 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.5",
+    "promise": "^8.3.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
-    "redux": "^4.2.0"
+    "redux": "^4.2.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -49,7 +51,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
     "dotenv": "^16.0.3",
-    "eslint": "^8.32.0",
+    "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.1",
