@@ -2,6 +2,8 @@
 
 .cmp-loader {
   align-items: center;
+  animation: fade-in 0.25s linear;
+  background-color: rgb(0 0 0 / 15%);
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -11,18 +13,6 @@
   top: 0;
   user-select: none;
   z-index: 5;
-
-  &::before {
-    background-color: $primary-color;
-    bottom: 0;
-    content: '';
-    display: block;
-    left: 0;
-    opacity: 0.15;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
 
   span {
     animation: loader-rotation 1s linear infinite;

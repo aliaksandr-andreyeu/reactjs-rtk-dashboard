@@ -9,6 +9,7 @@ import './styles.scss';
 const ErrorItem = ({ data, removeError }) => {
   const handleOK = () => {
     removeError && removeError(data.id);
+    Boolean(data.cb) && data.cb();
   };
 
   return (

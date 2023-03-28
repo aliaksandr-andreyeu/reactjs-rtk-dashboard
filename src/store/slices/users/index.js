@@ -141,25 +141,25 @@ const users = createSlice({
   initialState,
   name: 'users',
   reducers: {
-    // resetGetUsersState(state) {
-    // state.usersData = {
-    // ...state.usersData,
-    // loading: false,
-    // error: null
-    // };
-    // },
-    // resetUpdateUserState(state) {
-    // state.updateUserData = {
-    // loading: false,
-    // error: null
-    // };
-    // },
-    // resetDeleteUserState(state) {
-    // state.deleteUserData = {
-    // loading: false,
-    // error: null
-    // };
-    // }
+    resetGetUsersState(state) {
+      state.usersData = {
+        ...state.usersData,
+        loading: false,
+        error: null
+      };
+    },
+    resetUpdateUserState(state) {
+      state.updateUserData = {
+        loading: false,
+        error: null
+      };
+    },
+    resetDeleteUserState(state) {
+      state.deleteUserData = {
+        loading: false,
+        error: null
+      };
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getUsers.pending, (state) => {

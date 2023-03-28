@@ -5,7 +5,7 @@ import { ErrorsWrapper } from './components';
 import { v4 as uuidv4 } from 'uuid';
 
 const ErrorsHandlerContext = createContext({
-  rejectHandler: (error) => error
+  rejectHandler: () => {}
 });
 
 export const ErrorsHandlerProvider = ({ children }) => {
@@ -16,10 +16,11 @@ export const ErrorsHandlerProvider = ({ children }) => {
     setErrors(data);
   };
 
-  const rejectHandler = (error) => {
+  const rejectHandler = (error, cb) => {
     const errorData = {
       id: uuidv4(),
-      error: error
+      error: error,
+      cb: cb
     };
     error && setErrors([...errors, errorData]);
   };
