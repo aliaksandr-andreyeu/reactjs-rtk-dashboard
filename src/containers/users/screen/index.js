@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
+import parse from 'html-react-parser';
 
 import { Empty, Item } from '../components';
 import { Modal, Loader } from '@components';
 
 import { getClassName } from '@helpers';
+import { errors } from '@constants';
 
 import './styles.scss';
 
@@ -82,13 +84,7 @@ const UsersScreen = ({ deleteUser, updateUser, users, loading, currentUser }) =>
         <Loader visible={loading} />
       </div>
       <Modal visible={removeModal} title='Remove user' toggleVisible={setModal} onOK={modalOK} onCancel={modalCancel}>
-        {user && (
-          <Fragment>
-            <p>
-              You remove user <strong>{user.username}</strong>
-            </p>
-          </Fragment>
-        )}
+        {user && <p>{parse(errors.user.remove(user.username))}</p>}
       </Modal>
       <Modal
         confirm={true}
@@ -98,13 +94,7 @@ const UsersScreen = ({ deleteUser, updateUser, users, loading, currentUser }) =>
         onOK={confirmOK}
         onCancel={confirmCancel}
       >
-        {user && (
-          <Fragment>
-            <p>
-              Are you sure to remove user <strong>{user.username}</strong>?
-            </p>
-          </Fragment>
-        )}
+        {user && <p>{parse(errors.user.removeConfirm(user.username))}</p>}
       </Modal>
     </Fragment>
   );

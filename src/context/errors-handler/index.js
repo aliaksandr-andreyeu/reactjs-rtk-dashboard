@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { ErrorsWrapper } from './components';
 import { v4 as uuidv4 } from 'uuid';
 
 const ErrorsHandlerContext = createContext({
-  rejectHandler: (error) => {}
+  rejectHandler: (error) => error
 });
 
 export const ErrorsHandlerProvider = ({ children }) => {
@@ -17,19 +17,12 @@ export const ErrorsHandlerProvider = ({ children }) => {
   };
 
   const rejectHandler = (error) => {
-    console.log('rejectHandler: ', error, errors);
-
     const errorData = {
       id: uuidv4(),
       error: error
     };
-
     error && setErrors([...errors, errorData]);
   };
-
-  useEffect(() => {
-    console.log('********************************** errors data: ', errors);
-  }, [errors]);
 
   return children ? (
     <ErrorsHandlerContext.Provider

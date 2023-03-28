@@ -6,14 +6,9 @@ import { getClassName, stopPropagation } from '@helpers';
 
 import './styles.scss';
 
-const ErrorItem = ({ data, onOK, removeError }) => {
-  console.log('OK');
-
+const ErrorItem = ({ data, removeError }) => {
   const handleOK = () => {
-    console.log('OK');
-
     removeError && removeError(data.id);
-    // ref && ref.current && ref.current.remove();
   };
 
   return (
@@ -40,13 +35,11 @@ const ErrorItem = ({ data, onOK, removeError }) => {
 
 ErrorItem.propTypes = {
   data: PropTypes.object.isRequired,
-  onOK: PropTypes.func,
   removeError: PropTypes.func.isRequired
 };
 
 ErrorItem.defaultProps = {
   data: {},
-  onOK: () => null,
   removeError: (id) => id
 };
 

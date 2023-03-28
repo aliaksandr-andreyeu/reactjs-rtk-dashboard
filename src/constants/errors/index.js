@@ -8,6 +8,10 @@ const errors = {
     confirmRequired: 'Password confirmation is required',
     confirmIncorrect: 'Incorrect password confirmation'
   },
+  user: {
+    remove: (userName) => `You remove user <strong>${userName}</strong>`,
+    removeConfirm: (userName) => `Are you sure to remove user <strong>${userName}</strong>?`
+  },
   common: {
     error: 'Something went wrong. Try again later...'
   }
