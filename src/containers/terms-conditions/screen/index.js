@@ -3,10 +3,13 @@ import React from 'react';
 const TermsConditionsScreen = () => {
   const date = new Date(Date.now());
   const output = `${date.toLocaleString('en-US', { month: 'long' })}, ${date.getDate()} ${date.getFullYear()}`;
+  const url = `http://${REACT_ENV.HOST || 'localhost'}:${REACT_ENV.PORT || '8000'}`;
   return (
     <div className='data-container'>
       <h1>Terms and Conditions</h1>
-      <p>Last updated: {output}</p>
+      <p>
+        <em>Last updated: {output}</em>
+      </p>
       <p>Please read these terms and conditions carefully before using Our Service.</p>
       <h1>Interpretation and Definitions</h1>
       <h2>Interpretation</h2>
@@ -55,8 +58,8 @@ const TermsConditionsScreen = () => {
         <li>
           <p>
             <strong>Website</strong> refers to Company, accessible from{' '}
-            <a href='http://localhost' rel='external nofollow noopener noreferrer' target='_blank'>
-              http://localhost
+            <a href={url} rel='external nofollow noopener noreferrer' target='_blank'>
+              {url}
             </a>
           </p>
         </li>

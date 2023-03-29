@@ -1,16 +1,23 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+
 import UsersScreen from './screen';
 import { actions } from '@store';
-import { useDispatch, useSelector } from 'react-redux';
-import { useErrorsHandler } from '@context';
+import { useAppTitle, useErrorsHandler } from '@context';
 
-const Users = () => {
+const Users = ({ title }) => {
+  const { rejectHandler } = useErrorsHandler();
+  const { setTitle } = useAppTitle();
+
   const { usersData, deleteUserData, updateUserData } = useSelector((state) => state.users);
 
   const { overview } = useSelector((state) => state.account);
 
-  const data = usersData.data;
   const loading = usersData.loading || deleteUserData.loading || updateUserData.loading;
+  const data = usersData.data
+    ? usersData.data.filter((user) => Boolean(overview && overview.id && overview.id !== user.id))
+    : [];
 
   const getUsersError = usersData.error;
   const deleteUserError = deleteUserData.error;
@@ -30,10 +37,9 @@ const Users = () => {
   const resetUpdateUser = () => dispatch(resetUpdateUserState());
   const resetDeleteUser = () => dispatch(resetDeleteUserState());
 
-  const { rejectHandler } = useErrorsHandler();
-
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
+    setTitle(title);
     getUsersData();
   }, []);
 
@@ -61,15 +67,17 @@ const Users = () => {
         GO
       </button>
     */}
-      <UsersScreen
-        users={data}
-        updateUser={handleUpdateUser}
-        deleteUser={handleDeleteUser}
-        currentUser={overview}
-        loading={loading}
-      />
+      <UsersScreen users={data} updateUser={handleUpdateUser} deleteUser={handleDeleteUser} loading={loading} />
     </>
   );
+};
+
+Users.propTypes = {
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])
+};
+
+Users.defaultProps = {
+  title: null
 };
 
 export default Users;

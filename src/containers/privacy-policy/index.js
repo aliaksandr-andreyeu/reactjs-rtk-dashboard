@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+
+import { useAppTitle } from '@context';
 import PrivacyPolicyScreen from './screen';
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy = ({ title }) => {
+  const { setTitle } = useAppTitle();
+
+  useEffect(() => {
+    /* eslint-disable react-hooks/exhaustive-deps */
+    setTitle(title);
+  }, []);
+
   return <PrivacyPolicyScreen />;
+};
+
+PrivacyPolicy.propTypes = {
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])])
+};
+
+PrivacyPolicy.defaultProps = {
+  title: null
 };
 
 export default PrivacyPolicy;
