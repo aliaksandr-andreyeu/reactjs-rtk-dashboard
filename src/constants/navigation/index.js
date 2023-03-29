@@ -10,7 +10,8 @@ const navigation = {
   about: { path: '/about', name: 'About' },
   privacyPolicy: { path: '/privacy-policy', name: 'Privacy policy' },
   termsConditions: { path: '/terms-and-conditions', name: 'Terms and conditions' },
-  contactUs: { path: '/contact-us', name: 'Contact us' }
+  contactUs: { path: '/contact-us', name: 'Contact us' },
+  notFound: { path: '/not-found', name: 'Not Found' }
 };
 
 export default navigation;
