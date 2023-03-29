@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
 import { actions } from '@store';
-
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ProfileMenu } from '../../components';
 import { IconButton, SvgIcon } from '@components';
 
@@ -13,6 +13,15 @@ import './styles.scss';
 
 const Header = ({ isMenu, title, toggleMenu }) => {
   const [profileOpen, setProfileOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const canBack = Boolean(location.key !== 'default' && /(\/users\/)(.*)/.test(location.pathname));
+
+  const goBack = () => {
+    navigate(-1);
+  };
 
   const dispatch = useDispatch();
   const {
@@ -58,6 +67,11 @@ const Header = ({ isMenu, title, toggleMenu }) => {
         <IconButton className='icon-button' onClick={toggleMenu}>
           <SvgIcon name={isMenu ? 'menu-back' : 'menu'} />
         </IconButton>
+        {canBack && (
+          <IconButton className='icon-button' onClick={goBack}>
+            <SvgIcon name='chevron-left' />
+          </IconButton>
+        )}
         {title && <h1>{title}</h1>}
       </div>
       <div className='profile'>

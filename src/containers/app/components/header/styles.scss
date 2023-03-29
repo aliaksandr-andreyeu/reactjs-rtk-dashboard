@@ -16,7 +16,7 @@
     display: flex;
     flex: 0 0 auto;
     flex-direction: row;
-    gap: $base-dimension * 2;
+    gap: $base-dimension;
     justify-content: flex-start;
 
     h1 {
@@ -26,6 +26,7 @@
       font-size: $base-dimension * 2.5;
       font-weight: 500;
       line-height: 1.5;
+      padding: 0 $base-dimension;
     }
   }
 
