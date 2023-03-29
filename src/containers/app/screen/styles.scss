@@ -51,7 +51,7 @@
 
   h1 {
     font-size: $base-dimension * 2.5;
-    margin-bottom: $base-dimension * 1.75;
+    margin-bottom: $base-dimension * 2;
 
     & + h1,
     & + h2,
@@ -62,7 +62,7 @@
 
   h2 {
     font-size: $base-dimension * 2.25;
-    margin-bottom: $base-dimension * 1.5;
+    margin-bottom: $base-dimension * 1.75;
 
     & + h1,
     & + h2,
@@ -73,7 +73,7 @@
 
   h3 {
     font-size: $base-dimension * 2;
-    margin-bottom: $base-dimension * 1.25;
+    margin-bottom: $base-dimension * 1.5;
 
     & + h1,
     & + h2,
@@ -122,6 +122,14 @@
   strong,
   b {
     font-weight: 600;
+  }
+
+  em {
+    font-style: oblique;
+  }
+
+  i {
+    font-style: italic;
   }
 
   a {

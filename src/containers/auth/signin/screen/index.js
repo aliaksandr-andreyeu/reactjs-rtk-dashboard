@@ -69,7 +69,7 @@ const SignInScreen = ({ signIn, resetState, loading, error }) => {
         <form className='auth-form' onSubmit={handleSignIn}>
           <div className='logo'>
             <SvgIcon className='logo-icon' name='logo' />
-            <h1>Company</h1>
+            <h1>{REACT_ENV.BRAND || 'Company'}</h1>
           </div>
           <h2>Sign in</h2>
           <Alert className='alert-box' message={error} type='error' />

@@ -5,12 +5,10 @@ import { navigation } from '@constants';
 
 import { Checkbox, IconButton, SvgIcon } from '@components';
 
-const Item = ({ user, onUpdate, onRemove, currentUser }) => {
+const Item = ({ user, onUpdate, onRemove }) => {
   const navigate = useNavigate();
 
   const goToUserDetails = () => navigate(`${navigation.users.path}/${user.id}`, { state: { user } });
-
-  const disabled = Boolean(currentUser && currentUser.id && currentUser.id === user.id);
 
   const handleRemove = () => {
     onRemove(user);
@@ -36,10 +34,10 @@ const Item = ({ user, onUpdate, onRemove, currentUser }) => {
       <td>{user.age}</td>
       <td>{user.job}</td>
       <td className='tight'>
-        <Checkbox disabled={disabled} onClick={handleUpdate} checked={user.isActive} />
+        <Checkbox onClick={handleUpdate} checked={user.isActive} />
       </td>
       <td className='tight'>
-        <IconButton className='icon-button' onClick={handleRemove} disabled={disabled}>
+        <IconButton className='icon-button' onClick={handleRemove}>
           <SvgIcon name='remove' />
         </IconButton>
       </td>
@@ -48,14 +46,12 @@ const Item = ({ user, onUpdate, onRemove, currentUser }) => {
 };
 
 Item.propTypes = {
-  currentUser: PropTypes.object,
   user: PropTypes.oneOfType([PropTypes.object, PropTypes.oneOf([null])]),
   onRemove: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired
 };
 
 Item.defaultProps = {
-  currentUser: {},
   user: null,
   onRemove: (user) => user,
   onUpdate: (user) => user

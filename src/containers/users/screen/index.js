@@ -10,7 +10,7 @@ import { errors } from '@constants';
 
 import './styles.scss';
 
-const UsersScreen = ({ deleteUser, updateUser, users, loading, currentUser }) => {
+const UsersScreen = ({ deleteUser, updateUser, users, loading }) => {
   const [user, setUser] = useState(null);
 
   const [removeModal, setRemoveModal] = useState(false);
@@ -76,7 +76,7 @@ const UsersScreen = ({ deleteUser, updateUser, users, loading, currentUser }) =>
             </thead>
             <tbody>
               {users.map((user, key) => (
-                <Item currentUser={currentUser} onUpdate={onUpdate} onRemove={onRemove} user={user} key={key} />
+                <Item onUpdate={onUpdate} onRemove={onRemove} user={user} key={key} />
               ))}
             </tbody>
           </table>
@@ -103,13 +103,11 @@ const UsersScreen = ({ deleteUser, updateUser, users, loading, currentUser }) =>
 UsersScreen.propTypes = {
   deleteUser: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired,
-  currentUser: PropTypes.object,
   users: PropTypes.oneOfType([PropTypes.array, PropTypes.oneOf([null])]),
   loading: PropTypes.bool
 };
 
 UsersScreen.defaultProps = {
-  currentUser: {},
   deleteUser: (id) => id,
   updateUser: (payload) => payload,
   users: null,

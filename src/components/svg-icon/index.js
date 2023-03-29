@@ -15,6 +15,22 @@ const SvgIcon = ({ className, color, name, ...props }) => {
   };
 
   const icons = {
+    dashboard: (
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        x='0px'
+        y='0px'
+        viewBox='0 0 24 24'
+        enableBackground='new 0 0 24 24'
+        preserveAspectRatio='xMidYMid meet'
+        className={getClassName('cmp-icon', className)}
+        {...props}
+      >
+        <g>
+          <path fill={getColor(color)} d='M13,3V9H21V3M13,21H21V11H13M3,21H11V15H3M3,13H11V3H3V13Z' />
+        </g>
+      </svg>
+    ),
     'user-details': (
       <svg
         xmlns='http://www.w3.org/2000/svg'

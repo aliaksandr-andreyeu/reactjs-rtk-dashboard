@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import { SvgIcon } from '@components';
 import { getClassName } from '@helpers';
+import { navigation } from '@constants';
 
 import theme from '@constants/styles/theme.module.scss';
 
@@ -15,20 +16,26 @@ const Sidebar = () => {
     <div className='cmp-sidebar'>
       <div className='logo'>
         <SvgIcon className='icon' name='logo' color={theme.whiteColor} />
-        <h1>Company</h1>
+        <h1>{REACT_ENV.BRAND || 'Company'}</h1>
       </div>
       <div className='inbox'>
         <ul className='menu'>
           <li>
-            <NavLink to='/' className={linkClassName}>
-              <SvgIcon name='users' />
-              <span>Users</span>
+            <NavLink to={navigation.index.path} className={linkClassName}>
+              <SvgIcon name='dashboard' />
+              <span>{navigation.index.name}</span>
             </NavLink>
           </li>
           <li>
-            <NavLink to='/users' className={linkClassName}>
+            <NavLink to={navigation.users.path} className={linkClassName}>
               <SvgIcon name='users' />
-              <span>Users</span>
+              <span>{navigation.users.name}</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={navigation.settings.path} className={linkClassName}>
+              <SvgIcon name='settings' />
+              <span>{navigation.settings.name}</span>
             </NavLink>
           </li>
         </ul>

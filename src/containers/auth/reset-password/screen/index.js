@@ -13,7 +13,7 @@ const ResetPasswordScreen = () => {
       <div className='auth-inbox'>
         <div className='logo'>
           <SvgIcon className='logo-icon' name='logo' />
-          <h1>Company</h1>
+          <h1>{REACT_ENV.BRAND || 'Company'}</h1>
         </div>
         <h2>Reset password</h2>
         <Input
