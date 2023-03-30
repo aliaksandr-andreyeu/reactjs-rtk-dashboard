@@ -15,6 +15,12 @@
       bottom: $base-dimension * 3;
     }
   }
+
+  &.textarea {
+    .cmp-input {
+      min-height: $base-dimension * 18;
+    }
+  }
 }
 
 .cmp-error {

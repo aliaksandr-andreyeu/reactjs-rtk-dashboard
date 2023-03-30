@@ -21,7 +21,8 @@ const Input = forwardRef(
       tabIndex,
       type,
       value,
-      error
+      error,
+      textArea
     },
     ref
   ) => {
@@ -45,22 +46,30 @@ const Input = forwardRef(
       return security && visible ? 'text' : type;
     };
 
+    const Component = textArea ? 'textarea' : 'input';
+
     return (
       <div
-        className={getClassName('cmp-input-box', Boolean(error) && 'error', security && 'security', containerClassName)}
+        className={getClassName(
+          'cmp-input-box',
+          Boolean(error) && 'error',
+          textArea && 'textarea',
+          security && 'security',
+          containerClassName
+        )}
       >
         {Boolean(label) && <label className={getClassName('cmp-input-label', labelClassName)}>{label}</label>}
-        <input
+        <Component
+          {...(!textArea && { type: getType(type) })}
           ref={ref}
           className={getClassName('cmp-input', inputClassName)}
           autoFocus={autoFocus}
+          value={val}
           tabIndex={tabIndex}
           disabled={disabled}
           readOnly={readonly}
-          type={getType(type)}
-          placeholder={placeholder}
-          value={val}
           onChange={handleChange}
+          placeholder={placeholder}
           {...(name && { name })}
         />
         {security && (
@@ -85,6 +94,7 @@ Input.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   readonly: PropTypes.bool,
+  textArea: PropTypes.bool,
   tabIndex: PropTypes.number,
   type: PropTypes.string,
   value: PropTypes.string,
@@ -105,7 +115,8 @@ Input.defaultProps = {
   tabIndex: 0,
   type: 'text',
   value: '',
-  error: ''
+  error: '',
+  textArea: false
 };
 
 Input.displayName = 'Input';
