@@ -1,6 +1,6 @@
 const errors = {
   validation: {
-    fieldRequired: 'This field is required',
+    fieldRequired: (field) => `${field ? field : 'This field'} is required`,
     emailRequired: 'E-mail is required',
     emailInvalid: 'Invalid e-mail address',
     passwordRequired: 'Password is required',
