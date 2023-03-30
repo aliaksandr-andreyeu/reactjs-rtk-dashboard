@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -38,8 +38,11 @@ const Users = ({ title }) => {
   const resetDeleteUser = () => dispatch(resetDeleteUserState());
 
   /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
+  useLayoutEffect(() => {
     setTitle(title);
+  }, []);
+
+  useEffect(() => {
     getUsersData();
   }, []);
 

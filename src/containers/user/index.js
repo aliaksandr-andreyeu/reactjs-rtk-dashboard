@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useLocation } from 'react-router-dom';
 import { navigation } from '@constants';
@@ -16,7 +16,7 @@ const User = ({ title }) => {
 
   const userTitle = state === null ? navigation.notFound.name : user && user.username ? user.username : title;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     /* eslint-disable react-hooks/exhaustive-deps */
     setTitle(userTitle);
   }, []);

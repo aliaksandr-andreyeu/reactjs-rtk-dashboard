@@ -18,9 +18,9 @@ const AppScreen = ({ dimensions, sidebarData, headerData }) => {
   const { title } = useAppTitle();
 
   useEffect(() => {
-    const { width } = dimensions;
+    const { width: wd } = dimensions;
 
-    setMenuOpen(Boolean(width >= 1280));
+    setMenuOpen(Boolean(wd >= 1280));
   }, [dimensions]);
 
   const toggleMenu = () => {

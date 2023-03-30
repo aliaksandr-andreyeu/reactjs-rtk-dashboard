@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ const Profile = ({ title }) => {
   const { overview } = useSelector((state) => state.account);
   const userTitle = (overview && overview.username) || title;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     /* eslint-disable react-hooks/exhaustive-deps */
     setTitle(userTitle);
   }, []);

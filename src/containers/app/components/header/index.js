@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
-
 import { useDispatch } from 'react-redux';
-import { actions } from '@store';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { actions } from '@store';
 import { ProfileMenu } from '../../components';
 import { IconButton, SvgIcon } from '@components';
-
 import { getClassName } from '@helpers';
 
 import './styles.scss';

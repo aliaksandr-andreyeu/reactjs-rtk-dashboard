@@ -32,6 +32,14 @@ export const stopPropagation = (event) => event.stopPropagation && event.stopPro
 
 export const preventDefault = (event) => event.preventDefault && event.preventDefault();
 
+export const validateField = (field, value, cb) => {
+  const {
+    validation: { fieldRequired }
+  } = errors;
+  const error = !value ? fieldRequired(field) : '';
+  cb(error);
+};
+
 export const validateConfirm = (value, pass, cb) => {
   const {
     validation: { confirmRequired, confirmIncorrect }

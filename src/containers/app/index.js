@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react';
+
 import AppScreen from './screen';
 import { AppTitleProvider } from '@context';
 import { navigation } from '@constants';

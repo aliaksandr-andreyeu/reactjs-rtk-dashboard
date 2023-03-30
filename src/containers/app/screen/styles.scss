@@ -40,6 +40,11 @@
   overflow-y: auto;
   padding: $base-dimension * 3 $base-dimension * 3 $base-dimension * 4;
 
+  .data-form {
+    display: flex;
+    flex-direction: column;
+  }
+
   h1,
   h2,
   h3 {

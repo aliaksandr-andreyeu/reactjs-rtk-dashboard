@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
+import { unwrapResult } from '@reduxjs/toolkit';
+
 import { Button, Input, SvgIcon, Alert } from '@components';
 import { navigation, errors } from '@constants';
 import { validateEmail, validateConfirm, preventDefault } from '@helpers';
-
-import { unwrapResult } from '@reduxjs/toolkit';
 
 import './styles.scss';
 
@@ -22,7 +23,7 @@ const SignUpScreen = ({ signUp, resetState, loading, error }) => {
   const [userPassError, setUserPassError] = useState('');
   const [userConfirmError, setUserConfirmError] = useState('');
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     /* eslint-disable react-hooks/exhaustive-deps */
     resetState();
     return () => {

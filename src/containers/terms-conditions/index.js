@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { useAppTitle } from '@context';
@@ -7,7 +7,7 @@ import TermsConditionsScreen from './screen';
 const TermsConditions = ({ title }) => {
   const { setTitle } = useAppTitle();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     /* eslint-disable react-hooks/exhaustive-deps */
     setTitle(title);
   }, []);

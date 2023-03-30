@@ -5,7 +5,8 @@ import {
   stopPropagation,
   preventDefault,
   errorsHandler,
-  capitalizeMessage
+  capitalizeMessage,
+  validateField
 } from './ui';
 import setInterceptors from './store';
 
@@ -17,5 +18,6 @@ export {
   preventDefault,
   errorsHandler,
   capitalizeMessage,
-  setInterceptors
+  setInterceptors,
+  validateField
 };

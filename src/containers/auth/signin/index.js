@@ -1,7 +1,7 @@
 import React from 'react';
 import SignInScreen from './screen';
-import { actions, store } from '@store';
-import { useDispatch } from 'react-redux';
+import { actions } from '@store';
+import { useSelector, useDispatch } from 'react-redux';
 
 const SignIn = () => {
   const {
@@ -9,10 +9,8 @@ const SignIn = () => {
   } = actions;
 
   const {
-    auth: {
-      signInData: { error, loading }
-    }
-  } = store.getState();
+    signInData: { error, loading }
+  } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
