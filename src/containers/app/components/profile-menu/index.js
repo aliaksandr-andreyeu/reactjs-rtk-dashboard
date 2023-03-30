@@ -9,49 +9,21 @@ import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const ProfileMenu = forwardRef(({ className, toggleProfile }, ref) => {
+const ProfileMenu = forwardRef(({ data, className, toggleProfile }, ref) => {
   const linkClassName = ({ isActive }) => getClassName(isActive && 'active');
 
   return (
     <div ref={ref} className={getClassName('cmp-profile-menu', className)}>
       <div className='inbox'>
         <ul onClick={toggleProfile}>
-          <li>
-            <NavLink to={navigation.profile.path} className={linkClassName}>
-              <SvgIcon name='account' />
-              <span>{navigation.profile.name}</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={navigation.settings.path} className={linkClassName}>
-              <SvgIcon name='settings' />
-              <span>{navigation.settings.name}</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={navigation.about.path} className={linkClassName}>
-              <SvgIcon name='info' />
-              <span>{navigation.about.name}</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={navigation.contactUs.path} className={linkClassName}>
-              <SvgIcon name='contact-us' />
-              <span>{navigation.contactUs.name}</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={navigation.privacyPolicy.path} className={linkClassName}>
-              <SvgIcon name='privacy' />
-              <span>{navigation.privacyPolicy.name}</span>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={navigation.termsConditions.path} className={linkClassName}>
-              <SvgIcon name='terms' />
-              <span>{navigation.termsConditions.name}</span>
-            </NavLink>
-          </li>
+          {data.map((item, key) => (
+            <li key={`${item.name}-${key}`}>
+              <NavLink to={item.path} className={linkClassName}>
+                <SvgIcon name={item.icon} />
+                <span>{item.name}</span>
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
@@ -59,11 +31,13 @@ const ProfileMenu = forwardRef(({ className, toggleProfile }, ref) => {
 });
 
 ProfileMenu.propTypes = {
+  data: PropTypes.array.isRequired,
   className: PropTypes.string,
   toggleProfile: PropTypes.func
 };
 
 ProfileMenu.defaultProps = {
+  data: [],
   className: '',
   toggleProfile: () => null
 };

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
@@ -11,7 +11,7 @@ import { getClassName } from '@helpers';
 
 import './styles.scss';
 
-const Header = ({ isMenu, title, toggleMenu }) => {
+const Header = ({ data, isMenu, title, toggleMenu }) => {
   const [profileOpen, setProfileOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -75,15 +75,20 @@ const Header = ({ isMenu, title, toggleMenu }) => {
         {title && <h1>{title}</h1>}
       </div>
       <div className='profile'>
-        <IconButton ref={btnRef} className='icon-button' onClick={toggleProfile}>
-          <SvgIcon name='profile' />
-        </IconButton>
-        <ProfileMenu
-          ref={menuRef}
-          isProfile={profileOpen}
-          toggleProfile={toggleProfile}
-          className={getClassName(profileOpen && 'open')}
-        />
+        {data && data.length > 0 && (
+          <Fragment>
+            <IconButton ref={btnRef} className='icon-button' onClick={toggleProfile}>
+              <SvgIcon name='profile' />
+            </IconButton>
+            <ProfileMenu
+              ref={menuRef}
+              isProfile={profileOpen}
+              toggleProfile={toggleProfile}
+              className={getClassName(profileOpen && 'open')}
+              data={data}
+            />
+          </Fragment>
+        )}
         <IconButton className='icon-button' onClick={onSignOut}>
           <SvgIcon name='logout' />
         </IconButton>
@@ -93,12 +98,14 @@ const Header = ({ isMenu, title, toggleMenu }) => {
 };
 
 Header.propTypes = {
+  data: PropTypes.array.isRequired,
   isMenu: PropTypes.bool,
   title: PropTypes.string,
   toggleMenu: PropTypes.func
 };
 
 Header.defaultProps = {
+  data: [],
   isMenu: false,
   title: '',
   toggleMenu: () => null
