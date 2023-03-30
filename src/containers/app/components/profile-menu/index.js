@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { navigation } from '@constants';
 
 import { NavLink } from 'react-router-dom';
 
