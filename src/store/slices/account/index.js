@@ -47,7 +47,7 @@ const getAccount = createAsyncThunk('account/getAccount', async (payload, { reje
   }
 });
 
-const editAccount = createAsyncThunk('account/editAccount', async (payload, { rejectWithValue }) => {
+const editAccount = createAsyncThunk('account/editAccount', async (payload, { dispatch, rejectWithValue }) => {
   try {
     if (!payload) {
       throw new Error(errors.common.error);
@@ -56,7 +56,7 @@ const editAccount = createAsyncThunk('account/editAccount', async (payload, { re
     const response = await api.account.editAccount(payload);
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ editAccount STORE response: ', response);
 
-    if (!(response && Object.keys(response).length > 0)) {
+    if (!(response && Object.keys(response).length > 0 && response.data !== undefined)) {
       throw new Error(errors.common.error);
     }
 
@@ -64,7 +64,11 @@ const editAccount = createAsyncThunk('account/editAccount', async (payload, { re
       return rejectWithValue(errorsHandler(response.message));
     }
 
-    return response;
+    const data = response.data || {};
+
+    Boolean(data) && dispatch(actions.setOverview(data));
+
+    return data;
   } catch (error) {
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ editAccount STORE error: ', errorsHandler(error), error);
     return rejectWithValue(errorsHandler(error));
@@ -203,7 +207,7 @@ const account = createSlice({
     });
     builder.addCase(editAccount.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ editAccount STORE pending: ');
-      state.getAccountData = {
+      state.editAccountData = {
         loading: true,
         error: null,
         message: null
@@ -211,7 +215,7 @@ const account = createSlice({
     });
     builder.addCase(editAccount.fulfilled, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ editAccount STORE fulfilled: ', payload);
-      state.getAccountData = {
+      state.editAccountData = {
         loading: false,
         error: null,
         message: payload ? messages.common.accountDataChanged : null
@@ -219,7 +223,7 @@ const account = createSlice({
     });
     builder.addCase(editAccount.rejected, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ editAccount STORE rejected: ', payload);
-      state.getAccountData = {
+      state.editAccountData = {
         loading: false,
         error: payload || null,
         message: null
