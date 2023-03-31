@@ -1,5 +1,6 @@
 import auth from './auth';
 import users from './users';
+import account from './account';
 
 const api = Object.create(Object.prototype, {
   auth: {
@@ -7,6 +8,9 @@ const api = Object.create(Object.prototype, {
   },
   users: {
     value: users
+  },
+  account: {
+    value: account
   }
 });
 

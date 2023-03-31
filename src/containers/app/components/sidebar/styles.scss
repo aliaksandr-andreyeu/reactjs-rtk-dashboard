@@ -12,7 +12,7 @@
   transition: opacity 0s 0.25s, visibility 0s 0.25s, left 0.25s ease-in-out;
   visibility: hidden;
   width: $base-dimension * 30;
-  z-index: 2;
+  z-index: 4;
 
   .inbox {
     display: flex;
