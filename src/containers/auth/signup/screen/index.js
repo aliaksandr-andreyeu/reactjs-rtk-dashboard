@@ -32,7 +32,7 @@ const SignUpScreen = ({ signUp, resetState, loading, error }) => {
   }, []);
 
   const checkEmail = (value) => {
-    validateEmail(value, setUserNameError);
+    validateEmail(null, value, setUserNameError);
     setUserName(value);
   };
 
