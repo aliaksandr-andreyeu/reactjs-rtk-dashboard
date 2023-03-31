@@ -1,1 +1,54 @@
 @import '@constants/styles/theme.module';
+
+.data-container {
+  &.contact-us {
+    .alert-box {
+      min-width: $base-dimension * 30;
+      width: 100%;
+
+      .cmp-alert {
+        padding: $base-dimension * 0.25 0;
+      }
+
+      & + .input-box {
+        margin-top: $base-dimension * 4;
+      }
+    }
+
+    .input-box {
+      width: 50%;
+
+      &.textarea {
+        width: 100%;
+      }
+
+      .cmp-input {
+        width: 100%;
+      }
+
+      & + .input-box {
+        margin-top: $base-dimension * 3;
+
+        &.textarea {
+          margin-top: $base-dimension * 3;
+        }
+      }
+
+      &.error + .input-box {
+        margin-top: $base-dimension * 2;
+
+        &.textarea {
+          margin-top: $base-dimension * 2;
+        }
+      }
+
+      & + .btn {
+        margin-top: $base-dimension * 5;
+      }
+    }
+
+    .btn {
+      max-width: $base-dimension * 18;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { SvgIcon } from '@components';
 import { getClassName, preventDefault } from '@helpers';
@@ -8,7 +8,7 @@ import './styles.scss';
 const Alert = ({ message, className, type }) => {
   const [visible, setVisible] = useState(Boolean(message));
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setVisible(Boolean(message));
   }, [message]);
 
