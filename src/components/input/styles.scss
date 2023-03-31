@@ -57,6 +57,7 @@
   border-radius: $base-dimension * 0.25;
   color: $primary-color;
   display: block;
+  font-family: $text-font;
   font-size: $base-dimension * 1.5;
   left: $base-dimension;
   line-height: 1.5;
@@ -73,6 +74,7 @@
   box-shadow: 0 0 $base-dimension * 0.125 $primary-color;
   color: $secondary-dark-text-color;
   display: block;
+  font-family: $text-font;
   font-size: $base-dimension * 1.75;
   height: auto;
   line-height: 1.5;
@@ -96,6 +98,7 @@
   &:placeholder-shown {
     background-color: $white-color;
     color: $secondary-light-text-color;
+    font-family: $text-font;
     font-size: $base-dimension * 1.625;
   }
 }

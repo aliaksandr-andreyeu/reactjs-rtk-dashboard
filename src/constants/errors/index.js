@@ -13,7 +13,8 @@ const errors = {
     removeConfirm: (userName) => `Are you sure to remove user <strong>${userName}</strong>?`
   },
   common: {
-    error: 'Something went wrong. Try again later...'
+    error: 'Something went wrong. Try again later...',
+    messageNotSent: 'Your message has not been sent'
   }
 };
 

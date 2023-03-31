@@ -17,7 +17,7 @@ const contactUs = createAsyncThunk('account/contactUs', async (payload, { reject
     }
 
     if (!response.isOk) {
-      return rejectWithValue(errorsHandler(response.message));
+      return rejectWithValue(errorsHandler(response.message || errors.common.messageNotSent));
     }
 
     return response;
