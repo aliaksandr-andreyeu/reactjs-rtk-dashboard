@@ -1,0 +1,30 @@
+@import '@constants/styles/theme.module';
+
+.cmp-modal {
+  &.change-password-modal {
+    .cmp-modal-item {
+      width: $base-dimension * 56;
+
+      .body {
+        padding-bottom: $base-dimension * 3;
+        padding-top: $base-dimension * 3;
+      }
+
+      .input-box {
+        max-width: 100%;
+
+        .cmp-input {
+          width: 100%;
+        }
+
+        & + .input-box {
+          margin-top: $base-dimension * 3;
+        }
+
+        &.error + .input-box {
+          margin-top: $base-dimension * 2;
+        }
+      }
+    }
+  }
+}

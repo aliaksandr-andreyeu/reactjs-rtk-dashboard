@@ -1,6 +1,7 @@
 @import '@constants/styles/theme.module';
 
 .cmp-input-box {
+  max-width: $base-dimension * 30;
   padding: $base-dimension * 1.25 0 0 0;
   position: relative;
 
