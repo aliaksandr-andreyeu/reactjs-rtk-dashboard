@@ -108,7 +108,7 @@ ContactUsScreen.propTypes = {
 
 ContactUsScreen.defaultProps = {
   contactUs: (payload) => payload,
-  resetState: () => {},
+  resetState: () => null,
   loading: false,
   err: null,
   msg: null
