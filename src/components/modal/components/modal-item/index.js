@@ -17,7 +17,9 @@ const ModalItem = ({
   onOK,
   title,
   toggleVisible,
-  visible
+  visible,
+  loading,
+  className
 }) => {
   const handleClose = () => {
     toggleVisible && toggleVisible();
@@ -32,7 +34,10 @@ const ModalItem = ({
   };
 
   return (
-    <div className={getClassName('cmp-modal', confirm && 'confirm', visible && 'open')} onClick={handleClose}>
+    <div
+      className={getClassName('cmp-modal', confirm && 'confirm', visible && 'open', className)}
+      onClick={handleClose}
+    >
       <div onClick={stopPropagation} className='cmp-modal-item'>
         <div className='header'>
           {title && <h3>{title}</h3>}
@@ -45,7 +50,7 @@ const ModalItem = ({
           {isCancel && (
             <Button className='btn' onClick={handleCancel} stroke={true} color='primary' label={cancelText} />
           )}
-          {isOK && <Button className='btn' onClick={handleOK} color='primary' label={okText} />}
+          {isOK && <Button loading={loading} className='btn' onClick={handleOK} color='primary' label={okText} />}
         </div>
       </div>
     </div>
@@ -63,6 +68,8 @@ ModalItem.propTypes = {
   toggleVisible: PropTypes.func,
   visible: PropTypes.bool,
   confirm: PropTypes.bool,
+  loading: PropTypes.bool,
+  className: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
 };
 
@@ -76,7 +83,9 @@ ModalItem.defaultProps = {
   title: 'Modal',
   toggleVisible: () => null,
   visible: false,
-  confirm: false
+  confirm: false,
+  loading: false,
+  className: ''
 };
 
 export default ModalItem;

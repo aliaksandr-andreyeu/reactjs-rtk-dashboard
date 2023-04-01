@@ -140,7 +140,16 @@
         line-height: 1.5;
         min-height: $base-dimension * 5;
         min-width: $base-dimension * 4;
-        padding: $base-dimension * 0.5 $base-dimension * 3;
+        padding: $base-dimension * 0.5 $base-dimension * 2.5;
+
+        &.loading {
+          padding-left: $base-dimension * 0.5;
+          padding-right: $base-dimension * 1.5;
+
+          .gap {
+            display: inline-block;
+          }
+        }
 
         .gap {
           display: none;

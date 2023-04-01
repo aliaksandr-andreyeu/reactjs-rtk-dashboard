@@ -16,7 +16,9 @@ const Modal = ({
   onOK,
   title,
   toggleVisible,
-  visible
+  visible,
+  className,
+  loading
 }) => {
   return createPortal(
     <ModalItem
@@ -30,6 +32,8 @@ const Modal = ({
       visible={visible}
       toggleVisible={toggleVisible}
       confirm={confirm}
+      className={className}
+      loading={loading}
     >
       {children}
     </ModalItem>,
@@ -48,7 +52,9 @@ Modal.propTypes = {
   title: PropTypes.string,
   toggleVisible: PropTypes.func,
   visible: PropTypes.bool,
-  confirm: PropTypes.bool
+  confirm: PropTypes.bool,
+  className: PropTypes.string,
+  loading: PropTypes.bool
 };
 
 Modal.defaultProps = {
@@ -61,7 +67,9 @@ Modal.defaultProps = {
   title: 'Modal',
   toggleVisible: () => null,
   visible: false,
-  confirm: false
+  confirm: false,
+  className: '',
+  loading: false
 };
 
 export default Modal;
