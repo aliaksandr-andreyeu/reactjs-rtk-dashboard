@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Modal, Input } from '@components';
-import { validateConfirm, preventDefault } from '@helpers';
+import { validateConfirm } from '@helpers';
 import { errors } from '@constants';
 
 import './styles.scss';
@@ -11,7 +11,7 @@ const {
   validation: { passwordRequired }
 } = errors;
 
-const ChangePasswordModal = ({ visible, toggleModal, onOK, onCancel }) => {
+const ChangePasswordModal = ({ loading, visible, toggleModal, onOK, onCancel }) => {
   const [userPass, setUserPass] = useState('');
   const [newPass, setNewPass] = useState('');
   const [confirm, setConfirm] = useState('');
@@ -19,23 +19,6 @@ const ChangePasswordModal = ({ visible, toggleModal, onOK, onCancel }) => {
   const [userPassError, setUserPassError] = useState('');
   const [newPassError, setNewPassError] = useState('');
   const [confirmError, setConfirmError] = useState('');
-
-  const checkPass = (value) => {
-    const error = value ? '' : passwordRequired;
-    setUserPassError(error);
-    setUserPass(value);
-  };
-
-  const checkNewPass = (value) => {
-    const error = value ? '' : passwordRequired;
-    setNewPassError(error);
-    setNewPass(value);
-  };
-
-  const checkConfirm = (value) => {
-    validateConfirm(value, newPass, setConfirmError);
-    setConfirm(value);
-  };
 
   const clearState = () => {
     setUserPass('');
@@ -46,8 +29,41 @@ const ChangePasswordModal = ({ visible, toggleModal, onOK, onCancel }) => {
     setConfirmError('');
   };
 
+  useLayoutEffect(() => {
+    visible && clearState();
+  }, [visible]);
+
+  const checkPass = (value) => {
+    const error = value ? '' : passwordRequired;
+    setUserPassError(error);
+    setUserPass(value);
+  };
+
+  const checkNewPass = (value) => {
+    const error = value ? '' : passwordRequired;
+    validateConfirm(confirm, value, setConfirmError);
+    setNewPassError(error);
+    setNewPass(value);
+  };
+
+  const checkConfirm = (value) => {
+    validateConfirm(value, newPass, setConfirmError);
+    setConfirm(value);
+  };
+
   const handleOK = () => {
-    onOK && onOK();
+    checkPass(userPass);
+    checkNewPass(newPass);
+    checkConfirm(confirm);
+
+    if (userPass && newPass && confirm && !userPassError && !newPassError && !confirmError) {
+      const payload = {
+        password: userPass,
+        newpassword: newPass,
+        confirm
+      };
+      onOK && onOK(payload);
+    }
   };
 
   const handleCancel = () => {
@@ -56,14 +72,15 @@ const ChangePasswordModal = ({ visible, toggleModal, onOK, onCancel }) => {
 
   return (
     <Modal
+      backdrop={false}
       visible={visible}
       title='Change password'
       toggleVisible={toggleModal}
-      onOK={onOK}
-      onCancel={onCancel}
+      onOK={handleOK}
+      onCancel={handleCancel}
       className='change-password-modal'
       okText='Save'
-      loading={true}
+      loading={loading}
     >
       <Input
         containerClassName={'input-box'}
@@ -103,14 +120,16 @@ ChangePasswordModal.propTypes = {
   visible: PropTypes.bool,
   toggleModal: PropTypes.func,
   onCancel: PropTypes.func,
-  onOK: PropTypes.func
+  onOK: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 ChangePasswordModal.defaultProps = {
   visible: false,
   toggleModal: () => null,
   onCancel: () => null,
-  onOK: () => null
+  onOK: (payload) => payload,
+  loading: false
 };
 
 export default ChangePasswordModal;
