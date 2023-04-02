@@ -38,6 +38,7 @@ const SignUpScreen = ({ signUp, resetState, loading, error }) => {
 
   const checkPass = (value) => {
     const error = value ? '' : passwordRequired;
+    validateConfirm(userConfirm, value, setUserConfirmError);
     setUserPassError(error);
     setUserPass(value);
   };
@@ -107,7 +108,7 @@ const SignUpScreen = ({ signUp, resetState, loading, error }) => {
             type={'password'}
             containerClassName={'input-box'}
             placeholder={'Confirm'}
-            name={'userpass'}
+            name={'passconfirm'}
             onChange={checkConfirm}
             error={userConfirmError}
             value={userConfirm}
@@ -138,7 +139,7 @@ SignUpScreen.propTypes = {
 
 SignUpScreen.defaultProps = {
   signUp: (payload) => payload,
-  resetState: () => {},
+  resetState: () => null,
   loading: false,
   error: null
 };

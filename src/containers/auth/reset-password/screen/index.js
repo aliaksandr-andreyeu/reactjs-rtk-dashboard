@@ -43,7 +43,7 @@ const ResetPasswordScreen = () => {
               type={'password'}
               containerClassName={'input-box'}
               placeholder={'Confirm'}
-              name={'userpass'}
+              name={'passconfirm'}
               onChange={(event) => {
                 console.log('event.target.value', event.target.value);
               }}

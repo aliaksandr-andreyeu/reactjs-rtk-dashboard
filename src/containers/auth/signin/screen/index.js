@@ -123,7 +123,7 @@ SignInScreen.propTypes = {
 
 SignInScreen.defaultProps = {
   signIn: (payload) => payload,
-  resetState: () => {},
+  resetState: () => null,
   loading: false,
   error: null
 };
