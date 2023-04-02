@@ -11,43 +11,37 @@ const Profile = ({ title }) => {
   const { setTitle } = useAppTitle();
 
   const {
-    account: {
-      changePassword,
-      getAccount,
-      editAccount,
-      resetGetAccountState,
-      resetEditAccountState,
-      resetChangePasswordState
-    }
+    account: { changePassword, editAccount, resetEditAccountState, resetChangePasswordState }
   } = actions;
 
-  const { overview, getAccountData, editAccountData, changePasswordData } = useSelector((state) => state.account);
+  const { overview, editAccountData, changePasswordData } = useSelector((state) => state.account);
 
-  const loading = getAccountData.loading || editAccountData.loading || changePasswordData.loading;
-
-  const getAccountError = getAccountData.error;
   const editAccountError = editAccountData.error;
   const changePasswordError = changePasswordData.error;
 
   const dispatch = useDispatch();
   const handleChangePassword = (payload) => dispatch(changePassword(payload));
-  const handleGetAccount = () => dispatch(getAccount());
   const handleEditAccount = (payload) => dispatch(editAccount(payload));
 
-  const resetGetAccount = () => dispatch(resetGetAccountState());
   const resetEditAccount = () => dispatch(resetEditAccountState());
   const resetChangePassword = () => dispatch(resetChangePasswordState());
+
+  const resetState = () => {
+    resetEditAccount();
+    resetChangePassword();
+  };
 
   const userTitle = (overview && overview.username) || title;
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useLayoutEffect(() => {
     setTitle(userTitle);
-  }, []);
+    resetState();
 
-  useEffect(() => {
-    getAccountError && rejectHandler(getAccountError, resetGetAccount);
-  }, [getAccountError]);
+    return () => {
+      resetState();
+    };
+  }, []);
 
   useEffect(() => {
     editAccountError && rejectHandler(editAccountError, resetEditAccount);
@@ -60,10 +54,13 @@ const Profile = ({ title }) => {
   return (
     <ProfileScreen
       overview={overview}
-      changePassword={handleChangePassword}
-      getAccount={handleGetAccount}
-      editAccount={handleEditAccount}
-      loading={loading}
+      resetState={resetState}
+      changePass={handleChangePassword}
+      changePassLoading={changePasswordData.loading}
+      changePassMessage={changePasswordData.message}
+      editAcc={handleEditAccount}
+      editAccLoading={editAccountData.loading}
+      editAccMessage={editAccountData.message}
     />
   );
 };

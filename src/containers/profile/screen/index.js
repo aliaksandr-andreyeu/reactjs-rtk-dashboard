@@ -1,141 +1,203 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { Input, Button } from '@components';
+import { unwrapResult } from '@reduxjs/toolkit';
+
+import { Input, Button, Alert } from '@components';
+import { ChangePasswordModal } from '../components';
 import { preventDefault, validateEmail } from '@helpers';
 
 import './styles.scss';
 
-const ProfileScreen = ({ overview, changePassword, getAccount, editAccount, loading }) => {
+const ProfileScreen = ({
+  resetState,
+  overview,
+  changePass,
+  changePassLoading,
+  changePassMessage,
+  editAcc,
+  editAccLoading,
+  editAccMessage,
+}) => {
+  const { age: oAge, job: oJob, name: oName, surname: oSurname, username: oUserName } = overview;
+
+  const [visible, setVisible] = useState(false);
   const [edit, setEdit] = useState(false);
-
-  const [userName, setUserName] = useState('');
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [age, setAge] = useState('');
-  const [job, setJob] = useState('');
-
+  const [userName, setUserName] = useState(oUserName);
+  const [name, setName] = useState(oName || '');
+  const [surname, setSurname] = useState(oSurname || '');
+  const [age, setAge] = useState(oAge || 0);
+  const [job, setJob] = useState(oJob || '');
   const [userNameError, setUserNameError] = useState('');
 
+  const setModal = () => {
+    setVisible(!visible);
+  };
+
+  const modalOK = (payload) => {
+    console.log('modalOK payload: ', payload);
+    if (payload) {
+      changePass(payload)
+        .then(unwrapResult)
+        .then((data) => {
+          console.log('****************************************** changePassword data', data);
+
+          setVisible(false);
+        })
+        .catch((err) => {
+          console.log('****************************************** changePassword err', err);
+        });
+    }
+  };
+
+  const modalCancel = () => {
+    setVisible(false);
+  };
+
   const checkEmail = (value) => {
-    validateEmail(value, setUserNameError);
+    validateEmail('Username', value, setUserNameError);
     setUserName(value);
   };
 
-  const handleSubmit = (event) => {
+  const handleChangePassword = () => {
     resetState();
 
+    setVisible(true);
+  };
+
+  const handleSubmit = (event) => {
     Boolean(event) && preventDefault(event);
 
-    checkEmail(userName);
-    checkPass(userPass);
+    if (!edit) {
+      setEdit(true);
+      return;
+    }
 
-    if (userName && userPass && !userNameError && !userPassError) {
+    resetState();
+
+    checkEmail(userName);
+
+    if (userName && !userNameError) {
       const payload = {
         username: userName,
-        password: userPass
+        name,
+        surname,
+        age,
+        job
       };
-      signIn(payload)
+      editAcc(payload)
         .then(unwrapResult)
         .then((data) => {
-          console.log('****************************************** signIn data', data);
+          console.log('****************************************** editAccount data', data);
+          setEdit(false);
         })
         .catch((err) => {
-          console.log('****************************************** signIn err', err);
+          console.log('****************************************** editAccount err', err);
         });
     }
   };
 
   return (
-    <div className='data-container'>
-      <form className='data-form' onSubmit={handleSubmit}>
-        <Input
-          label={'Username'}
-          type={'text'}
-          containerClassName={'input-box'}
-          placeholder={'Username'}
-          name={'username'}
-          onChange={checkEmail}
-          error={userNameError}
-          value={userName}
-          disabled={!edit}
-        />
-
-        <Input
-          label={'Name'}
-          type={'text'}
-          containerClassName={'input-box'}
-          placeholder={'Name'}
-          name={'name'}
-          // onChange={checkEmail}
-          // error={userNameError}
-          // value={userName}
-          disabled={!edit}
-        />
-
-        <Input
-          label={'Surname'}
-          type={'text'}
-          containerClassName={'input-box'}
-          placeholder={'Surname'}
-          name={'surname'}
-          // onChange={checkEmail}
-          // error={userNameError}
-          // value={userName}
-          disabled={!edit}
-        />
-
-        <Input
-          label={'Age'}
-          type={'text'}
-          containerClassName={'input-box'}
-          placeholder={'Age'}
-          name={'age'}
-          // onChange={checkEmail}
-          // error={userNameError}
-          // value={userName}
-          disabled={!edit}
-        />
-
-        <Input
-          label={'Job'}
-          type={'text'}
-          containerClassName={'input-box'}
-          placeholder={'Job'}
-          name={'job'}
-          // onChange={checkEmail}
-          // error={userNameError}
-          // value={userName}
-          disabled={!edit}
-        />
-
-        <Button
-          // loading={loading}
-          color={'accent'}
-          label={'asdasdasd'}
-          type={'submit'}
-          className={'btn'}
-          onClick={handleSubmit}
-        />
-      </form>
-    </div>
+    <Fragment>
+      <div className='data-container'>
+        <form className='data-form' onSubmit={handleSubmit}>
+          <Alert className='alert-box' message={editAccMessage} type='success' />
+          <Alert className='alert-box' message={changePassMessage} type='success' />
+          <Input
+            label={'Username'}
+            type={'text'}
+            containerClassName={'input-box'}
+            placeholder={'Username'}
+            name={'username'}
+            onChange={checkEmail}
+            error={userNameError}
+            value={userName}
+            disabled={!edit}
+          />
+          <a className='a-link' onClick={handleChangePassword}>
+            Change Password
+          </a>
+          <Input
+            label={'Name'}
+            type={'text'}
+            containerClassName={'input-box'}
+            placeholder={'Name'}
+            name={'name'}
+            onChange={setName}
+            value={name}
+            disabled={!edit}
+          />
+          <Input
+            label={'Surname'}
+            type={'text'}
+            containerClassName={'input-box'}
+            placeholder={'Surname'}
+            name={'surname'}
+            onChange={setSurname}
+            value={surname}
+            disabled={!edit}
+          />
+          <Input
+            label={'Age'}
+            type={'number'}
+            containerClassName={'input-box'}
+            placeholder={'Age'}
+            name={'age'}
+            onChange={setAge}
+            value={age || ''}
+            disabled={!edit}
+          />
+          <Input
+            label={'Job'}
+            type={'text'}
+            containerClassName={'input-box'}
+            placeholder={'Job'}
+            name={'job'}
+            onChange={setJob}
+            value={job}
+            disabled={!edit}
+          />
+          <Button
+            loading={editAccLoading}
+            color={'accent'}
+            label={edit ? 'Save' : 'Edit'}
+            type={'submit'}
+            className={'btn'}
+            onClick={handleSubmit}
+          />
+        </form>
+      </div>
+      <ChangePasswordModal
+        loading={changePassLoading}
+        visible={visible}
+        toggleModal={setModal}
+        onOK={modalOK}
+        onCancel={modalCancel}
+      />
+    </Fragment>
   );
 };
 
 ProfileScreen.propTypes = {
-  changePassword: PropTypes.func.isRequired,
-  getAccount: PropTypes.func.isRequired,
-  editAccount: PropTypes.func.isRequired,
+  resetState: PropTypes.func.isRequired,
   overview: PropTypes.object,
-  loading: PropTypes.bool
+  changePass: PropTypes.func.isRequired,
+  changePassLoading: PropTypes.bool,
+  changePassMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
+  editAcc: PropTypes.func.isRequired,
+  editAccLoading: PropTypes.bool,
+  editAccMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
 };
 
 ProfileScreen.defaultProps = {
-  changePassword: (payload) => payload,
-  getAccount: () => {},
-  editAccount: (payload) => payload,
+  resetState: () => null,
   overview: {},
-  loading: false
+  changePass: (payload) => payload,
+  changePassLoading: false,
+  changePassMessage: null,
+  editAcc: (payload) => payload,
+  editAccLoading: false,
+  editAccMessage: null,
 };
 
 export default ProfileScreen;
