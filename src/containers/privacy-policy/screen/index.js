@@ -78,7 +78,7 @@ const PrivacyPolicyScreen = () => {
         <li>
           <p>
             <strong>Website</strong> refers to Company, accessible from{' '}
-            <a href={url} rel='external nofollow noopener noreferrer' target='_blank'>
+            <a className='a-link' href={url} rel='external nofollow noopener noreferrer' target='_blank'>
               {url}
             </a>
           </p>
