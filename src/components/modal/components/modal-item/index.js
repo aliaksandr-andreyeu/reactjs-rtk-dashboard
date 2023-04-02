@@ -19,10 +19,15 @@ const ModalItem = ({
   toggleVisible,
   visible,
   loading,
-  className
+  className,
+  backdrop
 }) => {
   const handleClose = () => {
     toggleVisible && toggleVisible();
+  };
+
+  const backdropClose = () => {
+    backdrop && handleClose();
   };
 
   const handleOK = () => {
@@ -36,7 +41,7 @@ const ModalItem = ({
   return (
     <div
       className={getClassName('cmp-modal', confirm && 'confirm', visible && 'open', className)}
-      onClick={handleClose}
+      onClick={backdropClose}
     >
       <div onClick={stopPropagation} className='cmp-modal-item'>
         <div className='header'>
@@ -70,7 +75,8 @@ ModalItem.propTypes = {
   confirm: PropTypes.bool,
   loading: PropTypes.bool,
   className: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  backdrop: PropTypes.bool
 };
 
 ModalItem.defaultProps = {
@@ -85,7 +91,8 @@ ModalItem.defaultProps = {
   visible: false,
   confirm: false,
   loading: false,
-  className: ''
+  className: '',
+  backdrop: true
 };
 
 export default ModalItem;

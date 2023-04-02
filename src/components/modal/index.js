@@ -18,7 +18,8 @@ const Modal = ({
   toggleVisible,
   visible,
   className,
-  loading
+  loading,
+  backdrop
 }) => {
   return createPortal(
     <ModalItem
@@ -34,6 +35,7 @@ const Modal = ({
       confirm={confirm}
       className={className}
       loading={loading}
+      backdrop={backdrop}
     >
       {children}
     </ModalItem>,
@@ -54,7 +56,8 @@ Modal.propTypes = {
   visible: PropTypes.bool,
   confirm: PropTypes.bool,
   className: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  backdrop: PropTypes.bool
 };
 
 Modal.defaultProps = {
@@ -69,7 +72,8 @@ Modal.defaultProps = {
   visible: false,
   confirm: false,
   className: '',
-  loading: false
+  loading: false,
+  backdrop: true
 };
 
 export default Modal;
