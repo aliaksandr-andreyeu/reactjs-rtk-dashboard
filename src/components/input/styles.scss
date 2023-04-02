@@ -22,6 +22,25 @@
       min-height: $base-dimension * 18;
     }
   }
+
+  &.disabled {
+    .cmp-input-label {
+      color: $secondary-text-color;
+    }
+
+    .cmp-input {
+      border-color: $secondary-light-text-color;
+      box-shadow: 0 0 $base-dimension * 0.125 $secondary-light-text-color;
+      color: $secondary-text-color;
+
+      &:hover,
+      &:focus,
+      &:focus-visible {
+        border-color: $secondary-light-text-color;
+        box-shadow: 0 0 $base-dimension * 0.5 $secondary-light-text-color;
+      }
+    }
+  }
 }
 
 .cmp-error {

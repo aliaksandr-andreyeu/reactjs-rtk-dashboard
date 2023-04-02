@@ -26,12 +26,10 @@ const Input = forwardRef(
     },
     ref
   ) => {
-    const [val, setVal] = useState(value !== undefined ? value : '');
     const [visible, setVisible] = useState(false);
 
     const handleChange = (event) => {
       const value = event.target.value;
-      setVal(value);
       Boolean(onChange) && onChange(value);
     };
 
@@ -52,9 +50,10 @@ const Input = forwardRef(
       <div
         className={getClassName(
           'cmp-input-box',
-          Boolean(error) && 'error',
+          Boolean(error && !disabled) && 'error',
           textArea && 'textarea',
-          security && 'security',
+          Boolean(security && !disabled) && 'security',
+          disabled && 'disabled',
           containerClassName
         )}
       >
@@ -64,7 +63,7 @@ const Input = forwardRef(
           ref={ref}
           className={getClassName('cmp-input', inputClassName)}
           autoFocus={autoFocus}
-          value={val}
+          value={value !== undefined ? value : ''}
           tabIndex={tabIndex}
           disabled={disabled}
           readOnly={readonly}
@@ -72,12 +71,12 @@ const Input = forwardRef(
           placeholder={placeholder}
           {...(name && { name })}
         />
-        {security && (
+        {Boolean(security && !disabled) && (
           <a onClick={switchHandle} className='cmp-switch'>
             <SvgIcon className='icon' name={visible ? 'eye' : 'eye-off'} />
           </a>
         )}
-        {Boolean(error) && <span className='cmp-error'>{error}</span>}
+        {Boolean(error && !disabled) && <span className='cmp-error'>{error}</span>}
       </div>
     );
   }
