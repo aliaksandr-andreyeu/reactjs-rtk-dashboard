@@ -32,6 +32,7 @@
       border-color: $secondary-light-text-color;
       box-shadow: 0 0 $base-dimension * 0.125 $secondary-light-text-color;
       color: $secondary-text-color;
+      cursor: not-allowed;
 
       &:hover,
       &:focus,

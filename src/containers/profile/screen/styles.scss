@@ -1,1 +1,73 @@
 @import '@constants/styles/theme.module';
+
+.data-container {
+  &.profile {
+    .row {
+      & + .row {
+        margin-top: $base-dimension * 3;
+      }
+    }
+
+    .col {
+      gap: $base-dimension * 3;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        gap: $base-dimension * 2;
+      }
+
+      &.items-center {
+        @media (min-width: 768px) {
+          align-items: flex-start;
+        }
+      }
+    }
+
+    .alert-box {
+      min-width: $base-dimension * 30;
+      width: 100%;
+
+      .cmp-alert {
+        padding: $base-dimension * 0.25 0;
+      }
+
+      & + .alert-box {
+        margin-top: $base-dimension * 3;
+      }
+
+      & + .row {
+        margin-top: $base-dimension * 4;
+      }
+    }
+
+    .input-box {
+      max-width: 100%;
+      width: 100%;
+
+      .cmp-input {
+        width: 100%;
+      }
+    }
+
+    .a-link {
+      align-self: center;
+      font-family: $text-font;
+      font-size: $base-dimension * 1.75;
+      font-weight: 400;
+      line-height: 1.5;
+
+      @media (min-width: 768px) {
+        align-self: flex-start;
+      }
+    }
+
+    .btn {
+      margin-top: $base-dimension * 2;
+      width: 100%;
+
+      @media (min-width: 480px) {
+        max-width: $base-dimension * 18;
+      }
+    }
+  }
+}
