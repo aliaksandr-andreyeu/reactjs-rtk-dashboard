@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { navigation } from '@constants';
 
 import { useAppTitle } from '@context';
@@ -9,7 +9,6 @@ import { NotFound } from '@containers';
 
 const User = ({ title }) => {
   const { setTitle } = useAppTitle();
-  const { id } = useParams();
 
   const { state } = useLocation();
   const user = (state && state.user) || null;
@@ -21,7 +20,7 @@ const User = ({ title }) => {
     setTitle(userTitle);
   }, []);
 
-  return user ? <UserScreen /> : <NotFound title={navigation.notFound.name} />;
+  return user ? <UserScreen data={user} /> : <NotFound title={navigation.notFound.name} />;
 };
 
 User.propTypes = {

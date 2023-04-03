@@ -127,8 +127,6 @@ const account = createSlice({
   name: 'account',
   reducers: {
     setOverview(state, { payload }) {
-      console.log('setOverview state:', state);
-      console.log('setOverview payload:', payload);
       state.overview = payload || {};
     },
     resetContactUsState(state) {

@@ -1,1 +1,44 @@
 @import '@constants/styles/theme.module';
+
+.data-container {
+  &.user {
+    .row {
+      & + .row {
+        margin-top: $base-dimension * 3;
+      }
+    }
+
+    .col {
+      gap: $base-dimension * 3;
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        gap: $base-dimension * 2;
+      }
+
+      &.items-center {
+        @media (min-width: 768px) {
+          align-items: flex-start;
+        }
+      }
+    }
+
+    .input-box {
+      max-width: 100%;
+      width: 100%;
+
+      .cmp-input {
+        width: 100%;
+      }
+    }
+
+    .btn {
+      margin-top: $base-dimension * 2;
+      width: 100%;
+
+      @media (min-width: 480px) {
+        max-width: $base-dimension * 18;
+      }
+    }
+  }
+}

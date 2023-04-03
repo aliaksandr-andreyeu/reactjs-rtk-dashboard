@@ -35,17 +35,17 @@ const ProfileScreen = ({
   };
 
   const modalOK = (payload) => {
-    console.log('modalOK payload: ', payload);
     if (payload) {
       changePass(payload)
         .then(unwrapResult)
         .then((data) => {
           console.log('****************************************** changePassword data', data);
-
-          setVisible(false);
         })
         .catch((err) => {
           console.log('****************************************** changePassword err', err);
+        })
+        .finally(() => {
+          setVisible(false);
         });
     }
   };
@@ -89,10 +89,12 @@ const ProfileScreen = ({
         .then(unwrapResult)
         .then((data) => {
           console.log('****************************************** editAccount data', data);
-          setEdit(false);
         })
         .catch((err) => {
           console.log('****************************************** editAccount err', err);
+        })
+        .finally(() => {
+          setEdit(false);
         });
     }
   };
