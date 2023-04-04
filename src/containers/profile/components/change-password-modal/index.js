@@ -8,7 +8,7 @@ import { errors } from '@constants';
 import './styles.scss';
 
 const {
-  validation: { passwordRequired }
+  validation: { passwordRequired, sameOldNewPassword }
 } = errors;
 
 const ChangePasswordModal = ({ loading, visible, toggleModal, onOK, onCancel }) => {
@@ -35,12 +35,14 @@ const ChangePasswordModal = ({ loading, visible, toggleModal, onOK, onCancel }) 
 
   const checkPass = (value) => {
     const error = value ? '' : passwordRequired;
+    const newError = value && newPass && value === newPass ? sameOldNewPassword : '';
     setUserPassError(error);
+    setNewPassError(newError);
     setUserPass(value);
   };
 
   const checkNewPass = (value) => {
-    const error = value ? '' : passwordRequired;
+    const error = value && userPass && value === userPass ? sameOldNewPassword : value ? '' : passwordRequired;
     validateConfirm(confirm, value, setConfirmError);
     setNewPassError(error);
     setNewPass(value);

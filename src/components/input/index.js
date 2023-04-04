@@ -96,7 +96,7 @@ Input.propTypes = {
   textArea: PropTypes.bool,
   tabIndex: PropTypes.number,
   type: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   error: PropTypes.string
 };
 

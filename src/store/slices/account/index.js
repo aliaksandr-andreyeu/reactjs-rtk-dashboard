@@ -27,12 +27,12 @@ const contactUs = createAsyncThunk('account/contactUs', async (payload, { reject
   }
 });
 
-const getAccount = createAsyncThunk('account/getAccount', async (payload, { rejectWithValue }) => {
+const getAccount = createAsyncThunk('account/getAccount', async (payload, { dispatch, rejectWithValue }) => {
   try {
     const response = await api.account.getAccount();
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getAccount STORE response: ', response);
 
-    if (!(response && Object.keys(response).length > 0)) {
+    if (!(response && Object.keys(response).length > 0 && response.data !== undefined)) {
       throw new Error(errors.common.error);
     }
 
@@ -40,7 +40,11 @@ const getAccount = createAsyncThunk('account/getAccount', async (payload, { reje
       return rejectWithValue(errorsHandler(response.message));
     }
 
-    return response;
+    const data = response.data || {};
+
+    dispatch(actions.setOverview(data));
+
+    return data;
   } catch (error) {
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getAccount STORE error: ', errorsHandler(error), error);
     return rejectWithValue(errorsHandler(error));
@@ -66,7 +70,7 @@ const editAccount = createAsyncThunk('account/editAccount', async (payload, { di
 
     const data = response.data || {};
 
-    Boolean(data) && dispatch(actions.setOverview(data));
+    dispatch(actions.setOverview(data));
 
     return data;
   } catch (error) {

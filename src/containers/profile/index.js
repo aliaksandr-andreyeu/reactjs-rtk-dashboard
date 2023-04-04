@@ -11,7 +11,8 @@ const Profile = ({ title }) => {
   const { setTitle } = useAppTitle();
 
   const {
-    account: { changePassword, editAccount, resetEditAccountState, resetChangePasswordState }
+    account: { changePassword, editAccount, resetEditAccountState, resetChangePasswordState },
+    auth: { refreshToken }
   } = actions;
 
   const { overview, editAccountData, changePasswordData } = useSelector((state) => state.account);
@@ -22,6 +23,7 @@ const Profile = ({ title }) => {
   const dispatch = useDispatch();
   const handleChangePassword = (payload) => dispatch(changePassword(payload));
   const handleEditAccount = (payload) => dispatch(editAccount(payload));
+  const handleRefreshToken = () => dispatch(refreshToken());
 
   const resetEditAccount = () => dispatch(resetEditAccountState());
   const resetChangePassword = () => dispatch(resetChangePasswordState());
@@ -61,6 +63,7 @@ const Profile = ({ title }) => {
       editAcc={handleEditAccount}
       editAccLoading={editAccountData.loading}
       editAccMessage={editAccountData.message}
+      refreshToken={handleRefreshToken}
     />
   );
 };

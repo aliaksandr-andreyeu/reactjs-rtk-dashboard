@@ -6,7 +6,8 @@ const errors = {
     passwordRequired: 'Password is required',
     passwordIncorrect: 'Incorrect password',
     confirmRequired: 'Password confirmation is required',
-    confirmIncorrect: 'Incorrect password confirmation'
+    confirmIncorrect: 'Incorrect password confirmation',
+    sameOldNewPassword: 'New password cannot be the same as old password'
   },
   user: {
     remove: (userName) => `You remove user <strong>${userName}</strong>`,

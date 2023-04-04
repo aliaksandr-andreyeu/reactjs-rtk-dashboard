@@ -5,7 +5,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 
 import { Input, Button, Alert } from '@components';
 import { ChangePasswordModal } from '../components';
-import { preventDefault, validateEmail } from '@helpers';
+import { preventDefault } from '@helpers';
 
 import './styles.scss';
 
@@ -17,18 +17,18 @@ const ProfileScreen = ({
   changePassMessage,
   editAcc,
   editAccLoading,
-  editAccMessage
+  editAccMessage,
+  refreshToken
 }) => {
   const { age: oAge, job: oJob, name: oName, surname: oSurname, username: oUserName } = overview;
 
   const [visible, setVisible] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [userName, setUserName] = useState(oUserName);
+
   const [name, setName] = useState(oName || '');
   const [surname, setSurname] = useState(oSurname || '');
   const [age, setAge] = useState(oAge || 0);
   const [job, setJob] = useState(oJob || '');
-  const [userNameError, setUserNameError] = useState('');
 
   const setModal = () => {
     setVisible(!visible);
@@ -40,6 +40,7 @@ const ProfileScreen = ({
         .then(unwrapResult)
         .then((data) => {
           console.log('****************************************** changePassword data', data);
+          refreshToken && refreshToken();
         })
         .catch((err) => {
           console.log('****************************************** changePassword err', err);
@@ -52,11 +53,6 @@ const ProfileScreen = ({
 
   const modalCancel = () => {
     setVisible(false);
-  };
-
-  const checkEmail = (value) => {
-    validateEmail('Username', value, setUserNameError);
-    setUserName(value);
   };
 
   const handleChangePassword = () => {
@@ -75,20 +71,19 @@ const ProfileScreen = ({
 
     resetState();
 
-    checkEmail(userName);
-
-    if (userName && !userNameError) {
+    if (oUserName) {
       const payload = {
-        username: userName,
+        username: oUserName,
         name,
         surname,
-        age,
+        age: age || 0,
         job
       };
       editAcc(payload)
         .then(unwrapResult)
         .then((data) => {
           console.log('****************************************** editAccount data', data);
+          refreshToken && refreshToken();
         })
         .catch((err) => {
           console.log('****************************************** editAccount err', err);
@@ -107,19 +102,6 @@ const ProfileScreen = ({
           <Alert className='alert-box' message={changePassMessage} type='success' />
           <div className='row'>
             <div className='col'>
-              <div className='cell'>
-                <Input
-                  label={'Username'}
-                  type={'text'}
-                  containerClassName={'input-box'}
-                  placeholder={'Username'}
-                  name={'username'}
-                  onChange={checkEmail}
-                  error={userNameError}
-                  value={userName}
-                  disabled={!edit}
-                />
-              </div>
               <div className='cell'>
                 <Input
                   label={'Name'}
@@ -208,6 +190,7 @@ ProfileScreen.propTypes = {
   resetState: PropTypes.func.isRequired,
   overview: PropTypes.object,
   changePass: PropTypes.func.isRequired,
+  refreshToken: PropTypes.func.isRequired,
   changePassLoading: PropTypes.bool,
   changePassMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.oneOf([null])]),
   editAcc: PropTypes.func.isRequired,
@@ -219,6 +202,7 @@ ProfileScreen.defaultProps = {
   resetState: () => null,
   overview: {},
   changePass: (payload) => payload,
+  refreshToken: () => null,
   changePassLoading: false,
   changePassMessage: null,
   editAcc: (payload) => payload,
