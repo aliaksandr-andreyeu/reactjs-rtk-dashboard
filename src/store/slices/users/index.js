@@ -122,6 +122,24 @@ const deleteUser = createAsyncThunk('users/deleteUser', async (payload, { dispat
 });
 
 const initialState = {
+  usersData: {
+    loading: false,
+    error: null,
+    data: null
+  },
+  userData: {
+    loading: false,
+    error: null,
+    data: null
+  },
+  createUserData: {
+    loading: false,
+    error: null
+  },
+  modifyUserData: {
+    loading: false,
+    error: null
+  },
   updateUserData: {
     loading: false,
     error: null
@@ -129,11 +147,6 @@ const initialState = {
   deleteUserData: {
     loading: false,
     error: null
-  },
-  usersData: {
-    loading: false,
-    error: null,
-    data: null
   }
 };
 
@@ -144,6 +157,25 @@ const users = createSlice({
     resetGetUsersState(state) {
       state.usersData = {
         ...state.usersData,
+        loading: false,
+        error: null
+      };
+    },
+    resetGetUserState(state) {
+      state.userData = {
+        ...state.userData,
+        loading: false,
+        error: null
+      };
+    },
+    resetCreateUserState(state) {
+      state.createUserData = {
+        loading: false,
+        error: null
+      };
+    },
+    resetModifyUserState(state) {
+      state.modifyUserData = {
         loading: false,
         error: null
       };
@@ -184,37 +216,73 @@ const users = createSlice({
         error: payload || null
       };
     });
-
     builder.addCase(getUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUser.pending: ');
+      state.userData = {
+        ...state.userData,
+        loading: false,
+        error: null
+      };
     });
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUser.fulfilled: ', payload);
+      state.userData = {
+        ...state.userData,
+        loading: false,
+        error: null,
+        ...(payload && { data: payload })
+      };
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUser.rejected: ', payload);
+      state.userData = {
+        ...state.userData,
+        loading: false,
+        error: payload || null
+      };
     });
-
     builder.addCase(createUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ createUser.pending: ');
+      state.createUserData = {
+        loading: true,
+        error: null
+      };
     });
     builder.addCase(createUser.fulfilled, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ createUser.fulfilled: ', payload);
+      state.createUserData = {
+        loading: false,
+        error: null
+      };
     });
     builder.addCase(createUser.rejected, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ createUser.rejected: ', payload);
+      state.createUserData = {
+        loading: false,
+        error: payload || null
+      };
     });
-
     builder.addCase(modifyUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ modifyUser.pending: ');
+      state.modifyUserData = {
+        loading: true,
+        error: null
+      };
     });
     builder.addCase(modifyUser.fulfilled, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ modifyUser.fulfilled: ', payload);
+      state.modifyUserData = {
+        loading: false,
+        error: null
+      };
     });
     builder.addCase(modifyUser.rejected, (state, { payload }) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ modifyUser.rejected: ', payload);
+      state.modifyUserData = {
+        loading: false,
+        error: payload || null
+      };
     });
-
     builder.addCase(updateUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ updateUser.pending: ');
       state.updateUserData = {
@@ -236,7 +304,6 @@ const users = createSlice({
         error: payload || null
       };
     });
-
     builder.addCase(deleteUser.pending, (state) => {
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ deleteUser.pending: ');
       state.deleteUserData = {

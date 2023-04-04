@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '@store/api';
-import { errors } from '@constants';
+import { errors, messages } from '@constants';
 import { errorsHandler } from '@helpers';
 import account from '@store/slices/account';
 
@@ -29,6 +29,28 @@ const responseWithValue = (response, dispatch, rejectWithValue) => {
 
   return data;
 };
+
+const resetPassword = createAsyncThunk('auth/resetPassword', async (payload, { rejectWithValue }) => {
+  try {
+    if (!payload) {
+      throw new Error(errors.common.error);
+    }
+
+    const response = await api.auth.resetPassword(payload);
+
+    if (!(response && Object.keys(response).length > 0)) {
+      throw new Error(errors.common.error);
+    }
+
+    if (!response.isOk) {
+      return rejectWithValue(errorsHandler(response.message));
+    }
+
+    return response;
+  } catch (error) {
+    return rejectWithValue(errorsHandler(error));
+  }
+});
 
 const signIn = createAsyncThunk('auth/signIn', async (payload, { dispatch, rejectWithValue }) => {
   try {
@@ -116,6 +138,11 @@ const initialState = {
     loading: false,
     error: null
   },
+  resetPasswordData: {
+    loading: false,
+    error: null,
+    message: null
+  },
   refreshTokenData: {
     status: null,
     error: null
@@ -142,6 +169,13 @@ const auth = createSlice({
       state.isTokenExpired = false;
       state.isLoading = null;
     },
+    resetPasswordState(state) {
+      state.resetPasswordData = {
+        loading: false,
+        error: null,
+        message: null
+      };
+    },
     resetSignInState(state) {
       state.signInData = {
         loading: false,
@@ -156,6 +190,27 @@ const auth = createSlice({
     }
   },
   extraReducers: (builder) => {
+    builder.addCase(resetPassword.pending, (state) => {
+      state.resetPasswordData = {
+        loading: true,
+        error: null,
+        message: null
+      };
+    });
+    builder.addCase(resetPassword.fulfilled, (state, { payload }) => {
+      state.resetPasswordData = {
+        loading: false,
+        error: null,
+        message: payload ? messages.common.passwordResetLinkSent : null
+      };
+    });
+    builder.addCase(resetPassword.rejected, (state, { payload }) => {
+      state.resetPasswordData = {
+        loading: false,
+        error: payload || null,
+        message: null
+      };
+    });
     builder.addCase(signIn.pending, (state) => {
       state.signInData = {
         loading: true,
@@ -232,7 +287,7 @@ const auth = createSlice({
   }
 });
 
-const actions = { ...auth.actions, signIn, signUp, refreshToken, signOut };
+const actions = { ...auth.actions, signIn, signUp, refreshToken, signOut, resetPassword };
 const reducer = auth.reducer;
 
 export default {
