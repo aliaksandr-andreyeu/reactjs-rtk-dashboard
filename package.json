@@ -17,7 +17,7 @@
     "build:dev": "npm run clean:build && webpack --mode development",
     "build:prod": "npm run clean:build && webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "",
+    "precommit": "lint-staged",
     "format": "prettier --write \"./**/*.{js,json,scss}\"",
     "lint": "npm run format && npm run lint:style && npm run lint:js",
     "lint:fix": "npm run format && npm run lint:style:fix && npm run lint:js:fix",

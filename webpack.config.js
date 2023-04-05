@@ -1,9 +1,8 @@
 const path = require('path');
 const dotenv = require('dotenv');
 const { DefinePlugin } = require('webpack');
-
-const copyPlugin = require('copy-webpack-plugin');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
+const copyPlugin = require('copy-webpack-plugin');
 const esLintPlugin = require('eslint-webpack-plugin');
 const styleLintPlugin = require('stylelint-webpack-plugin');
 
@@ -30,31 +29,24 @@ module.exports = (env, argv) => {
   );
 
   return {
-    mode: mode,
-    entry: './src/index.js',
-    output: {
-      path: path.join(__dirname, 'build'),
-      filename: './js/script.js'
-    },
     devServer: {
+      historyApiFallback: {
+        index: 'index.html'
+      },
       host: (dotEnvs && dotEnvs.HOST) || 'localhost',
+      hot: true,
+      open: true,
       port: (dotEnvs && dotEnvs.PORT) || 8000,
       static: {
         directory: path.join(__dirname, 'build')
-      },
-      hot: true,
-      open: true,
-      historyApiFallback: {
-        index: 'index.html'
       }
     },
+    entry: './src/index.js',
+    mode: mode,
     module: {
       rules: [
         {
-          test: /\.svg$/,
-          type: 'asset/inline'
-        },
-        {
+          exclude: /node_modules/,
           test: /\.js?$/,
           use: [
             {
@@ -64,8 +56,7 @@ module.exports = (env, argv) => {
                 presets: ['@babel/preset-env']
               }
             }
-          ],
-          exclude: /node_modules/
+          ]
         },
         {
           test: /\.scss$/,
@@ -84,6 +75,10 @@ module.exports = (env, argv) => {
         }
       ]
     },
+    output: {
+      filename: './js/script.js',
+      path: path.join(__dirname, 'build')
+    },
     plugins: [
       new DefinePlugin(reactEnvs),
       new copyPlugin({
@@ -101,9 +96,13 @@ module.exports = (env, argv) => {
     ],
     resolve: {
       alias: {
-        '@router': path.join(__dirname, 'src/router'),
+        '@components': path.join(__dirname, 'src/components'),
+        '@constants': path.join(__dirname, 'src/constants'),
         '@containers': path.join(__dirname, 'src/containers'),
-        '@constants': path.join(__dirname, 'src/constants')
+        '@helpers': path.join(__dirname, 'src/helpers'),
+        '@router': path.join(__dirname, 'src/router'),
+        '@store': path.join(__dirname, 'src/store'),
+        '@context': path.join(__dirname, 'src/context')
       },
       extensions: ['.js', '.scss']
     }
