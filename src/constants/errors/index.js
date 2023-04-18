@@ -15,6 +15,7 @@ const errors = {
   },
   common: {
     error: 'Something went wrong. Try again later...',
+    connectionFailure: 'Network Connection Failure',
     messageNotSent: 'Your message has not been sent'
   }
 };

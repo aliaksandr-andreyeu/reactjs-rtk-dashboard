@@ -9,6 +9,8 @@ import Settings from './settings';
 import About from './about';
 import PrivacyPolicy from './privacy-policy';
 import ContactUs from './contact-us';
+import ConnectionHandler from './connection-handler';
+import ErrorBoundary from './error-boundary';
 
 export {
   App,
@@ -23,5 +25,7 @@ export {
   Settings,
   About,
   PrivacyPolicy,
-  ContactUs
+  ContactUs,
+  ConnectionHandler,
+  ErrorBoundary
 };
