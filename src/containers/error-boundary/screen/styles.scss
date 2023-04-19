@@ -1,0 +1,85 @@
+@import '@constants/styles/theme.module';
+
+.error-boundary {
+  align-items: center;
+  animation: fade-in 0.25s linear;
+  background-color: rgb(0 0 0 / 15%);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  padding: $base-dimension * 2;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10000;
+
+  .error-box {
+    background-color: $white-color;
+    border-radius: $base-dimension * 0.375;
+    height: auto;
+    width: $base-dimension * 68;
+
+    .header {
+      align-items: center;
+      background-color: $accent-color;
+      border-radius: $base-dimension * 0.375 $base-dimension * 0.375 0 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      min-height: $base-dimension * 7;
+      padding: $base-dimension $base-dimension * 2.5;
+      position: relative;
+
+      h3 {
+        color: $white-color;
+        font-size: $base-dimension * 2.25;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+    }
+
+    .body {
+      color: $primary-text-color;
+      font-size: $base-dimension * 1.75;
+      font-weight: 500;
+      line-height: 1.5;
+      padding: $base-dimension * 4 $base-dimension * 2.5;
+
+      strong {
+        font-weight: 700;
+      }
+
+      p {
+        margin-bottom: $base-dimension;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .footer {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      gap: $base-dimension * 2;
+      justify-content: flex-end;
+      padding: $base-dimension * 2 $base-dimension * 3;
+
+      .btn {
+        font-size: $base-dimension * 1.75;
+        font-weight: 600;
+        line-height: 1.5;
+        min-height: $base-dimension * 5;
+        min-width: $base-dimension * 4;
+        padding: $base-dimension * 0.5 $base-dimension * 3;
+
+        .gap {
+          display: none;
+        }
+      }
+    }
+  }
+}
