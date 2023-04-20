@@ -1,5 +1,6 @@
 {
   "verbose": true,
+  "testEnvironment": "jsdom",
   "moduleNameMapper": {
     "^@helpers(.*)$": "<rootDir>/src/helpers$1",
     "^@router(.*)$": "<rootDir>/src/router$1",
