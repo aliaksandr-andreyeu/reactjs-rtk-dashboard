@@ -195,6 +195,7 @@ const users = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getUsers.pending, (state) => {
+      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUsers.pending: ');
       state.usersData = {
         ...state.usersData,
         loading: true,
@@ -202,14 +203,16 @@ const users = createSlice({
       };
     });
     builder.addCase(getUsers.fulfilled, (state, { payload }) => {
+      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUsers.fulfilled: ', payload);
       state.usersData = {
         ...state.usersData,
+        ...(payload && { data: payload }),
         loading: false,
-        error: null,
-        ...(payload && { data: payload })
+        error: null
       };
     });
     builder.addCase(getUsers.rejected, (state, { payload }) => {
+      console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUsers.rejected: ', payload);
       state.usersData = {
         ...state.usersData,
         loading: false,
@@ -220,7 +223,7 @@ const users = createSlice({
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUser.pending: ');
       state.userData = {
         ...state.userData,
-        loading: false,
+        loading: true,
         error: null
       };
     });
@@ -228,9 +231,9 @@ const users = createSlice({
       console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ getUser.fulfilled: ', payload);
       state.userData = {
         ...state.userData,
+        ...(payload && { data: payload }),
         loading: false,
-        error: null,
-        ...(payload && { data: payload })
+        error: null
       };
     });
     builder.addCase(getUser.rejected, (state, { payload }) => {

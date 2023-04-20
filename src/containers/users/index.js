@@ -15,6 +15,7 @@ const Users = ({ title }) => {
   const { overview } = useSelector((state) => state.account);
 
   const loading = usersData.loading || deleteUserData.loading || updateUserData.loading;
+
   const data = usersData.data
     ? usersData.data.filter((user) => Boolean(overview && overview.id && overview.id !== user.id))
     : [];
@@ -44,6 +45,12 @@ const Users = ({ title }) => {
 
   useEffect(() => {
     getUsersData();
+
+    return () => {
+      resetGetUsers();
+      resetUpdateUser();
+      resetDeleteUser();
+    };
   }, []);
 
   useEffect(() => {
@@ -58,21 +65,7 @@ const Users = ({ title }) => {
     deleteUserError && rejectHandler(deleteUserError, resetDeleteUser);
   }, [deleteUserError]);
 
-  return (
-    <>
-      {/*
-      <button
-        style={{ display: 'block', padding: '15px', margin: '12px 16px 24px' }}
-        onClick={() => {
-          getUsersData();
-        }}
-      >
-        GO
-      </button>
-    */}
-      <UsersScreen users={data} updateUser={handleUpdateUser} deleteUser={handleDeleteUser} loading={loading} />
-    </>
-  );
+  return <UsersScreen users={data} updateUser={handleUpdateUser} deleteUser={handleDeleteUser} loading={loading} />;
 };
 
 Users.propTypes = {

@@ -16,6 +16,7 @@ const Item = ({ user, onUpdate, onRemove }) => {
 
   const handleUpdate = (checked) => {
     onUpdate(user, {
+      username: user.username,
       isActive: checked
     });
   };
