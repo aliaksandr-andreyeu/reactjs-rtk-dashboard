@@ -32,7 +32,7 @@ const Item = ({ user, onUpdate, onRemove }) => {
       <td>{user.username}</td>
       <td>{user.name}</td>
       <td>{user.surname}</td>
-      <td>{user.age}</td>
+      <td>{user.age || ''}</td>
       <td>{user.job}</td>
       <td className='tight'>
         <Checkbox onClick={handleUpdate} checked={user.isActive} />
