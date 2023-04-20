@@ -1,0 +1,16 @@
+{
+  "verbose": true,
+  "moduleNameMapper": {
+    "^@helpers(.*)$": "<rootDir>/src/helpers$1",
+    "^@router(.*)$": "<rootDir>/src/router$1",
+    "^@store(.*)$": "<rootDir>/src/store$1",
+    "^@constants(.*)$": "<rootDir>/src/constants$1",
+    "^@containers(.*)$": "<rootDir>/src/containers$1",
+    "^@components(.*)$": "<rootDir>/src/components$1",
+    "^@context(.*)$": "<rootDir>/src/context$1"
+  },
+  "transform": {
+    "^.+\\.js$": "babel-jest",
+    "^.+\\.scss$": "jest-scss-transform"
+  }
+}
