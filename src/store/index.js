@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { auth, account, users } from './slices';
 import { authorization } from './middlewares';
+import logger from 'redux-logger';
 
 const store = configureStore({
   reducer: {
@@ -8,7 +9,10 @@ const store = configureStore({
     account: account.reducer,
     users: users.reducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authorization)
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware()
+      .concat(authorization, REACT_ENV.MODE === 'dev' ? logger : null)
+      .filter(Boolean)
 });
 
 const actions = {

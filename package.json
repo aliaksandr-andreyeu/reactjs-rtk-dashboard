@@ -2,7 +2,7 @@
   "name": "reactjs-rtk-dashboard",
   "version": "0.1.0",
   "description": "React.js dashboard boilerplate with Redux Toolkit",
-  "author": "Aliaksandr Andreyeu",
+  "author": "Aliaksandr Andreyeu <andreyeu.aliaksandr@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/aliaksandr-andreyeu/reactjs-rtk-dashboard",
   "repository": {
@@ -38,6 +38,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
     "redux": "^4.2.0",
+    "redux-logger": "^3.0.6",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
